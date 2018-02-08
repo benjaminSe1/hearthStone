@@ -1,3 +1,0 @@
-package carte;
-
-interface Carte {}
