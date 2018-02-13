@@ -1,7 +1,7 @@
-package effect;
+package carte.effect;
 
 import board.Board;
-import carte.Serviteur;
+import carte.serviteur.Serviteur;
 import main.Log;
 
 public class Tourbillon implements Effet {

@@ -1,7 +1,7 @@
 package hero;
 
 import carte.Carte;
-import effect.Renfort;
+import carte.effect.Renfort;
 import service.ListCartes;
 
 import java.util.ArrayList;

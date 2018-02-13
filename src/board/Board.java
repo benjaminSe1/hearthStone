@@ -63,7 +63,7 @@ public class Board {
         return true;
     }
 
-    public Joueur getJoueur(){
+    public Joueur getJoueur() {
         return joueur;
     }
 }

@@ -1,6 +1,6 @@
-package carte.state;
+package carte.serviteur.state;
 
-import carte.ServiteurSimple;
+import carte.serviteur.ServiteurSimple;
 import main.Log;
 
 public class EtatAttaque extends Etat {

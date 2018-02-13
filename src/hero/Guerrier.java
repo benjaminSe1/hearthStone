@@ -1,7 +1,7 @@
 package hero;
 
 import carte.Carte;
-import effect.Armure;
+import carte.effect.Armure;
 import service.ListCartes;
 
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
 package board;
 
 import carte.Carte;
-import carte.Serviteur;
+import carte.serviteur.Serviteur;
 import main.Log;
 
 import java.util.ArrayList;

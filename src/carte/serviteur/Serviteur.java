@@ -1,5 +1,6 @@
-package carte;
+package carte.serviteur;
 
+import carte.Carte;
 import observer.Observer;
 
 public interface Serviteur extends Carte {

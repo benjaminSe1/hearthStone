@@ -1,7 +1,7 @@
 package hero;
 
 import carte.Carte;
-import effect.BouleFeu;
+import carte.effect.BouleFeu;
 import service.ListCartes;
 
 import java.util.ArrayList;

@@ -1,6 +1,7 @@
-package carte;
+package carte.sort;
 
-import effect.Effet;
+import carte.Carte;
+import carte.effect.Effet;
 
 public class Sort implements Carte {
     private int PM;

@@ -2,7 +2,7 @@ package hero;
 
 import board.Board;
 import carte.Carte;
-import effect.EffetHeros;
+import carte.effect.EffetHeros;
 import main.Log;
 import observer.IObserverHero;
 import observer.Observer;

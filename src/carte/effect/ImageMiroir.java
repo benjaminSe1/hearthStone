@@ -1,4 +1,4 @@
-package effect;
+package carte.effect;
 
 import board.Board;
 import service.ListCartes;

@@ -1,14 +1,14 @@
 package service;
 
 import carte.Carte;
-import carte.Serviteur;
-import carte.ServiteurSimple;
-import carte.Sort;
-import decorator.ServiteurCharge;
-import decorator.ServiteurEncouragement;
-import decorator.ServiteurProvocation;
-import decorator.ServiteurVolVie;
-import effect.*;
+import carte.effect.*;
+import carte.serviteur.Serviteur;
+import carte.serviteur.ServiteurSimple;
+import carte.serviteur.decorator.ServiteurCharge;
+import carte.serviteur.decorator.ServiteurEncouragement;
+import carte.serviteur.decorator.ServiteurProvocation;
+import carte.serviteur.decorator.ServiteurVolVie;
+import carte.sort.Sort;
 
 import java.util.ArrayList;
 

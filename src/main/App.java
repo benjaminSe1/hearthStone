@@ -2,8 +2,8 @@ package main;
 
 import board.Joueur;
 import carte.Carte;
-import carte.Serviteur;
-import carte.Sort;
+import carte.serviteur.Serviteur;
+import carte.sort.Sort;
 import hero.factory.GuerrierFactory;
 import hero.factory.HeroFactory;
 import hero.factory.MageFactory;
@@ -14,9 +14,9 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class App {
+    private static Scanner sc = new Scanner(System.in);
     Joueur joueur1;
     Joueur joueur2;
-    private static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
         App app = new App();
@@ -118,11 +118,12 @@ public class App {
         Log.jeu("Veuillez jouer une carte : ");
 
         //affichage des cartes pouvant etre jouées
-        j.afficherCartesMain();;
+        j.afficherCartesMain();
+        ;
 
         //récupération du choix joueur
         int idCarte = ServiceGestion.getInputInt(sc, j.getCartesMain().size());
-        Carte carte =  j.getCartesMain().get(idCarte - 1);
+        Carte carte = j.getCartesMain().get(idCarte - 1);
 
         //Si la carte est un serviteur
         if (carte.isServiteur()) {
@@ -133,7 +134,7 @@ public class App {
                 j.poserCarteMain(carte);
                 j.getBoard().getTerrain().ajouterCarte(serviteur);
             }
-        //Si la carte est un sort
+            //Si la carte est un sort
         } else if (carte.isSort()) {
             Sort sort = (Sort) carte;
             //Si le héro a suffisemment de mana
@@ -144,7 +145,6 @@ public class App {
             }
         }
     }
-
 
 
     public void prepaAttaque(Joueur j, Joueur adversaire) {
@@ -293,7 +293,7 @@ public class App {
                 f = new MageFactory();
                 Log.jeu("Vous avez sélectionné le mage");
                 break;
-            default :
+            default:
                 Log.jeu("Choix impossible, veuillez recommencer");
                 this.creerJoueur(id);
         }

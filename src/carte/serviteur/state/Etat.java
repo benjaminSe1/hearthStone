@@ -1,6 +1,6 @@
-package carte.state;
+package carte.serviteur.state;
 
-import carte.ServiteurSimple;
+import carte.serviteur.ServiteurSimple;
 
 public abstract class Etat {
     protected ServiteurSimple serviteur;

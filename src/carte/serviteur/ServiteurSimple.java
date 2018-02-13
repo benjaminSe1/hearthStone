@@ -1,8 +1,8 @@
-package carte;
+package carte.serviteur;
 
-import carte.state.Etat;
-import carte.state.EtatAttaque;
-import carte.state.EtatDormir;
+import carte.serviteur.state.Etat;
+import carte.serviteur.state.EtatAttaque;
+import carte.serviteur.state.EtatDormir;
 import main.Log;
 import observer.IObserverServiteur;
 import observer.Observer;

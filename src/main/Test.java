@@ -3,7 +3,7 @@ package main;
 import board.Board;
 import board.Joueur;
 import carte.Carte;
-import carte.Serviteur;
+import carte.serviteur.Serviteur;
 import hero.Hero;
 import hero.factory.GuerrierFactory;
 import hero.factory.HeroFactory;

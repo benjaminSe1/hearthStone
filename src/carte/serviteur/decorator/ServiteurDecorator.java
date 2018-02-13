@@ -1,6 +1,6 @@
-package decorator;
+package carte.serviteur.decorator;
 
-import carte.Serviteur;
+import carte.serviteur.Serviteur;
 import observer.Observer;
 
 public class ServiteurDecorator implements Serviteur {
