@@ -97,7 +97,7 @@ public class App {
                 prepaAttaque(j, adversaire);
             } else if (idAction == 3) {
                 // Utiliser l'effet du héros
-                if (j.getBoard().aLesPMSortHeros()) {
+                if (j.getBoard().canCastHeroicPower()) {
                     j.getBoard().getHero().activerEffet(j.getBoard(), adversaire.getBoard());
                 }
             } else if (idAction == 4) {
@@ -128,7 +128,7 @@ public class App {
         if (carte.isServiteur()) {
             Serviteur serviteur = (Serviteur) carte;
             //Si le héro a suffisemment de mana
-            if (j.getBoard().aLesPM(serviteur)) {
+            if (j.getBoard().canPlayCard(serviteur)) {
                 //On peut poser la carte et l'ajouter au terrain
                 j.poserCarteMain(carte);
                 j.getBoard().getTerrain().ajouterCarte(serviteur);
@@ -137,7 +137,7 @@ public class App {
         } else if (carte.isSort()) {
             Sort sort = (Sort) carte;
             //Si le héro a suffisemment de mana
-            if (j.getBoard().aLesPM(sort)) {
+            if (j.getBoard().canPlayCard(sort)) {
                 //on peut poser la carte et activer l'effet
                 j.poserCarteMain(carte);
                 sort.getEffet().activerEffet(j.getBoard(), adversaire.getBoard());

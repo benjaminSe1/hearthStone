@@ -35,7 +35,7 @@ public class Board {
         return lesCartes.get((new Random()).nextInt(lesCartes.size()));
     }
 
-    public boolean aLesPM(Carte carte) {
+    public boolean canPlayCard(Carte carte) {
         int coutPMCarte = 0;
         /* av2bsee
 
@@ -55,17 +55,15 @@ public class Board {
         return true;
     }
 
-    public boolean aLesPMSortHeros() {
+    public boolean canCastHeroicPower() {
         if (hero.getPM() < 2) {
             Log.jeu("Vous n'avez pas assez de Point de Mana pour lancer votre sort");
             return false;
         }
-
         return true;
     }
 
     public Joueur getJoueur(){
         return joueur;
     }
-
 }
