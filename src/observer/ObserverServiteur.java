@@ -17,7 +17,7 @@ public class ObserverServiteur implements IObserverServiteur {
     public void actualiser(int PV, int PD) {
         this.PV = PV;
         this.PD = PD;
-
+        
         Log.info("[ PV = " + PV + ", PD = " + PD + " ]");
     }
 
