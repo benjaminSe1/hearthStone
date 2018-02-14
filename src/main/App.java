@@ -38,10 +38,10 @@ public class App {
                 break;
             }
             app.joueurTour(app, tour);
+            Log.jeu("Tour " + tour + " terminé");
             tour++;
             app.joueur1.getBoard().getHero().majTourPM((tour > 10 ? 10 : tour));
             app.joueur2.getBoard().getHero().majTourPM((tour > 10 ? 10 : tour));
-            Log.jeu("Tour " + tour + " terminé");
         }
         Log.jeu("Partie terminée");
     }
@@ -61,8 +61,8 @@ public class App {
     }
 
     public void action(Joueur j, Joueur adversaire, int tour) {
-        Log.jeu("Tour de " + j.getPseudo());
-
+        Log.jeu("C'est à " + j.getPseudo() +" de jouer");
+        int idAction = 0;
         if (tour != 1) {
             // On distribue les cartes au debut de chaque tour du joueur
             Carte c = j.getBoard().getCartePioche();
@@ -87,11 +87,11 @@ public class App {
             Log.jeu("2 - Attaquer");
             Log.jeu("3 - Utiliser l'effet du héros (" + j.getBoard().getHero().getEffet().toString() + ")");
             Log.jeu("4 - Terminer votre tour");
-            int idAction = ServiceGestion.getInputInt(sc, 4);
+            idAction = ServiceGestion.getInputInt(sc, 4);
 
             if (idAction == 1) {
                 // Jouer une carte
-                poserCarte(j, adversaire);
+                poserCarte(j, adversaire, tour);
             } else if (idAction == 2) {
                 // Attaquer
                 prepaAttaque(j, adversaire);
@@ -101,7 +101,6 @@ public class App {
                     j.getBoard().getHero().activerEffet(j.getBoard(), adversaire.getBoard());
                 }
             } else if (idAction == 4) {
-                // Terminer son tour
                 j.getBoard().getTerrain().reveillerTerrain();
                 Log.changementJoueur();
                 break;
@@ -114,34 +113,42 @@ public class App {
         }
     }
 
-    public void poserCarte(Joueur j, Joueur adversaire) {
+    public void poserCarte(Joueur j, Joueur adversaire, int tour) {
         Log.jeu("Veuillez jouer une carte : ");
 
         //affichage des cartes pouvant etre jouées
         j.afficherCartesMain();
-        ;
+
+        int nbCartes = j.getCartesMain().size();
+        Log.jeu("(tapez " + Integer.toString(nbCartes+1) + " pour retour)");
 
         //récupération du choix joueur
-        int idCarte = ServiceGestion.getInputInt(sc, j.getCartesMain().size());
-        Carte carte = j.getCartesMain().get(idCarte - 1);
+        int intScanne = ServiceGestion.getInputInt(sc, nbCartes+1);
 
-        //Si la carte est un serviteur
-        if (carte.isServiteur()) {
-            Serviteur serviteur = (Serviteur) carte;
-            //Si le héro a suffisemment de mana
-            if (j.getBoard().canPlayCard(serviteur)) {
-                //On peut poser la carte et l'ajouter au terrain
-                j.poserCarteMain(carte);
-                j.getBoard().getTerrain().ajouterCarte(serviteur);
-            }
-            //Si la carte est un sort
-        } else if (carte.isSort()) {
-            Sort sort = (Sort) carte;
-            //Si le héro a suffisemment de mana
-            if (j.getBoard().canPlayCard(sort)) {
-                //on peut poser la carte et activer l'effet
-                j.poserCarteMain(carte);
-                sort.getEffet().activerEffet(j.getBoard(), adversaire.getBoard());
+        //si retour choisi, retourner a la page "action"
+        if(intScanne == nbCartes+1){
+            return;
+        }else{
+            int idCarte = intScanne;
+            Carte carte = j.getCartesMain().get(idCarte - 1);
+            //Si la carte est un serviteur
+            if (carte.isServiteur()) {
+                Serviteur serviteur = (Serviteur) carte;
+                //Si le héro a suffisemment de mana
+                if (j.getBoard().canPlayCard(serviteur)) {
+                    //On peut poser la carte et l'ajouter au terrain
+                    j.poserCarteMain(carte);
+                    j.getBoard().getTerrain().ajouterCarte(serviteur);
+                }
+                //Si la carte est un sort
+            } else if (carte.isSort()) {
+                Sort sort = (Sort) carte;
+                //Si le héro a suffisemment de mana
+                if (j.getBoard().canPlayCard(sort)) {
+                    //on peut poser la carte et activer l'effet
+                    j.poserCarteMain(carte);
+                    sort.getEffet().activerEffet(j.getBoard(), adversaire.getBoard());
+                }
             }
         }
     }
@@ -210,7 +217,6 @@ public class App {
 
         // On commence par afficher les cartes pouvant être attaquées
         Log.jeu("Veuillez attaquer une carte : ");
-
         adversaire.getBoard().getTerrain().afficherTerrainAttaquePossible();
 
         //Et a récupérer la carte que le joueur souhaite attaquer
@@ -229,6 +235,7 @@ public class App {
         int idCarteAttaquante = ServiceGestion.getInputInt(sc, j.getBoard().getTerrain().getServiteursReveillesTerrain().size());
         Serviteur serviteurAttaquant = j.getBoard().getTerrain().getServiteursReveillesTerrain().get(idCarteAttaquante - 1);
 
+        serviteurAttaquant.setDonnees(serviteurAttaquant.getPV()-serviteurAttaque.getPD(), serviteurAttaquant.getPD());
         // Si serviteur attaqué n'a plus de PV
         if (serviteurAttaquant.getPD() >= serviteurAttaque.getPV()) {
             adversaire.getBoard().getTerrain().supprimerCarte(serviteurAttaque);

@@ -116,10 +116,13 @@ public abstract class Hero implements Sujet {
 
     public void supprimerPM(int PM) {
         if (this.PM < PM) {
-            setDonnees(this.PV, this.PA, 0);
+            this.setPM(0);
         } else {
-            setDonnees(this.PV, this.PA, this.PM - PM);
+            this.setPM(this.getPM()-PM);
         }
+    }
+    public void setPM(int pm){
+        this.PM = pm;
     }
 
     public ArrayList<Carte> getCartesHeros() {

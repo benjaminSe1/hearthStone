@@ -1,11 +1,11 @@
 package carte;
 
 public interface Carte {
-    public boolean isSort();
+    boolean isSort();
 
-    public boolean isServiteur();
+    boolean isServiteur();
 
-    public int getPM();
+    int getPM();
 
 }
 

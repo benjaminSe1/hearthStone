@@ -37,16 +37,6 @@ public class Board {
 
     public boolean canPlayCard(Carte carte) {
         int coutPMCarte = 0;
-        /* av2bsee
-
-        if (carte.isServiteur()) {
-            Serviteur serviteur = (Serviteur) carte;
-            coutPMCarte = serviteur.getPM();
-        }
-        if (carte.isSort()) {
-            Sort sort = (Sort) carte;
-            coutPMCarte = sort.getPM();
-        }*/
         coutPMCarte = carte.getPM();
         if (coutPMCarte > hero.getPM()) {
             Log.jeu("Vous n'avez pas assez de Point de Mana pour jouer cette carte");

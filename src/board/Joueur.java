@@ -61,6 +61,7 @@ public class Joueur {
 
     public void poserCarteMain(Carte uneCarte) {
         this.mainJoueur.remove(uneCarte);
+        this.getBoard().getHero().supprimerPM(uneCarte.getPM());
     }
 
     public ArrayList<Carte> getCartesMain() {

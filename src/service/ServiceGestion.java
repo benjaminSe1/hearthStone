@@ -28,7 +28,7 @@ public class ServiceGestion {
         while (true) {
             while (!sc.hasNext()) {
                 Log.jeu("Erreur, veuillez entrer une valeur valide");
-                sc.nextLine(); //si c'est pas un int on va à la ligne d'après
+                sc.nextLine(); //si c'est pas un String on va à la ligne d'après
             }
             res = sc.next();
             if (res != null && !res.equals("")) {
