@@ -11,7 +11,7 @@ public class Consecration implements Effet {
         for (Serviteur s : jAdversaire.getTerrain().getServiteursTerrain()) {
             s.setDonnees(s.getPV() - 2, s.getPD());
             if (s.getPV() <= 0) {
-                j.getTerrain().supprimerCarte(s);
+                jAdversaire.getTerrain().supprimerCarte(s);
                 Log.info("Le serviteur " + s.getNom() + " a été tué");
             }
         }

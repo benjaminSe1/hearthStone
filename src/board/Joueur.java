@@ -2,6 +2,8 @@ package board;
 
 import carte.Carte;
 import carte.serviteur.Serviteur;
+import carte.serviteur.ServiteurSimple;
+import carte.sort.Sort;
 import hero.Hero;
 import main.Log;
 
@@ -97,7 +99,16 @@ public class Joueur {
 
     public Carte getCartePioche() {
         ArrayList<Carte> lesCartes = this.hero.getCartesHeros();
-        return lesCartes.get((new Random()).nextInt(lesCartes.size()));
+        Carte tmp = lesCartes.get((new Random()).nextInt(lesCartes.size()));
+
+        if(tmp.isServiteur()){
+            Serviteur tympServ = (Serviteur) tmp;
+            tmp = new ServiteurSimple(tympServ.getNom(), tympServ.getPM(), tympServ.getPD(), tympServ.getPV());
+        }else{
+            Sort tmpSort = (Sort) tmp;
+            tmp = new Sort(tmpSort.getNom(), tmpSort.getPM(), tmpSort.getEffet());
+        }
+        return tmp;
     }
 
     public boolean canPlayCard(Carte carte) {

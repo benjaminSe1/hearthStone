@@ -8,9 +8,11 @@ import java.util.ArrayList;
 
 
 public class Guerrier extends Hero {
+    private ArrayList<Carte> cartesGuerrier;
 
     public Guerrier(int PV, int PA, int PM) {
         super(PV, PA, PM, new Armure());
+        cartesGuerrier = ListCartes.cartesGuerrier;
     }
 
 
