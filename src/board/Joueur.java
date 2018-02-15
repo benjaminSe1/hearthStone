@@ -2,21 +2,24 @@ package board;
 
 import carte.Carte;
 import carte.serviteur.Serviteur;
+import hero.Hero;
 import main.Log;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Joueur {
     private String pseudo;
-    private Board board;
     private int ordreJoueur;
     private ArrayList<Carte> mainJoueur;
+    private Hero hero;
+    private Terrain terrain;
 
     public Joueur(int numero, String pseudo) {
         super();
         this.pseudo = pseudo;
-        this.board = new Board(this);
         this.mainJoueur = new ArrayList<>();
+        this.terrain = new Terrain();
     }
 
 
@@ -24,9 +27,6 @@ public class Joueur {
         return pseudo;
     }
 
-    public Board getBoard() {
-        return board;
-    }
 
     public int getOrdreJoueur() {
         return ordreJoueur;
@@ -40,12 +40,12 @@ public class Joueur {
         int i = 0;
         if (a == 0) {
             while (i < 3) {
-                this.ajouterCarteMain(this.board.getCartePioche());
+                this.ajouterCarteMain(this.getCartePioche());
                 i++;
             }
         } else {
             while (i < 4) {
-                this.ajouterCarteMain(this.board.getCartePioche());
+                this.ajouterCarteMain(this.getCartePioche());
                 i++;
             }
         }
@@ -57,9 +57,9 @@ public class Joueur {
 
     public void poserCarteMain(Carte uneCarte) {
         this.mainJoueur.remove(uneCarte);
-        this.getBoard().getHero().supprimerPM(uneCarte.getPM());
+        this.getHero().supprimerPM(uneCarte.getPM());
         if(uneCarte.isServiteur()){
-            this.getBoard().getTerrain().ajouterCarte((Serviteur) uneCarte);
+            this.getTerrain().ajouterCarte((Serviteur) uneCarte);
         }
     }
 
@@ -82,4 +82,40 @@ public class Joueur {
             i++;
         }
     }
+
+    public Terrain getTerrain() {
+        return terrain;
+    }
+
+    public Hero getHero() {
+        return hero;
+    }
+
+    public void setHero(Hero hero) {
+        this.hero = hero;
+    }
+
+    public Carte getCartePioche() {
+        ArrayList<Carte> lesCartes = this.hero.getCartesHeros();
+        return lesCartes.get((new Random()).nextInt(lesCartes.size()));
+    }
+
+    public boolean canPlayCard(Carte carte) {
+        int coutPMCarte = 0;
+        coutPMCarte = carte.getPM();
+        if (coutPMCarte > hero.getPM()) {
+            Log.jeu("Vous n'avez pas assez de Point de Mana pour jouer cette carte");
+            return false;
+        }
+        return true;
+    }
+
+    public boolean canCastHeroicPower() {
+        if (hero.getPM() < 2) {
+            Log.jeu("Vous n'avez pas assez de Point de Mana pour lancer votre sort");
+            return false;
+        }
+        return true;
+    }
+
 }

@@ -1,27 +1,27 @@
 package carte.effect;
 
-import board.Board;
-import carte.Carte;
+import board.Joueur;
+import board.Terrain;
 import carte.serviteur.Serviteur;
 import main.Log;
 import service.ServiceGestion;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BenedictionPuissance implements Effet {
 
     @Override
-    public void activerEffet(Board board, Board boardAdverse) {
+    public void activerEffet(Joueur j, Joueur jAdversaire) {
+        Terrain terrain = j.getTerrain();
         Log.jeu("Veuillez choisir un serviteur pour lui ajouter 3 points d'attaque");
-        if(board.getTerrain().getServiteursTerrain() != null) {
+        if(terrain.getServiteursTerrain() != null) {
             int i = 1;
-            for (Serviteur s : board.getTerrain().getServiteursTerrain()) {
+            for (Serviteur s : terrain.getServiteursTerrain()) {
                 Log.jeu(i + " - " + s.toString());
                 i++;
             }
-            int idServiteur = ServiceGestion.getInputInt(new Scanner(System.in), board.getTerrain().getServiteursTerrain().size());
-            Serviteur s = board.getTerrain().getServiteursTerrain().get(idServiteur);
+            int idServiteur = ServiceGestion.getInputInt(new Scanner(System.in), terrain.getServiteursTerrain().size());
+            Serviteur s = terrain.getServiteursTerrain().get(idServiteur);
             s.setDonnees(s.getPV(), s.getPD() + 3);
             Log.jeu("Le serviteur " + s.getNom() + " a gagné 3 points d'attaque");
         }else{

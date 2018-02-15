@@ -30,18 +30,18 @@ public class App {
             Log.jeu("Tour " + tour);
             //tant que tour < 10, on incrémente la mana
             if (tour < 10) {
-                app.joueur1.getBoard().getHero().incrementerMana();
-                app.joueur2.getBoard().getHero().incrementerMana();
+                app.joueur1.getHero().incrementerMana();
+                app.joueur2.getHero().incrementerMana();
             }
             //on vérifie que les deux héros on toujours au moins 1 pv
-            if (app.joueur1.getBoard().getHero().getPV() <= 0 || app.joueur2.getBoard().getHero().getPV() <= 0) {
+            if (app.joueur1.getHero().getPV() <= 0 || app.joueur2.getHero().getPV() <= 0) {
                 break;
             }
             app.joueurTour(app, tour);
             Log.jeu("Tour " + tour + " terminé");
             tour++;
-            app.joueur1.getBoard().getHero().majTourPM((tour > 10 ? 10 : tour));
-            app.joueur2.getBoard().getHero().majTourPM((tour > 10 ? 10 : tour));
+            app.joueur1.getHero().majTourPM((tour > 10 ? 10 : tour));
+            app.joueur2.getHero().majTourPM((tour > 10 ? 10 : tour));
         }
         Log.jeu("Partie terminée");
     }
@@ -64,23 +64,23 @@ public class App {
         int idAction = 0;
         this.piocherCarte(j);
 
-        Log.jeu("Mana : " + j.getBoard().getHero().getPM());
+        Log.jeu("Mana : " + j.getHero().getPM());
         while (true) {
 
-            j.getBoard().getTerrain().activerEncouragement();
-            adversaire.getBoard().getTerrain().activerEncouragement();
+            j.getTerrain().activerEncouragement();
+            adversaire.getTerrain().activerEncouragement();
 
             Log.line();
-            Log.jeu("Votre terrain    : " + j.getBoard().getHero().toString());
-            j.getBoard().getTerrain().afficherTerrain();
+            Log.jeu("Votre terrain    : " + j.getHero().toString());
+            j.getTerrain().afficherTerrain();
             Log.line();
-            Log.jeu("Votre adversaire : " + adversaire.getBoard().getHero().toString());
-            adversaire.getBoard().getTerrain().afficherTerrain();
+            Log.jeu("Votre adversaire : " + adversaire.getHero().toString());
+            adversaire.getTerrain().afficherTerrain();
             Log.line();
             Log.jeu("Quelle action souhaitez-vous effectuer ?");
             Log.jeu("1 - Jouer une carte");
             Log.jeu("2 - Attaquer");
-            Log.jeu("3 - Utiliser l'effet du héros (" + j.getBoard().getHero().getEffet().toString() + ")");
+            Log.jeu("3 - Utiliser l'effet du héros (" + j.getHero().getEffet().toString() + ")");
             Log.jeu("4 - Afficher info jeu");
             Log.jeu("5 - Terminer votre tour");
             idAction = ServiceGestion.getInputInt(sc, 5);
@@ -96,15 +96,15 @@ public class App {
                     break;
                 case 3:
                     // Utiliser l'effet du héros
-                    if (j.getBoard().canCastHeroicPower()) {
-                        j.getBoard().getHero().activerEffet(j.getBoard(), adversaire.getBoard());
+                    if (j.canCastHeroicPower()) {
+                        j.getHero().activerEffet(j, adversaire);
                     }
                     break;
                 case 4:
-                    Log.jeu("Mana : " + j.getBoard().getHero().getPM());
+                    Log.jeu("Mana : " + j.getHero().getPM());
                     break;
                 case 5:
-                    j.getBoard().getTerrain().reveillerTerrain();
+                    j.getTerrain().reveillerTerrain();
                     Log.changementJoueur();
                     return;
                 default:
@@ -112,14 +112,14 @@ public class App {
                     break;
             }
 
-            j.getBoard().getTerrain().activerEncouragement();
-            adversaire.getBoard().getTerrain().activerEncouragement();
+            j.getTerrain().activerEncouragement();
+            adversaire.getTerrain().activerEncouragement();
         }
     }
 
     public void piocherCarte(Joueur j){
         // On distribue les cartes au debut de chaque tour du joueur
-        Carte c = j.getBoard().getCartePioche();
+        Carte c = j.getCartePioche();
         j.ajouterCarteMain(c);
         Log.jeu("Vous avez pioché la carte : " + c.toString());
     }
@@ -146,7 +146,7 @@ public class App {
             if (carte.isServiteur()) {
                 Serviteur serviteur = (Serviteur) carte;
                 //Si le héro a suffisemment de mana
-                if (j.getBoard().canPlayCard(serviteur)) {
+                if (j.canPlayCard(serviteur)) {
                     //On peut poser la carte et l'ajouter au terrain
                     j.poserCarteMain(carte);
                 }
@@ -154,10 +154,10 @@ public class App {
             } else if (carte.isSort()) {
                 Sort sort = (Sort) carte;
                 //Si le héro a suffisemment de mana
-                if (j.getBoard().canPlayCard(sort)) {
+                if (j.canPlayCard(sort)) {
                     //on peut poser la carte et activer l'effet
                     j.poserCarteMain(carte);
-                    sort.getEffet().activerEffet(j.getBoard(), adversaire.getBoard());
+                    sort.getEffet().activerEffet(j, adversaire);
                 }
             }
         }
@@ -166,9 +166,9 @@ public class App {
 
     public void prepaAttaque(Joueur j, Joueur adversaire) {
         //Si le héro à des serviteurs pouvant attaquer
-        if (j.getBoard().getTerrain().contientCarteReveille()) {
+        if (j.getTerrain().contientCarteReveille()) {
             //Si le héro adverse n'a pas de carte possedant l'effet provocation
-            if (!adversaire.getBoard().getTerrain().contientCarteProvocation()) {
+            if (!adversaire.getTerrain().contientCarteProvocation()) {
                 //affichage des possibilités d'attaque
                 Log.jeu("Qui voulez-vous attaquer ? 1 - Le héro , 2 - Un serviteur");
                 int typeAttaque = ServiceGestion.getInputInt(sc, 2);
@@ -197,14 +197,14 @@ public class App {
     private void attaquerHeros(Joueur jAttaquant, Joueur adversaire) {
         //Affichage des choix possibles de serviteur pour attaquer le hero averse
         Log.jeu("Veuillez choisir la carte pour attaquer : ");
-        jAttaquant.getBoard().getTerrain().afficherTerrainAttaquePossible();
+        jAttaquant.getTerrain().afficherTerrainAttaquePossible();
 
         //récupération du servietur sélectionné
-        int idCarteAttaquante = ServiceGestion.getInputInt(sc, jAttaquant.getBoard().getTerrain().getServiteursReveillesTerrain().size());
-        Serviteur serviteurAttaquant = jAttaquant.getBoard().getTerrain().getServiteursReveillesTerrain().get(idCarteAttaquante - 1);
+        int idCarteAttaquante = ServiceGestion.getInputInt(sc, jAttaquant.getTerrain().getServiteursReveillesTerrain().size());
+        Serviteur serviteurAttaquant = jAttaquant.getTerrain().getServiteursReveillesTerrain().get(idCarteAttaquante - 1);
 
         //Supression des points de vie du héro attaqué
-        adversaire.getBoard().getHero().supprimerPV(serviteurAttaquant.getPD());
+        adversaire.getHero().supprimerPV(serviteurAttaquant.getPD());
         Log.jeu("Le héro adverse a perdu " + serviteurAttaquant.getPD() + " PV !");
 
         //Si serviteur attaquant possède effet vol de vie, on lui redonne les PV correspondant à son attaque
@@ -227,28 +227,28 @@ public class App {
 
         // On commence par afficher les cartes pouvant être attaquées
         Log.jeu("Veuillez attaquer une carte : ");
-        adversaire.getBoard().getTerrain().afficherTerrainAttaquePossible();
+        adversaire.getTerrain().afficherTerrainAttaquePossible();
 
         //Et a récupérer la carte que le joueur souhaite attaquer
-        int idCarteAttaquee = ServiceGestion.getInputInt(sc, adversaire.getBoard().getTerrain().getServiteursAttaquePossible().size());
-        Serviteur serviteurAttaque = adversaire.getBoard().getTerrain().getServiteursAttaquePossible().get(idCarteAttaquee - 1);
+        int idCarteAttaquee = ServiceGestion.getInputInt(sc, adversaire.getTerrain().getServiteursAttaquePossible().size());
+        Serviteur serviteurAttaque = adversaire.getTerrain().getServiteursAttaquePossible().get(idCarteAttaquee - 1);
 
         // On afficher ensuite les serviteurs pouvant être utiliser pour attaquer
         Log.jeu("Veuillez choisir la carte pour attaquer : ");
         int o = 1;
-        for (Serviteur s : j.getBoard().getTerrain().getServiteursReveillesTerrain()) {
+        for (Serviteur s : j.getTerrain().getServiteursReveillesTerrain()) {
             Log.jeu(o + " - " + s.toString());
             o++;
         }
 
         //Et on récupère le serviteur choisit par le joueur en attaque
-        int idCarteAttaquante = ServiceGestion.getInputInt(sc, j.getBoard().getTerrain().getServiteursReveillesTerrain().size());
-        Serviteur serviteurAttaquant = j.getBoard().getTerrain().getServiteursReveillesTerrain().get(idCarteAttaquante - 1);
+        int idCarteAttaquante = ServiceGestion.getInputInt(sc, j.getTerrain().getServiteursReveillesTerrain().size());
+        Serviteur serviteurAttaquant = j.getTerrain().getServiteursReveillesTerrain().get(idCarteAttaquante - 1);
 
         serviteurAttaquant.setDonnees(serviteurAttaquant.getPV()-serviteurAttaque.getPD(), serviteurAttaquant.getPD());
         // Si serviteur attaqué n'a plus de PV
         if (serviteurAttaquant.getPD() >= serviteurAttaque.getPV()) {
-            adversaire.getBoard().getTerrain().supprimerCarte(serviteurAttaque);
+            adversaire.getTerrain().supprimerCarte(serviteurAttaque);
             Log.jeu("Le serviteur a été tué");
         }
 
@@ -314,7 +314,7 @@ public class App {
                 Log.jeu("Choix impossible, veuillez recommencer");
                 this.creerJoueur(id);
         }
-        joueur.getBoard().setHero(f.creerHeros());
+        joueur.setHero(f.creerHeros());
 
         return joueur;
     }

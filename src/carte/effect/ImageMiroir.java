@@ -1,14 +1,14 @@
 package carte.effect;
 
-import board.Board;
+import board.Joueur;
 import service.ListCartes;
 
 public class ImageMiroir implements Effet {
 
     @Override
-    public void activerEffet(Board board, Board boardAdverse) {
-        board.getTerrain().ajouterCarte(ListCartes.carteMiroir);
-        board.getTerrain().ajouterCarte(ListCartes.carteMiroir);
+    public void activerEffet(Joueur j, Joueur jAdversaire) {
+        j.getTerrain().ajouterCarte(ListCartes.carteMiroir);
+        j.getTerrain().ajouterCarte(ListCartes.carteMiroir);
     }
 
 

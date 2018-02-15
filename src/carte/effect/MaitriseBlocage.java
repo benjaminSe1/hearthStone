@@ -1,16 +1,18 @@
 package carte.effect;
 
-import board.Board;
+import board.Joueur;
 import carte.Carte;
+import hero.Hero;
 import main.Log;
 
 public class MaitriseBlocage implements Effet {
 
     @Override
-    public void activerEffet(Board board, Board boardAdverse) {
-        board.getHero().setDonnees(board.getHero().getPV(), board.getHero().getPA() + 5, board.getHero().getPM());
-        Carte c = board.getCartePioche();
-        board.getJoueur().ajouterCarteMain(c);
+    public void activerEffet(Joueur j, Joueur jAdversaire) {
+        Hero heroJ = j.getHero();
+        heroJ.setDonnees(heroJ.getPV(),heroJ.getPA() + 5, heroJ.getPM());
+        Carte c = j.getCartePioche();
+        j.ajouterCarteMain(c);
         Log.info("Le guerrier a gagné 5 points d'armure. Vous avez pioché une carte");
     }
 

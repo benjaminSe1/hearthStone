@@ -1,6 +1,6 @@
 package carte.effect;
 
-import board.Board;
+import board.Joueur;
 import hero.Hero;
 import main.Log;
 import service.ListCartes;
@@ -8,9 +8,9 @@ import service.ListCartes;
 public class Renfort implements EffetHeros {
 
     @Override
-    public void activerEffetHeros(Board board, Board boardAdverse, Hero hero) {
+    public void activerEffetHeros(Joueur j, Joueur jAdversaire) {
         //Ajoute sur le board allié la carte renfort
-        board.getTerrain().ajouterCarte(ListCartes.carteRenfort);
+        j.getTerrain().ajouterCarte(ListCartes.carteRenfort);
         Log.jeu("Un " + ListCartes.carteRenfort.toString() + "est apparu sur le terrain allié !");
     }
 

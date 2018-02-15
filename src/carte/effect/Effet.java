@@ -1,7 +1,7 @@
 package carte.effect;
 
-import board.Board;
+import board.Joueur;
 
 public interface Effet {
-    void activerEffet(Board board, Board boardAdverse);
+    void activerEffet(Joueur j, Joueur jAdversaire);
 }

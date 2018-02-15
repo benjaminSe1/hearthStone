@@ -1,8 +1,8 @@
 package carte.effect;
 
-import board.Board;
+import board.Joueur;
 import hero.Hero;
 
 public interface EffetHeros {
-    public void activerEffetHeros(Board board, Board boardAdverse, Hero hero);
+    public void activerEffetHeros(Joueur j, Joueur jAdversaire);
 }

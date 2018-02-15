@@ -1,6 +1,6 @@
 package hero;
 
-import board.Board;
+import board.Joueur;
 import carte.Carte;
 import carte.effect.EffetHeros;
 import main.Log;
@@ -39,8 +39,8 @@ public abstract class Hero implements Sujet {
         return effet;
     }
 
-    public void activerEffet(Board board, Board boardAdverse) {
-        this.effet.activerEffetHeros(board, boardAdverse, this);
+    public void activerEffet(Joueur j, Joueur jAdverse) {
+        this.effet.activerEffetHeros(j, jAdverse);
         supprimerPM(2);
     }
 

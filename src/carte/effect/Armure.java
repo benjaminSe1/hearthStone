@@ -1,16 +1,16 @@
 package carte.effect;
 
-import board.Board;
+import board.Joueur;
 import hero.Hero;
 import main.Log;
 
 public class Armure implements EffetHeros {
 
     @Override
-    public void activerEffetHeros(Board board, Board boardAdverse, Hero hero) {
+    public void activerEffetHeros(Joueur j, Joueur jAdversaire) {
         //Ajoute au héros allié 2 PA
-        hero.ajouterPA(2);
-        Log.jeu("Votre héros a maintenant " + hero.getPA() + " points d'armure !");
+        j.getHero().ajouterPA(2);
+        Log.jeu("Votre héros a maintenant " + j.getHero().getPA() + " points d'armure !");
     }
 
     @Override
