@@ -4,9 +4,9 @@ import main.Log;
 
 import java.util.Scanner;
 
-public class ServiceGestion {
+public class MyScanner {
 
-    public static int getInputInt(Scanner sc, int max) {
+    public static int getInt(java.util.Scanner sc, int max) {
         Log.jeu("Entrez un nombre entre 1 et " + max);
         int res = -1;
         while (true) {
@@ -23,7 +23,7 @@ public class ServiceGestion {
         return res;
     }
 
-    public static String getInputString(Scanner sc) {
+    public static String getString(java.util.Scanner sc) {
         String res = "";
         while (true) {
             while (!sc.hasNext()) {

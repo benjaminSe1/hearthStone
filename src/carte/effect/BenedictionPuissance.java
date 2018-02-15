@@ -4,10 +4,9 @@ import board.Joueur;
 import board.Terrain;
 import carte.serviteur.Serviteur;
 import main.Log;
-import service.ServiceGestion;
+import service.MyScanner;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class BenedictionPuissance implements Effet {
 
@@ -22,7 +21,7 @@ public class BenedictionPuissance implements Effet {
                 Log.jeu(i + " - " + s.toString());
                 i++;
             }
-            int idServiteur = ServiceGestion.getInputInt(new Scanner(System.in), serviteursTerrain.size());
+            int idServiteur = MyScanner.getInt(new java.util.Scanner(System.in), serviteursTerrain.size());
             Serviteur s = serviteursTerrain.get(idServiteur-1);
             s.setDonnees(s.getPV(), s.getPD() + 3);
             Log.jeu("Le serviteur " + s.getNom() + " a gagné 3 points d'attaque");

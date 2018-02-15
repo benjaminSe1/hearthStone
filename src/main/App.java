@@ -8,13 +8,12 @@ import hero.factory.GuerrierFactory;
 import hero.factory.HeroFactory;
 import hero.factory.MageFactory;
 import hero.factory.PaladinFactory;
-import service.ServiceGestion;
+import service.MyScanner;
 
 import java.util.Random;
-import java.util.Scanner;
 
 public class App {
-    private static Scanner sc = new Scanner(System.in);
+    private static java.util.Scanner sc = new java.util.Scanner(System.in);
     Joueur joueur1;
     Joueur joueur2;
 
@@ -34,7 +33,6 @@ public class App {
                 app.joueur2.getHero().incrementerMana();
             }
             //on vérifie que les deux héros on toujours au moins 1 pv
-            app.isGameEnded(app.joueur1, app.joueur2);
             app.joueurTour(app, tour);
             Log.jeu("Tour " + tour + " terminé");
             tour++;
@@ -80,7 +78,7 @@ public class App {
             Log.jeu("3 - Utiliser l'effet du héros (" + j.getHero().getEffet().toString() + ")");
             Log.jeu("4 - Afficher info jeu");
             Log.jeu("5 - Terminer votre tour");
-            idAction = ServiceGestion.getInputInt(sc, 5);
+            idAction = MyScanner.getInt(sc, 5);
 
             switch (idAction) {
                 case 1:
@@ -108,7 +106,6 @@ public class App {
                     Log.error("Le joueur a rentré une action impossible à effectuer");
                     break;
             }
-            this.isGameEnded(j, adversaire);
             j.getTerrain().activerEncouragement();
             adversaire.getTerrain().activerEncouragement();
         }
@@ -131,7 +128,7 @@ public class App {
         Log.jeu("(tapez " + Integer.toString(nbCartes + 1) + " pour retour)");
 
         //récupération du choix joueur
-        int intScanne = ServiceGestion.getInputInt(sc, nbCartes + 1);
+        int intScanne = MyScanner.getInt(sc, nbCartes + 1);
 
         //si retour choisi, retourner a la page "action"
         if (intScanne == nbCartes + 1) {
@@ -168,7 +165,7 @@ public class App {
             if (!adversaire.getTerrain().contientCarteProvocation()) {
                 //affichage des possibilités d'attaque
                 Log.jeu("Qui voulez-vous attaquer ? 1 - Le héro , 2 - Un serviteur");
-                int typeAttaque = ServiceGestion.getInputInt(sc, 2);
+                int typeAttaque = MyScanner.getInt(sc, 2);
                 //redirection vers la bonne méthode
                 switch (typeAttaque) {
                     case 1:
@@ -195,7 +192,7 @@ public class App {
         jAttaquant.getTerrain().afficherServiteurReveille();
 
         //récupération du servietur sélectionné
-        int idCarteAttaquante = ServiceGestion.getInputInt(sc, jAttaquant.getTerrain().getServiteursReveillesTerrain().size());
+        int idCarteAttaquante = MyScanner.getInt(sc, jAttaquant.getTerrain().getServiteursReveillesTerrain().size());
         Serviteur serviteurAttaquant = jAttaquant.getTerrain().getServiteursReveillesTerrain().get(idCarteAttaquante - 1);
 
         //Supression des points de vie du héro attaqué
@@ -210,8 +207,6 @@ public class App {
 
         //Changement etat serviteur
         serviteurAttaquant.changerEtatDormir();
-
-        this.isGameEnded(jAttaquant, adversaire);
     }
 
     /**
@@ -227,7 +222,7 @@ public class App {
         adversaire.getTerrain().afficherTerrainAttaquePossible();
 
         //Et a récupérer la carte que le joueur souhaite attaquer
-        int idCarteAttaquee = ServiceGestion.getInputInt(sc, adversaire.getTerrain().getServiteursAttaquePossible().size());
+        int idCarteAttaquee = MyScanner.getInt(sc, adversaire.getTerrain().getServiteursAttaquePossible().size());
         Serviteur serviteurAttaque = adversaire.getTerrain().getServiteursTerrain().get(idCarteAttaquee - 1);
 
         // On afficher ensuite les serviteurs pouvant être utiliser pour attaquer
@@ -239,7 +234,7 @@ public class App {
         }
 
         //Et on récupère le serviteur choisit par le joueur pour attaquer
-        int idCarteAttaquante = ServiceGestion.getInputInt(sc, j.getTerrain().getServiteursReveillesTerrain().size());
+        int idCarteAttaquante = MyScanner.getInt(sc, j.getTerrain().getServiteursReveillesTerrain().size());
         Serviteur serviteurAttaquant = j.getTerrain().getServiteursReveillesTerrain().get(idCarteAttaquante - 1);
 
         serviteurAttaquant.setPV(serviteurAttaquant.getPV() - serviteurAttaque.getPD());
@@ -289,13 +284,13 @@ public class App {
 
     private Joueur creerJoueur(int id) {
         Log.jeu("Joueur " + id + ", Veuillez choisir un nom : ");
-        String nomJoueur = ServiceGestion.getInputString(sc);
+        String nomJoueur = MyScanner.getString(sc);
         Joueur joueur = new Joueur(id, nomJoueur);
 
         Log.jeu("Veuillez sélectionner la classe de votre héro : 1-Paladin 2-Guerrier 3-Mage");
 
         HeroFactory f = null;
-        int herosInt = ServiceGestion.getInputInt(sc, 3);
+        int herosInt = MyScanner.getInt(sc, 3);
         switch (herosInt) {
             case 1:
                 f = new PaladinFactory();
@@ -316,15 +311,5 @@ public class App {
         joueur.setHero(f.creerHeros());
 
         return joueur;
-    }
-
-    public void isGameEnded(Joueur j1, Joueur j2){
-        if(j1.getHero().getPV() <= 0){
-            Log.jeu(j1.getPseudo() + " a perdu! GG à " + j2.getPseudo());
-            System.exit(1);
-        }else if(j2.getHero().getPV() <= 0){
-            Log.jeu(j2.getPseudo() + " a perdu! GG à " + j1.getPseudo());
-            System.exit(1);
-        }
     }
 }

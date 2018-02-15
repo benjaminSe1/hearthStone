@@ -11,17 +11,9 @@ public abstract class Etat {
 
     public void attaquer() {
     }
-
-    ;
-
     public void dormir() {
     }
-
-    ;
-
     public boolean peutAttaquer() {
         return false;
     }
-
-    ;
 }

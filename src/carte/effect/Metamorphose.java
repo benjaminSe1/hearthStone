@@ -5,9 +5,7 @@ import board.Terrain;
 import carte.serviteur.Serviteur;
 import main.Log;
 import service.ListCartes;
-import service.ServiceGestion;
-
-import java.util.Scanner;
+import service.MyScanner;
 
 public class Metamorphose implements Effet {
 
@@ -20,7 +18,7 @@ public class Metamorphose implements Effet {
             Log.jeu(i + " - " + s.toString());
             i++;
         }
-        int idCarte = ServiceGestion.getInputInt(new Scanner(System.in), jAdverse.getServiteursTerrain().size());
+        int idCarte = MyScanner.getInt(new java.util.Scanner(System.in), jAdverse.getServiteursTerrain().size());
         Serviteur s = jAdverse.getServiteursTerrain().get(idCarte);
         jAdverse.supprimerCarte(s);
         jAdverse.ajouterCarte(ListCartes.carteMetamorphose);

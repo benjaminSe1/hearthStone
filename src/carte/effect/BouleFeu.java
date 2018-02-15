@@ -4,10 +4,9 @@ import board.Joueur;
 import board.Terrain;
 import carte.serviteur.Serviteur;
 import main.Log;
-import service.ServiceGestion;
+import service.MyScanner;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class BouleFeu implements EffetHeros {
 
@@ -18,7 +17,7 @@ public class BouleFeu implements EffetHeros {
         Log.jeu("1 - Le héros adverse");
         ArrayList<Serviteur> lstServiteurs = terrainAdv.getServiteursTerrain();
         terrainAdv.afficherTerrain();
-        int idResult = ServiceGestion.getInputInt(new Scanner(System.in), lstServiteurs.size() + 1);
+        int idResult = MyScanner.getInt(new java.util.Scanner(System.in), lstServiteurs.size() + 1);
 
         if (idResult == 1) {
             jAdversaire.getHero().supprimerPV(1);

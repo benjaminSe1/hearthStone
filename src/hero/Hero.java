@@ -4,7 +4,7 @@ import board.Joueur;
 import carte.Carte;
 import carte.effect.EffetHeros;
 import main.Log;
-import observer.IObserverHero;
+import observer.ObserverHero;
 import observer.Observer;
 import observer.Sujet;
 
@@ -15,11 +15,12 @@ public abstract class Hero implements Sujet {
     protected int PA; // Point d'armure
     protected int PM; //Points de mana
     protected EffetHeros effet;
-    protected ArrayList<IObserverHero> observers;
+    protected ArrayList<ObserverHero> observers;
 
     public Hero(int PV, int PA, int PM, EffetHeros effet) {
         this.effet = effet;
         this.observers = new ArrayList<>();
+        ObserverHero o = new ObserverHero(this);
         setDonnees(PV, PA, PM);
     }
 
@@ -61,11 +62,9 @@ public abstract class Hero implements Sujet {
         return "[PV=" + PV + ", PA=" + PA + ", PM=" + PM + "]";
     }
 
-    //Methodes de l'observer Hero
-    @Override
     public void enregistrerObs(Observer o) {
-        if (o instanceof IObserverHero) {
-            observers.add((IObserverHero) o);
+        if(o instanceof ObserverHero){
+            observers.add((ObserverHero) o);
         } else {
             Log.error("l'observeur n'a pas pu être ajouté");
         }
@@ -73,8 +72,8 @@ public abstract class Hero implements Sujet {
 
     @Override
     public void supprimerObs(Observer o) {
-        if (o instanceof IObserverHero) {
-            observers.remove((IObserverHero) o);
+        if(o instanceof ObserverHero){
+            observers.remove((ObserverHero) o);
         } else {
             Log.error("l'observeur n'a pas pu être supprimé");
         }
@@ -82,7 +81,7 @@ public abstract class Hero implements Sujet {
 
     @Override
     public void notifierObs() {
-        for (IObserverHero o : this.observers) {
+        for(ObserverHero o : this.observers){
             o.actualiser(PV, PA, PM);
         }
     }
@@ -92,15 +91,15 @@ public abstract class Hero implements Sujet {
         this.PA = PA;
         this.PM = PM;
 
-        notifierObs();
+        this.notifierObs();
     }
 
     public void supprimerPV(int PV) {
         if (this.PA > 0) {
-            //Si le héros a des points d'armure, on va les lui enlever (la méthode va aussi se charger de retirer les PV restants)
-            supprimerPA(PV);
+            //Si le héro a des points d'armure, on va les lui enlever PA < pv enlevé, la méthode va se charger de les enlever
+            this.supprimerPA(PV);
         } else {
-            setDonnees(this.PV - PV, this.PA, this.PM);
+            this.setDonnees(this.PV - PV, this.PA, this.PM);
         }
     }
 
@@ -109,7 +108,6 @@ public abstract class Hero implements Sujet {
     }
 
     public void supprimerPA(int PA) {
-        //Si on essaye d'enlever plus d'armure que le héros n'en a, on enlève aussi les points de vie.
         if (this.PA < PA) {
             int reste = PA - this.PA;
             setDonnees(this.PV - reste, 0, this.PM);
