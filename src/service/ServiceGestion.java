@@ -1,8 +1,8 @@
 package service;
 
-import main.Log;
-
 import java.util.Scanner;
+
+import main.Log;
 
 public class ServiceGestion {
 

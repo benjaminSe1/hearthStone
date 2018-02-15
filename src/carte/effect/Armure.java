@@ -1,7 +1,6 @@
 package carte.effect;
 
 import board.Joueur;
-import hero.Hero;
 import main.Log;
 
 public class Armure implements EffetHeros {

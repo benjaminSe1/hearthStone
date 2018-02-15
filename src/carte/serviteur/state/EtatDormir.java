@@ -1,11 +1,11 @@
 package carte.serviteur.state;
 
-import carte.serviteur.ServiteurSimple;
+import carte.serviteur.Serviteur;
 import main.Log;
 
 public class EtatDormir extends Etat {
 
-    public EtatDormir(ServiteurSimple serviteur) {
+    public EtatDormir(Serviteur serviteur) {
         super(serviteur);
     }
 

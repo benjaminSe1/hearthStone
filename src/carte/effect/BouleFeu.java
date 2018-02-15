@@ -1,14 +1,13 @@
 package carte.effect;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import board.Joueur;
 import board.Terrain;
 import carte.serviteur.Serviteur;
-import hero.Hero;
 import main.Log;
 import service.ServiceGestion;
-
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class BouleFeu implements EffetHeros {
 

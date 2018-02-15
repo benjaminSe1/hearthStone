@@ -1,7 +1,6 @@
 package carte.effect;
 
 import board.Joueur;
-import board.Terrain;
 import carte.serviteur.Serviteur;
 import main.Log;
 

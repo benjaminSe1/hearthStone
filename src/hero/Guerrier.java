@@ -1,10 +1,10 @@
 package hero;
 
+import java.util.ArrayList;
+
 import carte.Carte;
 import carte.effect.Armure;
 import service.ListCartes;
-
-import java.util.ArrayList;
 
 
 public class Guerrier extends Hero {

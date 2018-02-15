@@ -1,5 +1,7 @@
 package main;
 
+import java.util.ArrayList;
+
 import board.Joueur;
 import carte.Carte;
 import carte.serviteur.Serviteur;
@@ -7,8 +9,6 @@ import hero.Hero;
 import hero.factory.GuerrierFactory;
 import hero.factory.HeroFactory;
 import service.ListCartes;
-
-import java.util.ArrayList;
 
 public class Test {
     public static void test() {

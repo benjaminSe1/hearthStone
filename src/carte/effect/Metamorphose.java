@@ -1,13 +1,13 @@
 package carte.effect;
 
+import java.util.Scanner;
+
 import board.Joueur;
 import board.Terrain;
 import carte.serviteur.Serviteur;
 import main.Log;
 import service.ListCartes;
 import service.ServiceGestion;
-
-import java.util.Scanner;
 
 public class Metamorphose implements Effet {
 

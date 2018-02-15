@@ -1,5 +1,8 @@
 package main;
 
+import java.util.Random;
+import java.util.Scanner;
+
 import board.Joueur;
 import carte.Carte;
 import carte.serviteur.Serviteur;
@@ -9,9 +12,6 @@ import hero.factory.HeroFactory;
 import hero.factory.MageFactory;
 import hero.factory.PaladinFactory;
 import service.ServiceGestion;
-
-import java.util.Random;
-import java.util.Scanner;
 
 public class App {
     private static Scanner sc = new Scanner(System.in);

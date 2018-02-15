@@ -1,14 +1,14 @@
 package board;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import carte.Carte;
 import carte.serviteur.Serviteur;
 import carte.serviteur.ServiteurSimple;
 import carte.sort.Sort;
 import hero.Hero;
 import main.Log;
-
-import java.util.ArrayList;
-import java.util.Random;
 
 public class Joueur {
     private String pseudo;

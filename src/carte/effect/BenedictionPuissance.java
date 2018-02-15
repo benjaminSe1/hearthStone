@@ -1,12 +1,12 @@
 package carte.effect;
 
+import java.util.Scanner;
+
 import board.Joueur;
 import board.Terrain;
 import carte.serviteur.Serviteur;
 import main.Log;
 import service.ServiceGestion;
-
-import java.util.Scanner;
 
 public class BenedictionPuissance implements Effet {
 

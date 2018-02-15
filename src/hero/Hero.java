@@ -1,5 +1,7 @@
 package hero;
 
+import java.util.ArrayList;
+
 import board.Joueur;
 import carte.Carte;
 import carte.effect.EffetHeros;
@@ -7,8 +9,6 @@ import main.Log;
 import observer.IObserverHero;
 import observer.Observer;
 import observer.Sujet;
-
-import java.util.ArrayList;
 
 public abstract class Hero implements Sujet {
     protected int PV; //Points de vie

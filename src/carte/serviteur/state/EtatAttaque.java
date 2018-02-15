@@ -1,10 +1,10 @@
 package carte.serviteur.state;
 
-import carte.serviteur.ServiteurSimple;
+import carte.serviteur.Serviteur;
 import main.Log;
 
 public class EtatAttaque extends Etat {
-    public EtatAttaque(ServiteurSimple serviteur) {
+    public EtatAttaque(Serviteur serviteur) {
         super(serviteur);
     }
 
