@@ -1,12 +1,12 @@
 package board;
 
 import carte.Carte;
+import carte.serviteur.Serviteur;
 import main.Log;
 
 import java.util.ArrayList;
 
 public class Joueur {
-    private int numero;
     private String pseudo;
     private Board board;
     private int ordreJoueur;
@@ -14,15 +14,11 @@ public class Joueur {
 
     public Joueur(int numero, String pseudo) {
         super();
-        this.numero = numero;
         this.pseudo = pseudo;
         this.board = new Board(this);
         this.mainJoueur = new ArrayList<>();
     }
 
-    public int getNumero() {
-        return numero;
-    }
 
     public String getPseudo() {
         return pseudo;
@@ -62,6 +58,9 @@ public class Joueur {
     public void poserCarteMain(Carte uneCarte) {
         this.mainJoueur.remove(uneCarte);
         this.getBoard().getHero().supprimerPM(uneCarte.getPM());
+        if(uneCarte.isServiteur()){
+            this.getBoard().getTerrain().ajouterCarte((Serviteur) uneCarte);
+        }
     }
 
     public ArrayList<Carte> getCartesMain() {

@@ -57,19 +57,14 @@ public class App {
             action(app.joueur2, app.joueur1, tour);
             action(app.joueur1, app.joueur2, tour);
         }
-
     }
 
     public void action(Joueur j, Joueur adversaire, int tour) {
         Log.jeu("C'est à " + j.getPseudo() +" de jouer");
         int idAction = 0;
-        if (tour != 1) {
-            // On distribue les cartes au debut de chaque tour du joueur
-            Carte c = j.getBoard().getCartePioche();
-            j.ajouterCarteMain(c);
-            Log.jeu("Vous avez pioché la carte : " + c.toString());
-        }
-        Log.jeu("mana : " + j.getBoard().getHero().getPM());
+        this.piocherCarte(j);
+
+        Log.jeu("Mana : " + j.getBoard().getHero().getPM());
         while (true) {
 
             j.getBoard().getTerrain().activerEncouragement();
@@ -86,31 +81,47 @@ public class App {
             Log.jeu("1 - Jouer une carte");
             Log.jeu("2 - Attaquer");
             Log.jeu("3 - Utiliser l'effet du héros (" + j.getBoard().getHero().getEffet().toString() + ")");
-            Log.jeu("4 - Terminer votre tour");
-            idAction = ServiceGestion.getInputInt(sc, 4);
+            Log.jeu("4 - Afficher info jeu");
+            Log.jeu("5 - Terminer votre tour");
+            idAction = ServiceGestion.getInputInt(sc, 5);
 
-            if (idAction == 1) {
-                // Jouer une carte
-                poserCarte(j, adversaire, tour);
-            } else if (idAction == 2) {
-                // Attaquer
-                prepaAttaque(j, adversaire);
-            } else if (idAction == 3) {
-                // Utiliser l'effet du héros
-                if (j.getBoard().canCastHeroicPower()) {
-                    j.getBoard().getHero().activerEffet(j.getBoard(), adversaire.getBoard());
-                }
-            } else if (idAction == 4) {
-                j.getBoard().getTerrain().reveillerTerrain();
-                Log.changementJoueur();
-                break;
-            } else {
-                Log.error("Le joueur a rentré une action impossible à effectuer");
+            switch (idAction){
+                case 1:
+                    // Jouer une carte
+                    poserCarte(j, adversaire, tour);
+                    break;
+                case 2:
+                    // Attaquer
+                    prepaAttaque(j, adversaire);
+                    break;
+                case 3:
+                    // Utiliser l'effet du héros
+                    if (j.getBoard().canCastHeroicPower()) {
+                        j.getBoard().getHero().activerEffet(j.getBoard(), adversaire.getBoard());
+                    }
+                    break;
+                case 4:
+                    Log.jeu("Mana : " + j.getBoard().getHero().getPM());
+                    break;
+                case 5:
+                    j.getBoard().getTerrain().reveillerTerrain();
+                    Log.changementJoueur();
+                    return;
+                default:
+                    Log.error("Le joueur a rentré une action impossible à effectuer");
+                    break;
             }
 
             j.getBoard().getTerrain().activerEncouragement();
             adversaire.getBoard().getTerrain().activerEncouragement();
         }
+    }
+
+    public void piocherCarte(Joueur j){
+        // On distribue les cartes au debut de chaque tour du joueur
+        Carte c = j.getBoard().getCartePioche();
+        j.ajouterCarteMain(c);
+        Log.jeu("Vous avez pioché la carte : " + c.toString());
     }
 
     public void poserCarte(Joueur j, Joueur adversaire, int tour) {
@@ -138,7 +149,6 @@ public class App {
                 if (j.getBoard().canPlayCard(serviteur)) {
                     //On peut poser la carte et l'ajouter au terrain
                     j.poserCarteMain(carte);
-                    j.getBoard().getTerrain().ajouterCarte(serviteur);
                 }
                 //Si la carte est un sort
             } else if (carte.isSort()) {
@@ -267,14 +277,14 @@ public class App {
 
         if (ordreJoueur == 1) {
             app.joueur1.initMain(1);
-            app.joueur1.setOrdreJoueur(2);
+            app.joueur1.setOrdreJoueur(1);
             app.joueur2.initMain(0);
-            app.joueur2.setOrdreJoueur(1);
+            app.joueur2.setOrdreJoueur(0);
         } else {
             app.joueur1.initMain(0);
-            app.joueur1.setOrdreJoueur(1);
+            app.joueur1.setOrdreJoueur(0);
             app.joueur2.initMain(1);
-            app.joueur2.setOrdreJoueur(2);
+            app.joueur2.setOrdreJoueur(1);
         }
     }
 
