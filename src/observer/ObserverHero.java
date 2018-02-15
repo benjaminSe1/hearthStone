@@ -22,7 +22,7 @@ public class ObserverHero implements IObserverHero{
         this.PM = PM;
 
        if(this.PV <= 0){
-           Log.jeu(Sujet.class.getName() + "a perdu");
+           Log.jeu("Vous avez gagné");
            System.exit(0);
        }
     }
