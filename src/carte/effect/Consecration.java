@@ -1,20 +1,29 @@
 package carte.effect;
 
 import board.Joueur;
+import carte.Carte;
 import carte.serviteur.Serviteur;
+import carte.serviteur.ServiteurSimple;
 import main.Log;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Consecration implements Effet {
 
     @Override
     public void activerEffet(Joueur j, Joueur jAdversaire) {
-        for (Serviteur s : jAdversaire.getTerrain().getServiteursTerrain()) {
+        ArrayList<Serviteur>  servTerrain = jAdversaire.getTerrain().getServiteursTerrain();
+        Iterator<Serviteur> it = servTerrain.iterator();
+        while(it.hasNext()){
+            Serviteur s = it.next();
             s.setDonnees(s.getPV() - 2, s.getPD());
             if (s.getPV() <= 0) {
-                jAdversaire.getTerrain().supprimerCarte(s);
+                it.remove();
                 Log.info("Le serviteur " + s.getNom() + " a été tué");
             }
         }
+        jAdversaire.getTerrain().setServiteurs(servTerrain);
         Log.info("Les serviteurs adverses ont perdus 2 PV");
     }
 

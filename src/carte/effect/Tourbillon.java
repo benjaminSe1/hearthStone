@@ -9,10 +9,9 @@ public class Tourbillon implements Effet {
 
     @Override
     public void activerEffet(Joueur j, Joueur jAdversaire) {
-
         for (Serviteur s : j.getTerrain().getServiteursTerrain()) {
             s.setDonnees(s.getPV() - 1, s.getPD());
-            if (s.getPV() == 0) {
+            if (s.getPV() <= 0) {
                 j.getTerrain().supprimerCarte(s);
                 Log.info("Le serviteur " + s.getNom() + " a été tué");
             }

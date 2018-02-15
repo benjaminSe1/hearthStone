@@ -110,4 +110,7 @@ public class Terrain {
         return false;
     }
 
+    public void setServiteurs(ArrayList<Serviteur> serviteurs) {
+        this.serviteurs = serviteurs;
+    }
 }

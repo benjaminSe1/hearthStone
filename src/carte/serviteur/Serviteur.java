@@ -5,44 +5,44 @@ import observer.Observer;
 
 public interface Serviteur extends Carte {
 
-    public int getPV();
+    int getPV();
 
-    public int getPD();
+    int getPD();
 
-    public int getPM();
+    int getPM();
 
-    public String getNom();
+    String getNom();
 
-    public String toString();
+    String toString();
 
-    public void supprimerPV(int PV);
+    void supprimerPV(int PV);
 
-    public void ajouterPV(int PV);
+    void ajouterPV(int PV);
 
-    public void supprimerPD(int PD);
+    void supprimerPD(int PD);
 
-    public void ajouterPD(int PD);
+    void ajouterPD(int PD);
 
-    public void changerEtatAttaquer();
+    void changerEtatAttaquer();
 
-    public void changerEtatDormir();
+    void changerEtatDormir();
 
-    public void enregistrerObs(Observer o);
+    void enregistrerObs(Observer o);
 
-    public void supprimerObs(Observer o);
+    void supprimerObs(Observer o);
 
-    public void notifierObs();
+    void notifierObs();
 
-    public void setDonnees(int PV, int PD);
+    void setDonnees(int PV, int PD);
 
-    public boolean charger();
+    boolean charger();
 
-    public boolean volerVie();
+    boolean volerVie();
 
-    public boolean encourager();
+    boolean encourager();
 
-    public boolean provoquer();
+    boolean provoquer();
 
-    public boolean estReveille();
+    boolean estReveille();
 
 }

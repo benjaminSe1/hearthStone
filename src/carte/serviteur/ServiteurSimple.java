@@ -119,7 +119,7 @@ public class ServiteurSimple implements Sujet, Serviteur {
         this.PV = PV;
         this.PD = PD;
 
-        notifierObs();
+        this.notifierObs();
     }
 
     @Override
