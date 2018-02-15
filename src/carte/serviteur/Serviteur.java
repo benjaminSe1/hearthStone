@@ -1,50 +1,172 @@
 package carte.serviteur;
 
+import java.util.ArrayList;
+
 import carte.Carte;
+import carte.serviteur.state.Etat;
+import carte.serviteur.state.EtatAttaque;
+import carte.serviteur.state.EtatDormir;
+import main.Log;
+import observer.IObserverServiteur;
 import observer.Observer;
 
-public interface Serviteur extends Carte {
+public abstract class Serviteur implements Carte {
 
-    int getPV();
+    private int PM;
+    private String nom;
+    private int PV;
+    private int PD;
 
-    int getPD();
+    private Etat etatDormir;
+    private Etat etatAttaque;
+    private Etat etatCourant;
 
-    int getPM();
+    private ArrayList<IObserverServiteur> observers;
 
-    String getNom();
+    public Serviteur(String nom, int PM, int PD, int PV){
+        this.PM = PM;
+        this.nom = nom;
+        //init du state
+        this.etatAttaque = new EtatAttaque(this);
+        this.etatDormir = new EtatDormir(this);
+        this.etatCourant = this.etatDormir;
 
-    String toString();
+        //init de l'observer
+        this.observers = new ArrayList<>();
+        setDonnees(PV, PD);
+    }
 
-    void supprimerPV(int PV);
+    public Serviteur() {
+        this.PM = PM;
+        this.nom = nom;
+        //init du state
+        this.etatAttaque = new EtatAttaque(this);
+        this.etatDormir = new EtatDormir(this);
+        this.etatCourant = this.etatDormir;
 
-    void ajouterPV(int PV);
+        //init de l'observer
+        this.observers = new ArrayList<>();
+        setDonnees(PV, PD);
+    }
 
-    void supprimerPD(int PD);
+    public int getPV() {
+        return PV;
+        }
 
-    void ajouterPD(int PD);
+    public int getPD() {
+        return PD;
+        }
 
-    void changerEtatAttaquer();
+    public int getPM() {
+        return PM;
+        }
 
-    void changerEtatDormir();
+    public String getNom() {
+        return nom;
+        }
 
-    void enregistrerObs(Observer o);
+    public void setPM(int PM) {
+        this.PM = PM;
+    }
 
-    void supprimerObs(Observer o);
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
 
-    void notifierObs();
+    public void setPV(int PV) {
+        this.PV = PV;
+    }
 
-    void setDonnees(int PV, int PD);
+    public void setPD(int PD) {
+        this.PD = PD;
+    }
 
-    void setPV(int PV);
+    public boolean estReveille() {
+        return etatCourant.peutAttaquer();
+        }
 
-    boolean charger();
+    public String toString() {
+        return "Serviteur [" + nom + " - " + PM + "/" + PD + "/" + PV + " - " + etatCourant + "]";
+        }
 
-    boolean volerVie();
+    public void supprimerPV(int PV) {
+        setDonnees(this.PV - PV, this.PD);
+        }
 
-    boolean encourager();
+    public void ajouterPV(int PV) {
+        setDonnees(this.PV + PV, this.PD);
+        }
 
-    boolean provoquer();
+    public void supprimerPD(int PD) {
+        setDonnees(this.PV, (this.PD - PD >= 0 ? this.PD - PD : 0));
+        }
 
-    boolean estReveille();
+    public void ajouterPD(int PD) {
+        setDonnees(this.PV, this.PD + PD);
+        }
 
+    //méthodes du state
+
+    public void changerEtatAttaquer() {
+        etatCourant = etatAttaque;
+        }
+
+    public void changerEtatDormir() {
+        etatCourant = etatDormir;
+        }
+
+    //méthodes de l'observer
+
+    public void enregistrerObs(Observer o) {
+        if (o instanceof IObserverServiteur) {
+            observers.add((IObserverServiteur) o);
+        } else {
+            Log.error("l'observeur n'a pas pu être ajouté");
+        }
+    }
+
+    public void supprimerObs(Observer o) {
+        if (o instanceof IObserverServiteur) {
+            observers.remove((IObserverServiteur) o);
+        } else {
+            Log.error("l'observeur n'a pas pu être supprimé");
+        }
+    }
+
+    public void notifierObs() {
+        for (IObserverServiteur o : this.observers) {
+            o.actualiser(PV, PD);
+        }
+    }
+
+    public void setDonnees(int PV, int PD) {
+        this.PV = PV;
+        this.PD = PD;
+
+        this.notifierObs();
+    }
+
+    public boolean charger() {
+        return false;
+    }
+
+    public boolean volerVie() {
+        return false;
+    }
+
+    public boolean encourager() {
+        return false;
+    }
+
+    public boolean provoquer() {
+        return false;
+    }
+
+    public boolean isSort() {
+        return false;
+    }
+
+    public boolean isServiteur() {
+        return true;
+    }
 }

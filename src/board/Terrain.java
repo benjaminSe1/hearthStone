@@ -1,10 +1,10 @@
 package board;
 
+import java.util.ArrayList;
+
 import carte.Carte;
 import carte.serviteur.Serviteur;
 import main.Log;
-
-import java.util.ArrayList;
 
 public class Terrain {
 

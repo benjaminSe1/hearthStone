@@ -1,11 +1,11 @@
 package carte.effect;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import board.Joueur;
 import carte.serviteur.Serviteur;
 import main.Log;
-
-import java.util.ArrayList;
-import java.util.Iterator;
 
 public class Consecration implements Effet {
 

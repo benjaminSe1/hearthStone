@@ -1,5 +1,8 @@
 package main;
 
+import java.util.Random;
+import java.util.Scanner;
+
 import board.Joueur;
 import carte.Carte;
 import carte.serviteur.Serviteur;
@@ -13,7 +16,7 @@ import service.MyScanner;
 import java.util.Random;
 
 public class App {
-    private static java.util.Scanner sc = new java.util.Scanner(System.in);
+    private static Scanner sc = new Scanner(System.in);
     Joueur joueur1;
     Joueur joueur2;
 
