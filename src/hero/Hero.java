@@ -35,6 +35,10 @@ public abstract class Hero implements Sujet {
         return PM;
     }
 
+    public void setPM(int pm) {
+        this.PM = pm;
+    }
+
     public EffetHeros getEffet() {
         return effet;
     }
@@ -118,11 +122,8 @@ public abstract class Hero implements Sujet {
         if (this.PM < PM) {
             this.setPM(0);
         } else {
-            this.setPM(this.getPM()-PM);
+            this.setPM(this.getPM() - PM);
         }
-    }
-    public void setPM(int pm){
-        this.PM = pm;
     }
 
     public ArrayList<Carte> getCartesHeros() {

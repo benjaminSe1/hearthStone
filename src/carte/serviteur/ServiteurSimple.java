@@ -122,6 +122,10 @@ public class ServiteurSimple implements Sujet, Serviteur {
         this.notifierObs();
     }
 
+    public void setPV(int PV){
+        this.PV = PV;
+    }
+
     @Override
     public boolean charger() {
         return false;

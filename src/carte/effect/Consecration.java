@@ -1,9 +1,7 @@
 package carte.effect;
 
 import board.Joueur;
-import carte.Carte;
 import carte.serviteur.Serviteur;
-import carte.serviteur.ServiteurSimple;
 import main.Log;
 
 import java.util.ArrayList;
@@ -13,9 +11,9 @@ public class Consecration implements Effet {
 
     @Override
     public void activerEffet(Joueur j, Joueur jAdversaire) {
-        ArrayList<Serviteur>  servTerrain = jAdversaire.getTerrain().getServiteursTerrain();
+        ArrayList<Serviteur> servTerrain = jAdversaire.getTerrain().getServiteursTerrain();
         Iterator<Serviteur> it = servTerrain.iterator();
-        while(it.hasNext()){
+        while (it.hasNext()) {
             Serviteur s = it.next();
             s.setDonnees(s.getPV() - 2, s.getPD());
             if (s.getPV() <= 0) {

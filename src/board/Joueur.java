@@ -60,7 +60,7 @@ public class Joueur {
     public void poserCarteMain(Carte uneCarte) {
         this.mainJoueur.remove(uneCarte);
         this.getHero().supprimerPM(uneCarte.getPM());
-        if(uneCarte.isServiteur()){
+        if (uneCarte.isServiteur()) {
             this.getTerrain().ajouterCarte((Serviteur) uneCarte);
         }
     }
@@ -101,10 +101,10 @@ public class Joueur {
         ArrayList<Carte> lesCartes = this.hero.getCartesHeros();
         Carte tmp = lesCartes.get((new Random()).nextInt(lesCartes.size()));
 
-        if(tmp.isServiteur()){
+        if (tmp.isServiteur()) {
             Serviteur tympServ = (Serviteur) tmp;
             tmp = new ServiteurSimple(tympServ.getNom(), tympServ.getPM(), tympServ.getPD(), tympServ.getPV());
-        }else{
+        } else {
             Sort tmpSort = (Sort) tmp;
             tmp = new Sort(tmpSort.getNom(), tmpSort.getPM(), tmpSort.getEffet());
         }

@@ -35,6 +35,8 @@ public interface Serviteur extends Carte {
 
     void setDonnees(int PV, int PD);
 
+    void setPV(int PV);
+
     boolean charger();
 
     boolean volerVie();

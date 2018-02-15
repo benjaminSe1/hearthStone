@@ -28,7 +28,6 @@ public class Terrain {
     }
 
     public ArrayList<Serviteur> getServiteursTerrain() {
-        System.out.println(serviteurs.toString());
         return serviteurs;
     }
 

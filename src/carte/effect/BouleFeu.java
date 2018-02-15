@@ -3,7 +3,6 @@ package carte.effect;
 import board.Joueur;
 import board.Terrain;
 import carte.serviteur.Serviteur;
-import hero.Hero;
 import main.Log;
 import service.ServiceGestion;
 

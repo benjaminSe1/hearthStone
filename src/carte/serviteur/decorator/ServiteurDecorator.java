@@ -66,6 +66,11 @@ public class ServiteurDecorator implements Serviteur {
     }
 
     @Override
+    public void setPV(int PV) {
+        this.serviteur.setPV(PV);
+    }
+
+    @Override
     public boolean charger() {
         return this.serviteur.charger();
 

@@ -60,7 +60,7 @@ public class App {
     }
 
     public void action(Joueur j, Joueur adversaire, int tour) {
-        Log.jeu("C'est à " + j.getPseudo() +" de jouer");
+        Log.jeu("C'est à " + j.getPseudo() + " de jouer");
         int idAction = 0;
         this.piocherCarte(j);
 
@@ -85,7 +85,7 @@ public class App {
             Log.jeu("5 - Terminer votre tour");
             idAction = ServiceGestion.getInputInt(sc, 5);
 
-            switch (idAction){
+            switch (idAction) {
                 case 1:
                     // Jouer une carte
                     poserCarte(j, adversaire, tour);
@@ -117,7 +117,7 @@ public class App {
         }
     }
 
-    public void piocherCarte(Joueur j){
+    public void piocherCarte(Joueur j) {
         // On distribue les cartes au debut de chaque tour du joueur
         Carte c = j.getCartePioche();
         j.ajouterCarteMain(c);
@@ -131,15 +131,15 @@ public class App {
         j.afficherCartesMain();
 
         int nbCartes = j.getCartesMain().size();
-        Log.jeu("(tapez " + Integer.toString(nbCartes+1) + " pour retour)");
+        Log.jeu("(tapez " + Integer.toString(nbCartes + 1) + " pour retour)");
 
         //récupération du choix joueur
-        int intScanne = ServiceGestion.getInputInt(sc, nbCartes+1);
+        int intScanne = ServiceGestion.getInputInt(sc, nbCartes + 1);
 
         //si retour choisi, retourner a la page "action"
-        if(intScanne == nbCartes+1){
+        if (intScanne == nbCartes + 1) {
             return;
-        }else{
+        } else {
             int idCarte = intScanne;
             Carte carte = j.getCartesMain().get(idCarte - 1);
             //Si la carte est un serviteur
@@ -231,32 +231,34 @@ public class App {
 
         //Et a récupérer la carte que le joueur souhaite attaquer
         int idCarteAttaquee = ServiceGestion.getInputInt(sc, adversaire.getTerrain().getServiteursAttaquePossible().size());
-        Serviteur serviteurAttaque = adversaire.getTerrain().getServiteursAttaquePossible().get(idCarteAttaquee - 1);
+        Serviteur serviteurAttaque = adversaire.getTerrain().getServiteursTerrain().get(idCarteAttaquee - 1);
 
         // On afficher ensuite les serviteurs pouvant être utiliser pour attaquer
         Log.jeu("Veuillez choisir la carte pour attaquer : ");
-        int o = 1;
+        int i = 1;
         for (Serviteur s : j.getTerrain().getServiteursReveillesTerrain()) {
-            Log.jeu(o + " - " + s.toString());
-            o++;
+            Log.jeu(i + " - " + s.toString());
+            i++;
         }
 
-        //Et on récupère le serviteur choisit par le joueur en attaque
+        //Et on récupère le serviteur choisit par le joueur pour attaquer
         int idCarteAttaquante = ServiceGestion.getInputInt(sc, j.getTerrain().getServiteursReveillesTerrain().size());
         Serviteur serviteurAttaquant = j.getTerrain().getServiteursReveillesTerrain().get(idCarteAttaquante - 1);
 
-        serviteurAttaquant.setDonnees(serviteurAttaquant.getPV()-serviteurAttaque.getPD(), serviteurAttaquant.getPD());
-        // Si serviteur attaqué n'a plus de PV
-        if (serviteurAttaquant.getPD() >= serviteurAttaque.getPV()) {
-            adversaire.getTerrain().supprimerCarte(serviteurAttaque);
-            Log.jeu("Le serviteur a été tué");
+        serviteurAttaquant.setPV(serviteurAttaquant.getPV() - serviteurAttaque.getPD());
+        //si serviteur attaquant n'a plus de pv, il meurt
+        if (serviteurAttaquant.getPV() <= 0) {
+            j.getTerrain().supprimerCarte(serviteurAttaquant);
+            Log.jeu("Le serviteur " + serviteurAttaquant.getNom() + " a été tué");
         }
 
-        // Sinon on lui enlève juste les PV perdus
-        else {
-            serviteurAttaque.setDonnees(serviteurAttaque.getPV() - serviteurAttaquant.getPD(), serviteurAttaque.getPD());
-            Log.jeu("Le serviteur a perdu " + serviteurAttaquant.getPD() + " PV");
+        serviteurAttaque.setPV(serviteurAttaque.getPV() - serviteurAttaquant.getPD());
+        //si serviteur attaquant n'a plus de pv, il meurt
+        if (serviteurAttaque.getPV() <= 0) {
+            adversaire.getTerrain().supprimerCarte(serviteurAttaque);
+            Log.jeu("Le serviteur " + serviteurAttaque.getNom() + " a été tué");
         }
+
 
         //Si le serviteur attaquant a l'effet vol de vie, il récupère les PV correspondant à son attaque
         if (serviteurAttaquant.volerVie()) {

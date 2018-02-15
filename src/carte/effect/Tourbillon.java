@@ -1,29 +1,42 @@
 package carte.effect;
 
 import board.Joueur;
-import board.Terrain;
 import carte.serviteur.Serviteur;
 import main.Log;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Tourbillon implements Effet {
 
     @Override
     public void activerEffet(Joueur j, Joueur jAdversaire) {
-        for (Serviteur s : j.getTerrain().getServiteursTerrain()) {
+        ArrayList<Serviteur> servTerrainJ = j.getTerrain().getServiteursTerrain();
+        Iterator<Serviteur> itJ = servTerrainJ.iterator();
+        while (itJ.hasNext()) {
+            Serviteur s = itJ.next();
             s.setDonnees(s.getPV() - 1, s.getPD());
             if (s.getPV() <= 0) {
-                j.getTerrain().supprimerCarte(s);
+                itJ.remove();
                 Log.info("Le serviteur " + s.getNom() + " a été tué");
             }
         }
-        for (Serviteur s : jAdversaire.getTerrain().getServiteursTerrain()) {
+        j.getTerrain().setServiteurs(servTerrainJ);
+        Log.info("Vos serviteurs ont perdu 1 PV");
+
+
+        ArrayList<Serviteur> servTerrainAdv = jAdversaire.getTerrain().getServiteursTerrain();
+        Iterator<Serviteur> itAdv = servTerrainAdv.iterator();
+        while (itAdv.hasNext()) {
+            Serviteur s = itAdv.next();
             s.setDonnees(s.getPV() - 1, s.getPD());
-            if (s.getPV() == 0) {
-                jAdversaire.getTerrain().supprimerCarte(s);
+            if (s.getPV() <= 0) {
+                itAdv.remove();
                 Log.info("Le serviteur " + s.getNom() + " a été tué");
             }
         }
-        Log.info("Tous les serviteurs ont perdus 1 PV");
+        jAdversaire.getTerrain().setServiteurs(servTerrainAdv);
+        Log.info("Les serviteurs de votre adversaire ont perdu 1 PV");
     }
 
 }
