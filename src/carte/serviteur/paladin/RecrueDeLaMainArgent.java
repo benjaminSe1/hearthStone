@@ -1,4 +1,4 @@
-package carte.serviteur.factory.paladin;
+package carte.serviteur.paladin;
 
 import carte.serviteur.Serviteur;
 

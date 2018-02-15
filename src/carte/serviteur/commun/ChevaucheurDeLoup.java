@@ -1,4 +1,4 @@
-package carte.serviteur.factory.commun;
+package carte.serviteur.commun;
 
 import carte.serviteur.Serviteur;
 

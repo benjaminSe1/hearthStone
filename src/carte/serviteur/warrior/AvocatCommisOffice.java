@@ -1,4 +1,4 @@
-package carte.serviteur.factory.warrior;
+package carte.serviteur.warrior;
 
 import carte.serviteur.Serviteur;
 

@@ -1,4 +1,4 @@
-package carte.serviteur.factory.special;
+package carte.serviteur.special;
 
 import carte.serviteur.Serviteur;
 

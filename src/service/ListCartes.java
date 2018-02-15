@@ -14,16 +14,16 @@ import carte.serviteur.decorator.ServiteurCharge;
 import carte.serviteur.decorator.ServiteurEncouragement;
 import carte.serviteur.decorator.ServiteurProvocation;
 import carte.serviteur.decorator.ServiteurVolVie;
-import carte.serviteur.factory.commun.ChefDeRaid;
-import carte.serviteur.factory.commun.ChevaucheurDeLoup;
-import carte.serviteur.factory.commun.SanglierBrocheroc;
-import carte.serviteur.factory.commun.SoldatComteOr;
-import carte.serviteur.factory.commun.YetiNoroit;
-import carte.serviteur.factory.paladin.ChampionFrisselame;
-import carte.serviteur.factory.paladin.RecrueDeLaMainArgent;
-import carte.serviteur.factory.special.ImageMiroir;
-import carte.serviteur.factory.special.Mouton;
-import carte.serviteur.factory.warrior.AvocatCommisOffice;
+import carte.serviteur.commun.ChefDeRaid;
+import carte.serviteur.commun.ChevaucheurDeLoup;
+import carte.serviteur.commun.SanglierBrocheroc;
+import carte.serviteur.commun.SoldatComteOr;
+import carte.serviteur.commun.YetiNoroit;
+import carte.serviteur.paladin.ChampionFrisselame;
+import carte.serviteur.paladin.RecrueDeLaMainArgent;
+import carte.serviteur.special.ImageMiroir;
+import carte.serviteur.special.Mouton;
+import carte.serviteur.warrior.AvocatCommisOffice;
 import carte.sort.Sort;
 
 public class ListCartes {
