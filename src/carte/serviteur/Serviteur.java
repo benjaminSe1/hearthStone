@@ -6,9 +6,6 @@ import carte.Carte;
 import carte.serviteur.state.Etat;
 import carte.serviteur.state.EtatAttaque;
 import carte.serviteur.state.EtatDormir;
-import main.Log;
-import observer.IObserverServiteur;
-import observer.Observer;
 
 public abstract class Serviteur implements Carte {
 
@@ -21,8 +18,6 @@ public abstract class Serviteur implements Carte {
     private Etat etatAttaque;
     private Etat etatCourant;
 
-    private ArrayList<IObserverServiteur> observers;
-
     public Serviteur(String nom, int PM, int PD, int PV){
         this.PM = PM;
         this.nom = nom;
@@ -30,9 +25,6 @@ public abstract class Serviteur implements Carte {
         this.etatAttaque = new EtatAttaque(this);
         this.etatDormir = new EtatDormir(this);
         this.etatCourant = this.etatDormir;
-
-        //init de l'observer
-        this.observers = new ArrayList<>();
         setDonnees(PV, PD);
     }
 
@@ -115,35 +107,9 @@ public abstract class Serviteur implements Carte {
         etatCourant = etatDormir;
         }
 
-    //méthodes de l'observer
-
-    public void enregistrerObs(Observer o) {
-        if (o instanceof IObserverServiteur) {
-            observers.add((IObserverServiteur) o);
-        } else {
-            Log.error("l'observeur n'a pas pu être ajouté");
-        }
-    }
-
-    public void supprimerObs(Observer o) {
-        if (o instanceof IObserverServiteur) {
-            observers.remove((IObserverServiteur) o);
-        } else {
-            Log.error("l'observeur n'a pas pu être supprimé");
-        }
-    }
-
-    public void notifierObs() {
-        for (IObserverServiteur o : this.observers) {
-            o.actualiser(PV, PD);
-        }
-    }
-
     public void setDonnees(int PV, int PD) {
         this.PV = PV;
         this.PD = PD;
-
-        this.notifierObs();
     }
 
     public boolean charger() {
