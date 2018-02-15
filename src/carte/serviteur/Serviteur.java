@@ -35,9 +35,6 @@ public abstract class Serviteur implements Carte {
         this.etatAttaque = new EtatAttaque(this);
         this.etatDormir = new EtatDormir(this);
         this.etatCourant = this.etatDormir;
-
-        //init de l'observer
-        this.observers = new ArrayList<>();
         setDonnees(PV, PD);
     }
 
