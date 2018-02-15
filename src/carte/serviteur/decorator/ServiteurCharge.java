@@ -2,10 +2,13 @@ package carte.serviteur.decorator;
 
 import carte.serviteur.Serviteur;
 
-public class ServiteurCharge extends ServiteurDecorator {
+public class ServiteurCharge extends Serviteur {
 
-    public ServiteurCharge(Serviteur s) {
-        super(s);
+    Serviteur serviteur;
+
+    public ServiteurCharge(Serviteur serviteur){
+        super(serviteur.getNom(), serviteur.getPM(), serviteur.getPD(), serviteur.getPV());
+        this.serviteur = serviteur;
     }
 
     @Override
