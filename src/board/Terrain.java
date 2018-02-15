@@ -91,6 +91,14 @@ public class Terrain {
         }
     }
 
+    public void afficherServiteurReveille() {
+        int i = 1;
+        for (Carte c : getServiteursReveillesTerrain()) {
+            Log.jeu(i + " - " + c.toString());
+            i++;
+        }
+    }
+
     public boolean contientCarteProvocation() {
         for (Serviteur s : serviteurs) {
             if (s.provoquer()) {

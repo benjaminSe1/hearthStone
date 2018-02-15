@@ -34,16 +34,13 @@ public class App {
                 app.joueur2.getHero().incrementerMana();
             }
             //on vérifie que les deux héros on toujours au moins 1 pv
-            if (app.joueur1.getHero().getPV() <= 0 || app.joueur2.getHero().getPV() <= 0) {
-                break;
-            }
+            app.isGameEnded(app.joueur1, app.joueur2);
             app.joueurTour(app, tour);
             Log.jeu("Tour " + tour + " terminé");
             tour++;
             app.joueur1.getHero().majTourPM((tour > 10 ? 10 : tour));
             app.joueur2.getHero().majTourPM((tour > 10 ? 10 : tour));
         }
-        Log.jeu("Partie terminée");
     }
 
     public void joueurTour(App app, int tour) {
@@ -111,7 +108,7 @@ public class App {
                     Log.error("Le joueur a rentré une action impossible à effectuer");
                     break;
             }
-
+            this.isGameEnded(j, adversaire);
             j.getTerrain().activerEncouragement();
             adversaire.getTerrain().activerEncouragement();
         }
@@ -175,7 +172,7 @@ public class App {
                 //redirection vers la bonne méthode
                 switch (typeAttaque) {
                     case 1:
-                        attaquerHeros(j, adversaire);
+                        attaquerHero(j, adversaire);
                         break;
                     case 2:
                         attaquer(j, adversaire);
@@ -190,14 +187,12 @@ public class App {
         } else {
             Log.jeu("Attaque impossible pour le moment");
         }
-
-
     }
 
-    private void attaquerHeros(Joueur jAttaquant, Joueur adversaire) {
+    private void attaquerHero(Joueur jAttaquant, Joueur adversaire) {
         //Affichage des choix possibles de serviteur pour attaquer le hero averse
         Log.jeu("Veuillez choisir la carte pour attaquer : ");
-        jAttaquant.getTerrain().afficherTerrainAttaquePossible();
+        jAttaquant.getTerrain().afficherServiteurReveille();
 
         //récupération du servietur sélectionné
         int idCarteAttaquante = ServiceGestion.getInputInt(sc, jAttaquant.getTerrain().getServiteursReveillesTerrain().size());
@@ -215,6 +210,8 @@ public class App {
 
         //Changement etat serviteur
         serviteurAttaquant.changerEtatDormir();
+
+        this.isGameEnded(jAttaquant, adversaire);
     }
 
     /**
@@ -319,5 +316,15 @@ public class App {
         joueur.setHero(f.creerHeros());
 
         return joueur;
+    }
+
+    public void isGameEnded(Joueur j1, Joueur j2){
+        if(j1.getHero().getPV() <= 0){
+            Log.jeu(j1.getPseudo() + " a perdu! GG à " + j2.getPseudo());
+            System.exit(1);
+        }else if(j2.getHero().getPV() <= 0){
+            Log.jeu(j2.getPseudo() + " a perdu! GG à " + j1.getPseudo());
+            System.exit(1);
+        }
     }
 }
