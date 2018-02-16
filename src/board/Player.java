@@ -12,15 +12,17 @@ import util.MyLogger;
 
 public class Player {
     private String pseudo;
-    private int ordreJoueur;
-    private ArrayList<Card> mainJoueur;
+
+    private int playerOrder;
+
+    private ArrayList<Card> playerHand;
     private Hero hero;
     private Board board;
 
-    public Player(int numero, String pseudo) {
+    public Player(String pseudo) {
         super();
         this.pseudo = pseudo;
-        this.mainJoueur = new ArrayList<>();
+        this.playerHand = new ArrayList<>();
         this.board = new Board();
     }
 
@@ -29,57 +31,48 @@ public class Player {
         return pseudo;
     }
 
-
-    public int getOrdreJoueur() {
-        return ordreJoueur;
+    public int getPlayerOrder() {
+        return playerOrder;
     }
 
-    public void setOrdreJoueur(int ordreJoueur) {
-        this.ordreJoueur = ordreJoueur;
+    public void setPlayerOrder(int playerOrder) {
+        this.playerOrder = playerOrder;
     }
 
-    public void initMain(int ordreJoueur) {
+    public void initHand(int playerOrder) {
         int i = 0;
-        if (ordreJoueur == 0) {
+        if (playerOrder == 0) {
             while (i < 3) {
-                this.ajouterCarteMain(this.getCartePioche());
+                this.addCardHand(this.getDraw());
                 i++;
             }
         } else {
             while (i < 4) {
-                this.ajouterCarteMain(this.getCartePioche());
+                this.addCardHand(this.getDraw());
                 i++;
             }
         }
     }
 
-    public void ajouterCarteMain(Card card) {
-        this.mainJoueur.add(card);
+    public void addCardHand(Card card) {
+        this.playerHand.add(card);
     }
 
-    public void poserCarteMain(Card card) {
-        this.mainJoueur.remove(card);
-        this.getHero().supprimerPM(card.getPM());
-        if (card.isServiteur()) {
-            this.getBoard().ajouterCarte((Minion) card);
+    public void playCardHand(Card card) {
+        this.playerHand.remove(card);
+        this.getHero().removeMP(card.getMP());
+        if (card.isMinion()) {
+            this.getBoard().addMinion((Minion) card);
         }
     }
 
-    public ArrayList<Card> getCartesMain() {
-        return mainJoueur;
+    public ArrayList<Card> getHand() {
+        return playerHand;
     }
 
-    public String toStringMain() {
-        String a = "";
-        for (Card c : mainJoueur) {
-            a += c.toString() + "\n";
-        }
-        return a;
-    }
-
-    public void afficherCartesMain() {
+    public void displayHand() {
         int i = 1;
-        for (Card c : mainJoueur) {
+        for (Card c : playerHand) {
             MyLogger.game(i + " - " + c.toString());
             i++;
         }
@@ -97,33 +90,32 @@ public class Player {
         this.hero = hero;
     }
 
-    public Card getCartePioche() {
-        ArrayList<Card> cards = this.hero.getCartesHeros();
+    public Card getDraw() {
+        ArrayList<Card> cards = this.hero.getHeroCards();
         Card tmp = cards.get((new Random()).nextInt(cards.size()));
-
-        if (tmp.isServiteur()) {
-            Minion tympServ = (Minion) tmp;
-            tmp = new MinionSimple(tympServ.getNom(), tympServ.getPM(), tympServ.getPD(), tympServ.getPV());
+        if (tmp.isMinion()) {
+            Minion tmpMinion = (Minion) tmp;
+            tmp = new MinionSimple(tmpMinion.getName(), tmpMinion.getMP(), tmpMinion.getDP(), tmpMinion.getHP());
         } else {
             Spell tmpSpell = (Spell) tmp;
-            tmp = new Spell(tmpSpell.getNom(), tmpSpell.getPM(), tmpSpell.getEffect());
+            tmp = new Spell(tmpSpell.getName(), tmpSpell.getMP(), tmpSpell.getEffect());
         }
         return tmp;
     }
 
     public boolean canPlayCard(Card card) {
-        int coutPMCarte = 0;
-        coutPMCarte = card.getPM();
-        if (coutPMCarte > hero.getPM()) {
-            MyLogger.game("Vous n'avez pas assez de Point de Mana pour jouer cette card");
+        int cardManaCost = 0;
+        cardManaCost = card.getMP();
+        if (cardManaCost > hero.getMP()) {
+            MyLogger.game("Vous n'avez pas assez de Point de Mana pour jouer cette carte");
             return false;
         }
         return true;
     }
 
     public boolean canCastHeroicPower() {
-        if (hero.getPM() < 2) {
-            MyLogger.game("Vous n'avez pas assez de Point de Mana pour lancer votre spell");
+        if (hero.getMP() < 2) {
+            MyLogger.game("Vous n'avez pas assez de Point de Mana pour lancer votre sort");
             return false;
         }
         return true;

@@ -1,11 +1,12 @@
 package card;
 
 public interface Card {
-    boolean isSort();
 
-    boolean isServiteur();
+    boolean isSpell();
 
-    int getPM();
+    boolean isMinion();
+
+    int getMP();
 
 }
 

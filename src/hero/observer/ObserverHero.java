@@ -5,24 +5,26 @@ import util.MyLogger;
 
 public class ObserverHero implements IObserverHero{
 
-    private Sujet donneesHeros;
-    private int PV;
-    private int PA;
-    private int PM;
+    private Sujet heroData;
 
-    public ObserverHero(Sujet donneesHeros){
-        this.donneesHeros = donneesHeros;
-        this.donneesHeros.enregistrerObs(this);
+    private int HP;
+
+    private int AP;
+
+    private int MP;
+
+    public ObserverHero(Sujet heroData) {
+        this.heroData = heroData;
+        this.heroData.attachObs(this);
     }
 
     @Override
-    public void actualiser(int PV, int PA, int PM) {
-        this.PV = PV;
-        this.PA = PA;
-        this.PM = PM;
-
-       if(this.PV <= 0){
-           MyLogger.game("Vous avez gagné");
+    public void update(int HP, int AP, int MP) {
+        this.HP = HP;
+        this.AP = AP;
+        this.MP = MP;
+        if (this.HP <= 0) {
+            MyLogger.game("Vous avez gagné");
            System.exit(0);
        }
     }

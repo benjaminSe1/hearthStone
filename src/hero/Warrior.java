@@ -6,18 +6,15 @@ import card.Card;
 import card.effect.Armor;
 import util.CardList;
 
+public class Warrior extends Hero {
 
-public class Guerrier extends Hero {
-    private ArrayList<Card> cartesGuerrier;
-
-    public Guerrier(int PV, int PA, int PM) {
-        super(PV, PA, PM, new Armor());
-        cartesGuerrier = CardList.warriorCards;
+    public Warrior(int HP, int AP, int MP) {
+        super(HP, AP, MP, new Armor());
     }
 
 
     @Override
-    public ArrayList<Card> getCartesHeros() {
+    public ArrayList<Card> getHeroCards() {
         return CardList.warriorCards;
     }
 

@@ -11,22 +11,22 @@ import java.util.ArrayList;
 public class BlessingOfMight implements Effect {
 
     @Override
-    public void activerEffet(Player j, Player jAdversaire) {
-        Board board = j.getBoard();
-        MyLogger.game("Veuillez choisir un minion pour lui ajouter 3 points d'attaque");
-        ArrayList<Minion> serviteursTerrain = board.getServiteursTerrain();
-        if (serviteursTerrain != null) {
+    public void activateEffect(Player p, Player pOpponent) {
+        Board board = p.getBoard();
+        MyLogger.game("Veuillez choisir un serviteur pour lui ajouter 3 points d'attaque");
+        ArrayList<Minion> boardMinions = board.getBoardMinions();
+        if (boardMinions != null) {
             int i = 1;
-            for (Minion s : board.getServiteursTerrain()) {
+            for (Minion s : board.getBoardMinions()) {
                 MyLogger.game(i + " - " + s.toString());
                 i++;
             }
-            int idServiteur = MyScanner.getInt(new java.util.Scanner(System.in), serviteursTerrain.size());
-            Minion s = serviteursTerrain.get(idServiteur-1);
-            s.setDonnees(s.getPV(), s.getPD() + 3);
-            MyLogger.game("Le minion " + s.getNom() + " a gagné 3 points d'attaque");
+            int idMinion = MyScanner.getInt(new java.util.Scanner(System.in), boardMinions.size());
+            Minion s = boardMinions.get(idMinion - 1);
+            s.setData(s.getHP(), s.getDP() + 3);
+            MyLogger.game("Le serviteur " + s.getName() + " a gagné 3 points d'attaque");
         } else {
-            MyLogger.game("Ce spell nécessite au moins un minion sur le board");
+            MyLogger.game("Ce sort nécessite au moins un serviteur sur le board");
         }
     }
 

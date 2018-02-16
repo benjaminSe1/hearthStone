@@ -9,13 +9,13 @@ public class StateAttack extends State {
     }
 
     @Override
-    public void dormir() {
-        minion.changerEtatDormir();
-        MyLogger.game("Le minion dort.");
+    public void sleep() {
+        minion.toSleepState();
+        MyLogger.info("Le serviteur dort.");
     }
 
     @Override
-    public boolean peutAttaquer() {
+    public boolean canAttack() {
         return true;
     }
 

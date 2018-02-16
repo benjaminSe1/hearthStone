@@ -6,5 +6,5 @@ public class MinionSimple extends Minion {
         super();
     }
 
-    public MinionSimple(String nom, int pm, int pd, int pv) {super(nom, pm, pd, pv);}
+    public MinionSimple(String name, int mp, int dp, int hp) {super(name, mp, dp, hp);}
 }

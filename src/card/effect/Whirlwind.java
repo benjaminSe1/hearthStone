@@ -10,33 +10,31 @@ import java.util.Iterator;
 public class Whirlwind implements Effect {
 
     @Override
-    public void activerEffet(Player j, Player jAdversaire) {
-        ArrayList<Minion> servTerrainJ = j.getBoard().getServiteursTerrain();
-        Iterator<Minion> itJ = servTerrainJ.iterator();
-        while (itJ.hasNext()) {
-            Minion s = itJ.next();
-            s.setDonnees(s.getPV() - 1, s.getPD());
-            if (s.getPV() <= 0) {
-                itJ.remove();
-                MyLogger.game("Le minion " + s.getNom() + " a été tué");
+    public void activateEffect(Player p, Player pOpponent) {
+        ArrayList<Minion> boardMinions = p.getBoard().getBoardMinions();
+        Iterator<Minion> itP = boardMinions.iterator();
+        while (itP.hasNext()) {
+            Minion s = itP.next();
+            s.setData(s.getHP() - 1, s.getDP());
+            if (s.getHP() <= 0) {
+                itP.remove();
+                MyLogger.info("Le serviteur " + s.getName() + " a été tué");
             }
         }
-        j.getBoard().setMinions(servTerrainJ);
-        MyLogger.game("Vos minions ont perdu 1 PV");
-
-
-        ArrayList<Minion> servTerrainAdv = jAdversaire.getBoard().getServiteursTerrain();
-        Iterator<Minion> itAdv = servTerrainAdv.iterator();
-        while (itAdv.hasNext()) {
-            Minion s = itAdv.next();
-            s.setDonnees(s.getPV() - 1, s.getPD());
-            if (s.getPV() <= 0) {
-                itAdv.remove();
-                MyLogger.game("Le minion " + s.getNom() + " a été tué");
+        p.getBoard().setMinions(boardMinions);
+        MyLogger.info("Vos serviteurs ont perdu 1 HP");
+        ArrayList<Minion> boardOpponentMinions = pOpponent.getBoard().getBoardMinions();
+        Iterator<Minion> itPO = boardOpponentMinions.iterator();
+        while (itPO.hasNext()) {
+            Minion s = itPO.next();
+            s.setData(s.getHP() - 1, s.getDP());
+            if (s.getHP() <= 0) {
+                itPO.remove();
+                MyLogger.info("Le serviteur " + s.getName() + " a été tué");
             }
         }
-        jAdversaire.getBoard().setMinions(servTerrainAdv);
-        MyLogger.game("Les minions de votre adversaire ont perdu 1 PV");
+        pOpponent.getBoard().setMinions(boardOpponentMinions);
+        MyLogger.game("Les serviteurs de votre adversaire ont perdu 1 HP");
     }
 
 }

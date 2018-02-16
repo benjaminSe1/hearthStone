@@ -4,13 +4,15 @@ import card.Card;
 import card.effect.Effect;
 
 public class Spell implements Card {
-    private int PM;
-    private String nom;
+
+    private int MP;
+
+    private String name;
     private Effect effect;
 
-    public Spell(String nom, int PM, Effect effect) {
-        this.nom = nom;
-        this.PM = PM;
+    public Spell(String name, int MP, Effect effect) {
+        this.name = name;
+        this.MP = MP;
         this.effect = effect;
     }
 
@@ -18,26 +20,26 @@ public class Spell implements Card {
         return effect;
     }
 
-    public int getPM() {
-        return PM;
+    public int getMP() {
+        return MP;
     }
 
-    public String getNom() {
-        return nom;
+    public String getName() {
+        return name;
     }
 
     @Override
     public String toString() {
-        return "Spell [" + nom + " - " + PM + "]";
+        return "Sort [" + name + " - " + MP + "]";
     }
 
     @Override
-    public boolean isSort() {
+    public boolean isSpell() {
         return true;
     }
 
     @Override
-    public boolean isServiteur() {
+    public boolean isMinion() {
         return false;
     }
 

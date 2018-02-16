@@ -7,13 +7,13 @@ public class MinionEnhanced extends Minion {
     Minion minion;
 
     public MinionEnhanced(Minion minion){
-        super(minion.getNom(), minion.getPM(), minion.getPD(), minion.getPV());
+        super(minion.getName(), minion.getMP(), minion.getDP(), minion.getHP());
         this.minion = minion;
 
     }
     @Override
-    public boolean encourager() {
-        super.encourager();
+    public boolean enhance() {
+        super.enhance();
         return true;
     }
 

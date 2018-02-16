@@ -1,7 +1,5 @@
 package util;
 
-import java.util.Scanner;
-
 public class MyScanner {
 
     public static int getInt(Scanner sc, int limit) {

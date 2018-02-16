@@ -10,19 +10,19 @@ import util.MyLogger;
 public class Consecration implements Effect {
 
     @Override
-    public void activerEffet(Player j, Player jAdversaire) {
-        ArrayList<Minion> servTerrain = jAdversaire.getBoard().getServiteursTerrain();
-        Iterator<Minion> it = servTerrain.iterator();
+    public void activateEffect(Player p, Player pOpponent) {
+        ArrayList<Minion> boardMinionsOpponent = pOpponent.getBoard().getBoardMinions();
+        Iterator<Minion> it = boardMinionsOpponent.iterator();
         while (it.hasNext()) {
             Minion s = it.next();
-            s.setDonnees(s.getPV() - 2, s.getPD());
-            if (s.getPV() <= 0) {
+            s.setData(s.getHP() - 2, s.getDP());
+            if (s.getHP() <= 0) {
                 it.remove();
-                MyLogger.game("Le minion " + s.getNom() + " a été tué");
+                MyLogger.game("Le serviteur " + s.getName() + " a été tué");
             }
         }
-        jAdversaire.getBoard().setMinions(servTerrain);
-        MyLogger.game("Les minions adverses ont perdus 2 PV");
+        pOpponent.getBoard().setMinions(boardMinionsOpponent);
+        MyLogger.game("Les serviteurs adverses ont perdus 2 HP");
     }
 
 }

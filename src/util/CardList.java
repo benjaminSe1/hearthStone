@@ -3,17 +3,23 @@ package util;
 import java.util.ArrayList;
 
 import card.Card;
-import card.effect.*;
+import card.effect.ArcaneExplosion;
+import card.effect.BlessingOfMight;
+import card.effect.Consecration;
+import card.effect.Polymorph;
+import card.effect.ShieldBlock;
+import card.effect.Whirlwind;
 import card.minion.Minion;
+import card.minion.common.ChillwindYeti;
+import card.minion.common.GoldshireFootman;
+import card.minion.common.RaidLeader;
+import card.minion.common.StonetuskBoar;
+import card.minion.common.WolfRider;
 import card.minion.decorator.MinionCharge;
 import card.minion.decorator.MinionEnhanced;
 import card.minion.decorator.MinionTaunt;
 import card.minion.decorator.MinionLifeSteal;
-import card.minion.common.RaidLeader;
-import card.minion.common.WolfRider;
-import card.minion.common.StonetuskBoar;
-import card.minion.common.GoldshireFootman;
-import card.minion.common.ChillwindYeti;
+import card.minion.decorator.MinionTaunt;
 import card.minion.paladin.ChillbladeChampion;
 import card.minion.paladin.SilverHandRecruit;
 import card.minion.special.MirrorImage;
@@ -62,7 +68,7 @@ public class CardList {
         Spell spell5 = new Spell("Consécration", 4, new Consecration());
         paladinCards.add(spell5);
 
-        Spell spell6 = new Spell("Whirlwind", 1, new Whirlwind());
+        Spell spell6 = new Spell("Tourbillon", 1, new Whirlwind());
         warriorCards.add(spell6);
         Minion publicDefender = new PublicDefender();
         warriorCards.add(publicDefender);

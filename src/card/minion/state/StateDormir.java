@@ -10,13 +10,13 @@ public class StateDormir extends State {
     }
 
     @Override
-    public void attaquer() {
-        minion.changerEtatAttaquer();
-        MyLogger.game("Le minion peut attaquer");
+    public void attack() {
+        minion.toSleepReady();
+        MyLogger.info("Le serviteur peut attaquer");
     }
 
     @Override
-    public boolean peutAttaquer() {
+    public boolean canAttack() {
         return false;
     }
 

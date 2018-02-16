@@ -9,13 +9,13 @@ public abstract class State {
         this.minion = minion;
     }
 
-    public void attaquer() {
+    public void attack() {
     }
 
-    public void dormir() {
+    public void sleep() {
     }
 
-    public boolean peutAttaquer() {
+    public boolean canAttack() {
         return false;
     }
 }

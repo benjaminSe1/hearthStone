@@ -9,30 +9,30 @@ import util.MyLogger;
 public class Board {
 
     public ArrayList<Minion> minions;
-    private int nbEncouragements;
+
+    private int nbEnhancements;
 
     public Board() {
         this.minions = new ArrayList<>();
-        this.nbEncouragements = 0;
+        this.nbEnhancements = 0;
     }
 
-    public void ajouterCarte(Minion minion) {
-        if (minion.charger()) {
-            minion.changerEtatAttaquer();
+    public void addMinion(Minion minion) {
+        if (minion.charge()) {
+            minion.toSleepReady();
         }
         this.minions.add(minion);
     }
 
-    public void supprimerCarte(Minion minion) {
+    public void removeMinion(Minion minion) {
         this.minions.remove(minion);
     }
 
-    public ArrayList<Minion> getServiteursTerrain() {
+    public ArrayList<Minion> getBoardMinions() {
         return minions;
     }
 
-
-    public void afficherTerrain() {
+    public void displayBoard() {
         int i = 1;
         for (Card c : minions) {
             MyLogger.game(i + " - " + c.toString());
@@ -40,29 +40,29 @@ public class Board {
         }
     }
 
-    public void reveillerTerrain() {
+    public void wakeBoard() {
         for (Minion s : minions) {
-            s.changerEtatAttaquer();
+            s.toSleepReady();
         }
     }
 
-    public void activerEncouragement() {
-        int encouragementRefresh = 0;
+    public void enhance() {
+        int enhanceRefresh = 0;
         for (Minion s : minions) {
-            if (s.encourager()) {
-                encouragementRefresh++;
+            if (s.enhance()) {
+                enhanceRefresh++;
             }
         }
         for (Minion s : minions) {
-            s.ajouterPD(encouragementRefresh - nbEncouragements);
+            s.addDP(enhanceRefresh - nbEnhancements);
         }
-        nbEncouragements = encouragementRefresh;
+        nbEnhancements = enhanceRefresh;
     }
 
-    public ArrayList<Minion> getServiteursReveillesTerrain() {
+    public ArrayList<Minion> getReadyMinions() {
         ArrayList<Minion> minions = new ArrayList<>();
         for (Minion s : this.minions) {
-            if (s.estReveille()) {
+            if (s.isAwaken()) {
                 minions.add(s);
             }
 
@@ -70,47 +70,47 @@ public class Board {
         return minions;
     }
 
-    public ArrayList<Minion> getServiteursAttaquePossible() {
-        ArrayList<Minion> lesServiteursProvocation = new ArrayList<>();
+    public ArrayList<Minion> getAttackableMinions() {
+        ArrayList<Minion> tauntMinions = new ArrayList<>();
         for (Minion s : minions) {
-            if (s.provoquer()) {
-                lesServiteursProvocation.add(s);
+            if (s.taunt()) {
+                tauntMinions.add(s);
             }
         }
-        if (lesServiteursProvocation.size() > 0) {
-            return lesServiteursProvocation;
+        if (tauntMinions.size() > 0) {
+            return tauntMinions;
         }
-        return getServiteursTerrain();
+        return getBoardMinions();
     }
 
-    public void afficherTerrainAttaquePossible() {
+    public void displayAttackableMinions() {
         int i = 1;
-        for (Card c : getServiteursAttaquePossible()) {
+        for (Card c : getAttackableMinions()) {
             MyLogger.game(i + " - " + c.toString());
             i++;
         }
     }
 
-    public void afficherServiteurReveille() {
+    public void displayAwakenMinions() {
         int i = 1;
-        for (Card c : getServiteursReveillesTerrain()) {
+        for (Card c : getReadyMinions()) {
             MyLogger.game(i + " - " + c.toString());
             i++;
         }
     }
 
-    public boolean contientCarteProvocation() {
+    public boolean containsTauntMinion() {
         for (Minion s : minions) {
-            if (s.provoquer()) {
+            if (s.taunt()) {
                 return true;
             }
         }
         return false;
     }
 
-    public boolean contientCarteReveille() {
+    public boolean containsAwakenMinion() {
         for (Minion s : minions) {
-            if (s.estReveille()) {
+            if (s.isAwaken()) {
                 return true;
             }
         }
