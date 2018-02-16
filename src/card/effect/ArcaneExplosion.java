@@ -12,10 +12,10 @@ public class ArcaneExplosion implements Effect {
             s.setDonnees(s.getPV() - 1, s.getPD());
             if (s.getPV() == 0) {
                 j.getBoard().supprimerCarte(s);
-                MyLogger.info("Le minion " + s.getNom() + " a été tué");
+                MyLogger.game("Le minion " + s.getNom() + " a été tué");
             }
         }
-        MyLogger.info("Les minions adverses ont perdus 1 PV");
+        MyLogger.game("Les minions adverses ont perdus 1 PV");
     }
 
 }

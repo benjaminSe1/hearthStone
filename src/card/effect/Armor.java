@@ -9,7 +9,7 @@ public class Armor implements EffectHero {
     public void activerEffetHeros(Player j, Player jAdversaire) {
         //Ajoute au héros allié 2 PA
         j.getHero().ajouterPA(2);
-        MyLogger.jeu("Votre héros a maintenant " + j.getHero().getPA() + " points d'armure !");
+        MyLogger.game("Votre héros a maintenant " + j.getHero().getPA() + " points d'armure !");
     }
 
     @Override

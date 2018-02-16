@@ -11,7 +11,7 @@ public class StateAttack extends State {
     @Override
     public void dormir() {
         minion.changerEtatDormir();
-        MyLogger.info("Le minion dort.");
+        MyLogger.game("Le minion dort.");
     }
 
     @Override

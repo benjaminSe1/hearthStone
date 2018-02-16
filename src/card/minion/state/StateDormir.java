@@ -12,7 +12,7 @@ public class StateDormir extends State {
     @Override
     public void attaquer() {
         minion.changerEtatAttaquer();
-        MyLogger.info("Le minion peut attaquer");
+        MyLogger.game("Le minion peut attaquer");
     }
 
     @Override

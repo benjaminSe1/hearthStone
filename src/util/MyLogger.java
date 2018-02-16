@@ -1,35 +1,29 @@
 package util;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+
 
 public class MyLogger {
-    static SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-
-    public static void info(String message) {
-        System.out.println(sdf.format(Calendar.getInstance().getTime()) + " INFO : " + message);
-    }
 
     public static void error(String message) {
-        System.out.println(sdf.format(Calendar.getInstance().getTime()) + " ERROR : " + message);
+        System.out.println(" ERROR : " + message);
     }
 
-    public static void jeu(String message) {
+    public static void game(String message) {
         System.out.println("-- " + message);
     }
 
-    public static void vide() {
+    public static void emptyStdOut() {
         System.out.println("");
     }
 
     public static void line() {
         System.out.println("--------------------------------------------------");
-        vide();
+        emptyStdOut();
     }
 
-    public static void changementJoueur() {
-        vide();
+    public static void playerChangement() {
+        emptyStdOut();
         System.out.println("-------------------------Changement De joueur-------------------------");
-        vide();
+        emptyStdOut();
     }
 }

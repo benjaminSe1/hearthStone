@@ -12,13 +12,13 @@ public class Guerrier extends Hero {
 
     public Guerrier(int PV, int PA, int PM) {
         super(PV, PA, PM, new Armor());
-        cartesGuerrier = CardList.cartesGuerrier;
+        cartesGuerrier = CardList.warriorCards;
     }
 
 
     @Override
     public ArrayList<Card> getCartesHeros() {
-        return CardList.cartesGuerrier;
+        return CardList.warriorCards;
     }
 
     @Override

@@ -18,11 +18,11 @@ public class Whirlwind implements Effect {
             s.setDonnees(s.getPV() - 1, s.getPD());
             if (s.getPV() <= 0) {
                 itJ.remove();
-                MyLogger.info("Le minion " + s.getNom() + " a été tué");
+                MyLogger.game("Le minion " + s.getNom() + " a été tué");
             }
         }
         j.getBoard().setMinions(servTerrainJ);
-        MyLogger.info("Vos minions ont perdu 1 PV");
+        MyLogger.game("Vos minions ont perdu 1 PV");
 
 
         ArrayList<Minion> servTerrainAdv = jAdversaire.getBoard().getServiteursTerrain();
@@ -32,11 +32,11 @@ public class Whirlwind implements Effect {
             s.setDonnees(s.getPV() - 1, s.getPD());
             if (s.getPV() <= 0) {
                 itAdv.remove();
-                MyLogger.info("Le minion " + s.getNom() + " a été tué");
+                MyLogger.game("Le minion " + s.getNom() + " a été tué");
             }
         }
         jAdversaire.getBoard().setMinions(servTerrainAdv);
-        MyLogger.info("Les minions de votre adversaire ont perdu 1 PV");
+        MyLogger.game("Les minions de votre adversaire ont perdu 1 PV");
     }
 
 }

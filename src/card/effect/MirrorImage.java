@@ -7,8 +7,8 @@ public class MirrorImage implements Effect {
 
     @Override
     public void activerEffet(Player j, Player jAdversaire) {
-        j.getBoard().ajouterCarte(CardList.carteMiroir);
-        j.getBoard().ajouterCarte(CardList.carteMiroir);
+        j.getBoard().ajouterCarte(CardList.mirrorImage);
+        j.getBoard().ajouterCarte(CardList.mirrorImage);
     }
 
 

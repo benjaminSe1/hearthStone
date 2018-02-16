@@ -35,7 +35,7 @@ public class Board {
     public void afficherTerrain() {
         int i = 1;
         for (Card c : minions) {
-            MyLogger.jeu(i + " - " + c.toString());
+            MyLogger.game(i + " - " + c.toString());
             i++;
         }
     }
@@ -86,7 +86,7 @@ public class Board {
     public void afficherTerrainAttaquePossible() {
         int i = 1;
         for (Card c : getServiteursAttaquePossible()) {
-            MyLogger.jeu(i + " - " + c.toString());
+            MyLogger.game(i + " - " + c.toString());
             i++;
         }
     }
@@ -94,7 +94,7 @@ public class Board {
     public void afficherServiteurReveille() {
         int i = 1;
         for (Card c : getServiteursReveillesTerrain()) {
-            MyLogger.jeu(i + " - " + c.toString());
+            MyLogger.game(i + " - " + c.toString());
             i++;
         }
     }

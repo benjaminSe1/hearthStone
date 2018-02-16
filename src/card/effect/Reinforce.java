@@ -9,8 +9,8 @@ public class Reinforce implements EffectHero {
     @Override
     public void activerEffetHeros(Player j, Player jAdversaire) {
         //Ajoute sur le board allié la card renfort
-        j.getBoard().ajouterCarte(CardList.carteRenfort);
-        MyLogger.jeu("Un " + CardList.carteRenfort.toString() + "est apparu sur le terrain allié !");
+        j.getBoard().ajouterCarte(CardList.silverHandRecruit);
+        MyLogger.game("Un " + CardList.silverHandRecruit.toString() + "est apparu sur le terrain allié !");
     }
 
     @Override

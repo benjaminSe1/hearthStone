@@ -1,8 +1,7 @@
-package main;
+package application;
 
 import java.util.Random;
 import java.util.Scanner;
-
 import board.Player;
 import card.Card;
 import card.minion.Minion;
@@ -22,13 +21,13 @@ public class Application {
     public static void main(String[] args) {
         Application application = new Application();
 
-        MyLogger.jeu("Projet Mini HearthStone");
+        MyLogger.game("Projet Mini HearthStone");
 
         application.instancierJoueurs(application);
 
         int tour = 1;
         while (true) {
-            MyLogger.jeu("Tour " + tour);
+            MyLogger.game("Tour " + tour);
             //tant que tour < 10, on incrémente la mana
             if (tour < 10) {
                 application.player1.getHero().incrementerMana();
@@ -36,7 +35,7 @@ public class Application {
             }
             //on vérifie que les deux héros on toujours au moins 1 pv
             application.joueurTour(application, tour);
-            MyLogger.jeu("Tour " + tour + " terminé");
+            MyLogger.game("Tour " + tour + " terminé");
             tour++;
             application.player1.getHero().majTourPM((tour > 10 ? 10 : tour));
             application.player2.getHero().majTourPM((tour > 10 ? 10 : tour));
@@ -57,29 +56,29 @@ public class Application {
     }
 
     public void action(Player j, Player adversaire, int tour) {
-        MyLogger.jeu("C'est à " + j.getPseudo() + " de jouer");
+        MyLogger.game("C'est à " + j.getPseudo() + " de jouer");
         int idAction = 0;
         this.piocherCarte(j);
 
-        MyLogger.jeu("Mana : " + j.getHero().getPM());
+        MyLogger.game("Mana : " + j.getHero().getPM());
         while (true) {
 
             j.getBoard().activerEncouragement();
             adversaire.getBoard().activerEncouragement();
 
             MyLogger.line();
-            MyLogger.jeu("Votre terrain    : " + j.getHero().toString());
+            MyLogger.game("Votre terrain    : " + j.getHero().toString());
             j.getBoard().afficherTerrain();
             MyLogger.line();
-            MyLogger.jeu("Votre adversaire : " + adversaire.getHero().toString());
+            MyLogger.game("Votre adversaire : " + adversaire.getHero().toString());
             adversaire.getBoard().afficherTerrain();
             MyLogger.line();
-            MyLogger.jeu("Quelle action souhaitez-vous effectuer ?");
-            MyLogger.jeu("1 - Jouer une card");
-            MyLogger.jeu("2 - Attaquer");
-            MyLogger.jeu("3 - Utiliser l'effet du héros (" + j.getHero().getEffet().toString() + ")");
-            MyLogger.jeu("4 - Afficher info jeu");
-            MyLogger.jeu("5 - Terminer votre tour");
+            MyLogger.game("Quelle action souhaitez-vous effectuer ?");
+            MyLogger.game("1 - Jouer une card");
+            MyLogger.game("2 - Attaquer");
+            MyLogger.game("3 - Utiliser l'effet du héros (" + j.getHero().getEffet().toString() + ")");
+            MyLogger.game("4 - Afficher info game");
+            MyLogger.game("5 - Terminer votre tour");
             idAction = MyScanner.getInt(sc, 5);
 
             switch (idAction) {
@@ -98,11 +97,11 @@ public class Application {
                     }
                     break;
                 case 4:
-                    MyLogger.jeu("Mana : " + j.getHero().getPM());
+                    MyLogger.game("Mana : " + j.getHero().getPM());
                     break;
                 case 5:
                     j.getBoard().reveillerTerrain();
-                    MyLogger.changementJoueur();
+                    MyLogger.playerChangement();
                     return;
                 default:
                     MyLogger.error("Le joueur a rentré une action impossible à effectuer");
@@ -117,17 +116,17 @@ public class Application {
         // On distribue les cartes au debut de chaque tour du joueur
         Card c = j.getCartePioche();
         j.ajouterCarteMain(c);
-        MyLogger.jeu("Vous avez pioché la card : " + c.toString());
+        MyLogger.game("Vous avez pioché la card : " + c.toString());
     }
 
     public void poserCarte(Player j, Player adversaire, int tour) {
-        MyLogger.jeu("Veuillez jouer une card : ");
+        MyLogger.game("Veuillez jouer une card : ");
 
         //affichage des cartes pouvant etre jouées
         j.afficherCartesMain();
 
         int nbCartes = j.getCartesMain().size();
-        MyLogger.jeu("(tapez " + Integer.toString(nbCartes + 1) + " pour retour)");
+        MyLogger.game("(tapez " + Integer.toString(nbCartes + 1) + " pour retour)");
 
         //récupération du choix joueur
         int intScanne = MyScanner.getInt(sc, nbCartes + 1);
@@ -166,7 +165,7 @@ public class Application {
             //Si le héro adverse n'a pas de card possedant l'effet provocation
             if (!adversaire.getBoard().contientCarteProvocation()) {
                 //affichage des possibilités d'attaque
-                MyLogger.jeu("Qui voulez-vous attaquer ? 1 - Le héro , 2 - Un minion");
+                MyLogger.game("Qui voulez-vous attaquer ? 1 - Le héro , 2 - Un minion");
                 int typeAttaque = MyScanner.getInt(sc, 2);
                 //redirection vers la bonne méthode
                 switch (typeAttaque) {
@@ -184,13 +183,13 @@ public class Application {
                 attaquer(j, adversaire);
             }
         } else {
-            MyLogger.jeu("Attaque impossible pour le moment");
+            MyLogger.game("Attaque impossible pour le moment");
         }
     }
 
     private void attaquerHero(Player jAttaquant, Player adversaire) {
         //Affichage des choix possibles de minion pour attaquer le hero averse
-        MyLogger.jeu("Veuillez choisir la card pour attaquer : ");
+        MyLogger.game("Veuillez choisir la card pour attaquer : ");
         jAttaquant.getBoard().afficherServiteurReveille();
 
         //récupération du servietur sélectionné
@@ -199,12 +198,12 @@ public class Application {
 
         //Supression des points de vie du héro attaqué
         adversaire.getHero().supprimerPV(attackingMinion.getPD());
-        MyLogger.jeu("Le héro adverse a perdu " + attackingMinion.getPD() + " PV !");
+        MyLogger.game("Le héro adverse a perdu " + attackingMinion.getPD() + " PV !");
 
         //Si minion attaquant possède effet vol de vie, on lui redonne les PV correspondant à son attaque
         if (attackingMinion.volerVie()) {
             attackingMinion.ajouterPV(attackingMinion.getPD());
-            MyLogger.jeu("Le minion gagne " + attackingMinion.getPD() + " PV en volant la vie !");
+            MyLogger.game("Le minion gagne " + attackingMinion.getPD() + " PV en volant la vie !");
         }
 
         //Changement etat minion
@@ -220,7 +219,7 @@ public class Application {
     public void attaquer(Player j, Player adversaire) {
 
         // On commence par afficher les cartes pouvant être attaquées
-        MyLogger.jeu("Veuillez attaquer une card : ");
+        MyLogger.game("Veuillez attaquer une card : ");
         adversaire.getBoard().afficherTerrainAttaquePossible();
 
         //Et a récupérer la card que le joueur souhaite attaquer
@@ -228,10 +227,10 @@ public class Application {
         Minion attackedMinion = adversaire.getBoard().getServiteursTerrain().get(idCarteAttaquee - 1);
 
         // On afficher ensuite les minions pouvant être utiliser pour attaquer
-        MyLogger.jeu("Veuillez choisir la card pour attaquer : ");
+        MyLogger.game("Veuillez choisir la card pour attaquer : ");
         int i = 1;
         for (Minion s : j.getBoard().getServiteursReveillesTerrain()) {
-            MyLogger.jeu(i + " - " + s.toString());
+            MyLogger.game(i + " - " + s.toString());
             i++;
         }
 
@@ -243,21 +242,21 @@ public class Application {
         //si minion attaquant n'a plus de pv, il meurt
         if (attackingMinion.getPV() <= 0) {
             j.getBoard().supprimerCarte(attackingMinion);
-            MyLogger.jeu("Le minion " + attackingMinion.getNom() + " a été tué");
+            MyLogger.game("Le minion " + attackingMinion.getNom() + " a été tué");
         }
 
         attackedMinion.setPV(attackedMinion.getPV() - attackingMinion.getPD());
         //si minion attaquant n'a plus de pv, il meurt
         if (attackedMinion.getPV() <= 0) {
             adversaire.getBoard().supprimerCarte(attackedMinion);
-            MyLogger.jeu("Le minion " + attackedMinion.getNom() + " a été tué");
+            MyLogger.game("Le minion " + attackedMinion.getNom() + " a été tué");
         }
 
 
         //Si le minion attaquant a l'effet vol de vie, il récupère les PV correspondant à son attaque
         if (attackingMinion.volerVie()) {
             attackingMinion.ajouterPV(attackingMinion.getPD());
-            MyLogger.jeu("Le minion gagne " + attackingMinion.getPD() + " PV en volant la vie !");
+            MyLogger.game("Le minion gagne " + attackingMinion.getPD() + " PV en volant la vie !");
         }
         //Le minion attaquant est remis en mode sommeil
         attackingMinion.changerEtatDormir();
@@ -266,7 +265,7 @@ public class Application {
 
     private void instancierJoueurs(Application application) {
         application.player1 = application.creerJoueur(1);
-        MyLogger.changementJoueur();
+        MyLogger.playerChangement();
         application.player2 = application.creerJoueur(2);
 
         int ordreJoueur = new Random().nextInt(2);
@@ -285,29 +284,29 @@ public class Application {
     }
 
     private Player creerJoueur(int id) {
-        MyLogger.jeu("Player " + id + ", Veuillez choisir un nom : ");
+        MyLogger.game("Player " + id + ", Veuillez choisir un nom : ");
         String nomJoueur = MyScanner.getString(sc);
         Player player = new Player(id, nomJoueur);
 
-        MyLogger.jeu("Veuillez sélectionner la classe de votre héro : 1-Paladin 2-Guerrier 3-Mage");
+        MyLogger.game("Veuillez sélectionner la classe de votre héro : 1-Paladin 2-Guerrier 3-Mage");
 
         HeroFactory f = null;
         int herosInt = MyScanner.getInt(sc, 3);
         switch (herosInt) {
             case 1:
                 f = new PaladinFactory();
-                MyLogger.jeu("Vous avez sélectionné le paladin");
+                MyLogger.game("Vous avez sélectionné le paladin");
                 break;
             case 2:
                 f = new GuerrierFactory();
-                MyLogger.jeu("Vous avez sélectionné le guerrier");
+                MyLogger.game("Vous avez sélectionné le guerrier");
                 break;
             case 3:
                 f = new MageFactory();
-                MyLogger.jeu("Vous avez sélectionné le mage");
+                MyLogger.game("Vous avez sélectionné le mage");
                 break;
             default:
-                MyLogger.jeu("Choix impossible, veuillez recommencer");
+                MyLogger.game("Choix impossible, veuillez recommencer");
                 this.creerJoueur(id);
         }
         player.setHero(f.creerHeros());

@@ -18,11 +18,11 @@ public class Consecration implements Effect {
             s.setDonnees(s.getPV() - 2, s.getPD());
             if (s.getPV() <= 0) {
                 it.remove();
-                MyLogger.info("Le minion " + s.getNom() + " a été tué");
+                MyLogger.game("Le minion " + s.getNom() + " a été tué");
             }
         }
         jAdversaire.getBoard().setMinions(servTerrain);
-        MyLogger.info("Les minions adverses ont perdus 2 PV");
+        MyLogger.game("Les minions adverses ont perdus 2 PV");
     }
 
 }
