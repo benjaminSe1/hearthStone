@@ -1,32 +1,32 @@
 package card.effect;
 
-import board.Player;
+import java.util.ArrayList;
+
 import board.Board;
+import board.Player;
 import card.minion.Minion;
 import util.MyLogger;
 import util.MyScanner;
 
-import java.util.ArrayList;
-
 public class BlessingOfMight implements Effect {
 
     @Override
-    public void activerEffet(Player j, Player jAdversaire) {
-        Board board = j.getBoard();
-        MyLogger.jeu("Veuillez choisir un minion pour lui ajouter 3 points d'attaque");
-        ArrayList<Minion> serviteursTerrain = board.getServiteursTerrain();
-        if (serviteursTerrain != null) {
+    public void activateEffect(Player p, Player pOpponent) {
+        Board board = p.getBoard();
+        MyLogger.jeu("Veuillez choisir un serviteur pour lui ajouter 3 points d'attaque");
+        ArrayList<Minion> boardMinions = board.getBoardMinions();
+        if (boardMinions != null) {
             int i = 1;
-            for (Minion s : board.getServiteursTerrain()) {
+            for (Minion s : board.getBoardMinions()) {
                 MyLogger.jeu(i + " - " + s.toString());
                 i++;
             }
-            int idServiteur = MyScanner.getInt(new java.util.Scanner(System.in), serviteursTerrain.size());
-            Minion s = serviteursTerrain.get(idServiteur-1);
-            s.setDonnees(s.getPV(), s.getPD() + 3);
-            MyLogger.jeu("Le minion " + s.getNom() + " a gagné 3 points d'attaque");
+            int idMinion = MyScanner.getInt(new java.util.Scanner(System.in), boardMinions.size());
+            Minion s = boardMinions.get(idMinion - 1);
+            s.setData(s.getHP(), s.getDP() + 3);
+            MyLogger.jeu("Le serviteur " + s.getName() + " a gagné 3 points d'attaque");
         } else {
-            MyLogger.jeu("Ce spell nécessite au moins un minion sur le board");
+            MyLogger.jeu("Ce spell nécessite au moins un serviteur sur le board");
         }
     }
 

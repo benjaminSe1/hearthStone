@@ -7,13 +7,13 @@ public class MinionLifeSteal extends Minion {
     Minion minion;
 
     public MinionLifeSteal(Minion minion){
-        super(minion.getNom(), minion.getPM(), minion.getPD(), minion.getPV());
+        super(minion.getName(), minion.getMP(), minion.getDP(), minion.getHP());
         this.minion = minion;
     }
 
     @Override
-    public boolean volerVie() {
-        super.volerVie();
+    public boolean stealLife() {
+        super.stealLife();
         return true;
     }
 

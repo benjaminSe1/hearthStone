@@ -6,7 +6,7 @@ import hero.Paladin;
 public class PaladinFactory implements HeroFactory {
 
     @Override
-    public Hero creerHeros() {
+    public Hero createHero() {
         return new Paladin(30, 0, 0);
     }
 

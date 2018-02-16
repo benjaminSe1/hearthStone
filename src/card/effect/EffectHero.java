@@ -3,5 +3,6 @@ package card.effect;
 import board.Player;
 
 public interface EffectHero {
-    void activerEffetHeros(Player j, Player jAdversaire);
+
+    void activateHeroEffect(Player p, Player pOpponent);
 }

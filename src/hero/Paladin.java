@@ -8,12 +8,12 @@ import util.CardList;
 
 public class Paladin extends Hero {
 
-    public Paladin(int PV, int PA, int PM) {
-        super(PV, PA, PM, new Reinforce());
+    public Paladin(int HP, int AP, int MP) {
+        super(HP, AP, MP, new Reinforce());
     }
 
     @Override
-    public ArrayList<Card> getCartesHeros() {
+    public ArrayList<Card> getHeroCards() {
         return CardList.cartesPaladin;
     }
 

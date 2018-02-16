@@ -7,13 +7,13 @@ public class MinionTaunt extends Minion {
     Minion minion;
 
     public MinionTaunt(Minion minion){
-        super(minion.getNom(), minion.getPM(), minion.getPD(), minion.getPV());
+        super(minion.getName(), minion.getMP(), minion.getDP(), minion.getHP());
         this.minion = minion;
     }
 
     @Override
-    public boolean provoquer() {
-        super.provoquer();
+    public boolean taunt() {
+        super.taunt();
         return true;
     }
 

@@ -1,28 +1,28 @@
 package card.effect;
 
-import board.Player;
 import board.Board;
+import board.Player;
 import card.minion.Minion;
-import util.MyLogger;
 import util.CardList;
+import util.MyLogger;
 import util.MyScanner;
 
 public class Polymorph implements Effect {
 
     @Override
-    public void activerEffet(Player j, Player jAdversaire) {
-        MyLogger.jeu("Veuillez choisir un minion à transformer");
+    public void activateEffect(Player p, Player pOpponent) {
+        MyLogger.jeu("Veuillez choisir un serviteur à transformer");
         int i = 1;
-        Board jAdverse = jAdversaire.getBoard();
-        for (Minion s : jAdverse.getServiteursTerrain()) {
+        Board opponentBoard = pOpponent.getBoard();
+        for (Minion s : opponentBoard.getBoardMinions()) {
             MyLogger.jeu(i + " - " + s.toString());
             i++;
         }
-        int idCarte = MyScanner.getInt(new java.util.Scanner(System.in), jAdverse.getServiteursTerrain().size());
-        Minion s = jAdverse.getServiteursTerrain().get(idCarte);
-        jAdverse.supprimerCarte(s);
-        jAdverse.ajouterCarte(CardList.carteMetamorphose);
-        MyLogger.jeu("Le minion " + s.getNom() + " a été transformé en minion 1/1");
+        int idCard = MyScanner.getInt(new java.util.Scanner(System.in), opponentBoard.getBoardMinions().size());
+        Minion s = opponentBoard.getBoardMinions().get(idCard);
+        opponentBoard.removeMinion(s);
+        opponentBoard.addMinion(CardList.carteMetamorphose);
+        MyLogger.jeu("Le serviteur " + s.getName() + " a été transformé en minion 1/1");
 
     }
 

@@ -6,10 +6,10 @@ import util.MyLogger;
 public class Armor implements EffectHero {
 
     @Override
-    public void activerEffetHeros(Player j, Player jAdversaire) {
-        //Ajoute au héros allié 2 PA
-        j.getHero().ajouterPA(2);
-        MyLogger.jeu("Votre héros a maintenant " + j.getHero().getPA() + " points d'armure !");
+    public void activateHeroEffect(Player p, Player pOpponent) {
+        //Ajoute au héros allié 2 AP
+        p.getHero().addAP(2);
+        MyLogger.jeu("Votre héros a maintenant " + p.getHero().getAP() + " points d'armure !");
     }
 
     @Override

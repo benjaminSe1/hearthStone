@@ -6,9 +6,9 @@ import util.CardList;
 public class MirrorImage implements Effect {
 
     @Override
-    public void activerEffet(Player j, Player jAdversaire) {
-        j.getBoard().ajouterCarte(CardList.carteMiroir);
-        j.getBoard().ajouterCarte(CardList.carteMiroir);
+    public void activateEffect(Player p, Player pOpponent) {
+        p.getBoard().addMinion(CardList.carteMiroir);
+        p.getBoard().addMinion(CardList.carteMiroir);
     }
 
 

@@ -7,119 +7,122 @@ import card.minion.state.StateDormir;
 
 public abstract class Minion implements Card {
 
-    private int PM;
-    private String nom;
-    private int PV;
-    private int PD;
+    private int MP;
+
+    private String name;
+
+    private int HP;
+
+    private int DP;
 
     private State stateSleep;
     private State stateAttack;
     private State stateCurrent;
 
-    public Minion(String nom, int PM, int PD, int PV){
-        this.PM = PM;
-        this.nom = nom;
+    public Minion(String name, int MP, int DP, int HP) {
+        this.MP = MP;
+        this.name = name;
         //init du state
         this.stateAttack = new StateAttack(this);
         this.stateSleep = new StateDormir(this);
         this.stateCurrent = this.stateSleep;
-        setDonnees(PV, PD);
+        setData(HP, DP);
     }
 
     public Minion() {
-        this.PM = PM;
-        this.nom = nom;
+        this.MP = MP;
+        this.name = name;
         //init du state
         this.stateAttack = new StateAttack(this);
         this.stateSleep = new StateDormir(this);
         this.stateCurrent = this.stateSleep;
-        setDonnees(PV, PD);
+        setData(HP, DP);
     }
 
-    public int getPV() {
-        return PV;
+    public int getHP() {
+        return HP;
         }
 
-    public int getPD() {
-        return PD;
+    public int getDP() {
+        return DP;
         }
 
-    public int getPM() {
-        return PM;
+    public int getMP() {
+        return MP;
         }
 
-    public String getNom() {
-        return nom;
+    public String getName() {
+        return name;
         }
 
-    public void setPM(int PM) {
-        this.PM = PM;
+    public void setMP(int MP) {
+        this.MP = MP;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setPV(int PV) {
-        this.PV = PV;
+    public void setHP(int HP) {
+        this.HP = HP;
     }
 
-    public void setPD(int PD) {
-        this.PD = PD;
+    public void setDP(int DP) {
+        this.DP = DP;
     }
 
-    public boolean estReveille() {
-        return stateCurrent.peutAttaquer();
+    public boolean isAwaken() {
+        return stateCurrent.canAttack();
         }
 
     public String toString() {
-        return "Minion [" + nom + " - " + PM + "/" + PD + "/" + PV + " - " + stateCurrent + "]";
+        return "Minion [" + name + " - " + MP + "/" + DP + "/" + HP + " - " + stateCurrent + "]";
         }
 
-    public void supprimerPV(int PV) {
-        setDonnees(this.PV - PV, this.PD);
+    public void removeHP(int HP) {
+        setData(this.HP - HP, this.DP);
         }
 
-    public void ajouterPV(int PV) {
-        setDonnees(this.PV + PV, this.PD);
+    public void addHP(int HP) {
+        setData(this.HP + HP, this.DP);
         }
 
-    public void supprimerPD(int PD) {
-        setDonnees(this.PV, (this.PD - PD >= 0 ? this.PD - PD : 0));
+    public void removeDP(int DP) {
+        setData(this.HP, (this.DP - DP >= 0 ? this.DP - DP : 0));
         }
 
-    public void ajouterPD(int PD) {
-        setDonnees(this.PV, this.PD + PD);
+    public void addDP(int DP) {
+        setData(this.HP, this.DP + DP);
         }
 
     //méthodes du state
 
-    public void changerEtatAttaquer() {
+    public void toSleepReady() {
         stateCurrent = stateAttack;
         }
 
-    public void changerEtatDormir() {
+    public void toSleepState() {
         stateCurrent = stateSleep;
         }
 
-    public void setDonnees(int PV, int PD) {
-        this.PV = PV;
-        this.PD = PD;
+    public void setData(int HP, int DP) {
+        this.HP = HP;
+        this.DP = DP;
     }
 
-    public boolean charger() {
+    public boolean charge() {
         return false;
     }
 
-    public boolean volerVie() {
+    public boolean stealLife() {
         return false;
     }
 
-    public boolean encourager() {
+    public boolean enhance() {
         return false;
     }
 
-    public boolean provoquer() {
+    public boolean taunt() {
         return false;
     }
 
@@ -127,7 +130,7 @@ public abstract class Minion implements Card {
         return false;
     }
 
-    public boolean isServiteur() {
+    public boolean isMinion() {
         return true;
     }
 }

@@ -3,9 +3,9 @@ package card;
 public interface Card {
     boolean isSort();
 
-    boolean isServiteur();
+    boolean isMinion();
 
-    int getPM();
+    int getMP();
 
 }
 

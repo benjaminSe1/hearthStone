@@ -1,30 +1,30 @@
 package card.effect;
 
+import java.util.ArrayList;
+
 import board.Board;
 import board.Player;
 import card.minion.Minion;
 import util.MyLogger;
 import util.MyScanner;
 
-import java.util.ArrayList;
-
 public class FireBlast implements EffectHero {
 
     @Override
-    public void activerEffetHeros(Player j, Player jAdversaire) {
-        Board boardAdv = jAdversaire.getBoard();
+    public void activateHeroEffect(Player p, Player pOpponent) {
+        Board opponentBoard = pOpponent.getBoard();
         MyLogger.jeu("Qui voulez vous viser ?");
-        MyLogger.jeu("1 - Le héros adverse");
-        ArrayList<Minion> minions = boardAdv.getServiteursTerrain();
-        boardAdv.afficherTerrain();
-        int idResult = MyScanner.getInt(new java.util.Scanner(System.in), minions.size() + 1);
+        MyLogger.jeu("1 - Le héro adverse");
+        ArrayList<Minion> opponentMinions = opponentBoard.getBoardMinions();
+        opponentBoard.displayBoard();
+        int idResult = MyScanner.getInt(new java.util.Scanner(System.in), opponentMinions.size() + 1);
 
         if (idResult == 1) {
-            jAdversaire.getHero().supprimerPV(1);
-            MyLogger.jeu("Le héros adverse a perdu 1PV !");
+            pOpponent.getHero().removeHP(1);
+            MyLogger.jeu("Le héro adverse a perdu 1PV !");
         } else {
-            Minion s = boardAdv.getServiteursTerrain().get(idResult - 2);
-            s.supprimerPV(1);
+            Minion s = opponentBoard.getBoardMinions().get(idResult - 2);
+            s.removeHP(1);
             MyLogger.jeu("Le " + s.toString() + "a perdu 1PV !");
         }
     }

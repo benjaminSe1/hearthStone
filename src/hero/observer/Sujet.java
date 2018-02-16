@@ -1,9 +1,10 @@
 package hero.observer;
 
 public interface Sujet {
-    void enregistrerObs(Observer o);
 
-    void supprimerObs(Observer o);
+    void attachObs(Observer o);
 
-    void notifierObs();
+    void detachObs(Observer o);
+
+    void notifyObs();
 }

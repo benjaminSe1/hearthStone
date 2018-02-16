@@ -5,64 +5,68 @@ import java.util.ArrayList;
 import board.Player;
 import card.Card;
 import card.effect.EffectHero;
-import util.MyLogger;
-import hero.observer.ObserverHero;
 import hero.observer.Observer;
+import hero.observer.ObserverHero;
 import hero.observer.Sujet;
+import util.MyLogger;
 
 public abstract class Hero implements Sujet {
-    protected int PV; //Points de vie
-    protected int PA; // Point d'armure
-    protected int PM; //Points de mana
-    protected EffectHero effet;
+
+    protected int HP; //Points de vie
+
+    protected int AP; // Point d'armure
+
+    protected int MP; //Points de mana
+
+    protected EffectHero effect;
     protected ArrayList<ObserverHero> observers;
 
-    public Hero(int PV, int PA, int PM, EffectHero effet) {
-        this.effet = effet;
+    public Hero(int HP, int AP, int MP, EffectHero effect) {
+        this.effect = effect;
         this.observers = new ArrayList<>();
         ObserverHero o = new ObserverHero(this);
-        setDonnees(PV, PA, PM);
+        setData(HP, AP, MP);
     }
 
-    public int getPV() {
-        return PV;
+    public int getHP() {
+        return HP;
     }
 
-    public int getPA() {
-        return PA;
+    public int getAP() {
+        return AP;
     }
 
-    public int getPM() {
-        return PM;
+    public int getMP() {
+        return MP;
     }
 
-    public void setPM(int pm) {
-        this.PM = pm;
+    public void setMP(int pm) {
+        this.MP = pm;
     }
 
-    public EffectHero getEffet() {
-        return effet;
+    public EffectHero getEffect() {
+        return effect;
     }
 
-    public void activerEffet(Player j, Player jAdverse) {
-        this.effet.activerEffetHeros(j, jAdverse);
-        supprimerPM(2);
+    public void activateEffect(Player p, Player pOpponent) {
+        this.effect.activateHeroEffect(p, pOpponent);
+        removeMP(2);
     }
 
-    public void incrementerMana() {
-        this.PM = this.PM + 1;
+    public void incrementMP() {
+        this.MP = this.MP + 1;
     }
 
-    public void majTourPM(int pm) {
-        this.setDonnees(this.PV, this.PA, pm);
+    public void updateTurnMP(int mp) {
+        this.setData(this.HP, this.AP, mp);
     }
 
     @Override
     public String toString() {
-        return "[PV=" + PV + ", PA=" + PA + ", PM=" + PM + "]";
+        return "[HP=" + HP + ", AP=" + AP + ", MP=" + MP + "]";
     }
 
-    public void enregistrerObs(Observer o) {
+    public void attachObs(Observer o) {
         if(o instanceof ObserverHero){
             observers.add((ObserverHero) o);
         } else {
@@ -71,7 +75,7 @@ public abstract class Hero implements Sujet {
     }
 
     @Override
-    public void supprimerObs(Observer o) {
+    public void detachObs(Observer o) {
         if(o instanceof ObserverHero){
             observers.remove((ObserverHero) o);
         } else {
@@ -80,51 +84,50 @@ public abstract class Hero implements Sujet {
     }
 
     @Override
-    public void notifierObs() {
+    public void notifyObs() {
         for(ObserverHero o : this.observers){
-            o.actualiser(PV, PA, PM);
+            o.update(HP, AP, MP);
         }
     }
 
-    public void setDonnees(int PV, int PA, int PM) {
-        this.PV = PV;
-        this.PA = PA;
-        this.PM = PM;
-
-        this.notifierObs();
+    public void setData(int HP, int AP, int MP) {
+        this.HP = HP;
+        this.AP = AP;
+        this.MP = MP;
+        this.notifyObs();
     }
 
-    public void supprimerPV(int PV) {
-        if (this.PA > 0) {
-            //Si le héro a des points d'armure, on va les lui enlever PA < pv enlevé, la méthode va se charger de les enlever
-            this.supprimerPA(PV);
+    public void removeHP(int HP) {
+        if (this.AP > 0) {
+            //Si le héro a des points d'armure, on va les lui enlever AP < pv enlevé, la méthode va se charge de les enlever
+            this.removeAP(HP);
         } else {
-            this.setDonnees(this.PV - PV, this.PA, this.PM);
+            this.setData(this.HP - HP, this.AP, this.MP);
         }
     }
 
-    public void ajouterPA(int PA) {
-        setDonnees(this.PV, this.PA + PA, this.PM);
+    public void addAP(int AP) {
+        setData(this.HP, this.AP + AP, this.MP);
     }
 
-    public void supprimerPA(int PA) {
-        if (this.PA < PA) {
-            int reste = PA - this.PA;
-            setDonnees(this.PV - reste, 0, this.PM);
+    public void removeAP(int AP) {
+        if (this.AP < AP) {
+            int res = AP - this.AP;
+            setData(this.HP - res, 0, this.MP);
         } else {
-            setDonnees(this.PV, this.PA - PA, this.PM);
+            setData(this.HP, this.AP - AP, this.MP);
         }
     }
 
-    public void supprimerPM(int PM) {
-        if (this.PM < PM) {
-            this.setPM(0);
+    public void removeMP(int MP) {
+        if (this.MP < MP) {
+            this.setMP(0);
         } else {
-            this.setPM(this.getPM() - PM);
+            this.setMP(this.getMP() - MP);
         }
     }
 
-    public ArrayList<Card> getCartesHeros() {
+    public ArrayList<Card> getHeroCards() {
         return null;
     }
 
