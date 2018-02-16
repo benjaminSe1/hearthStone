@@ -14,7 +14,7 @@ public class MyLogger {
         System.out.println(sdf.format(Calendar.getInstance().getTime()) + " ERROR : " + message);
     }
 
-    public static void jeu(String message) {
+    public static void game(String message) {
         System.out.println("-- " + message);
     }
 
@@ -27,7 +27,7 @@ public class MyLogger {
         vide();
     }
 
-    public static void changementJoueur() {
+    public static void switchPlayer() {
         vide();
         System.out.println("-------------------------Changement De joueur-------------------------");
         vide();

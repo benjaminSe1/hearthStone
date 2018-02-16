@@ -1,7 +1,8 @@
 package card;
 
 public interface Card {
-    boolean isSort();
+
+    boolean isSpell();
 
     boolean isMinion();
 

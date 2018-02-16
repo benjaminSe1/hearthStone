@@ -34,7 +34,7 @@ public class Spell implements Card {
     }
 
     @Override
-    public boolean isSort() {
+    public boolean isSpell() {
         return true;
     }
 

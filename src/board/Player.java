@@ -73,7 +73,7 @@ public class Player {
     public void displayHand() {
         int i = 1;
         for (Card c : playerHand) {
-            MyLogger.jeu(i + " - " + c.toString());
+            MyLogger.game(i + " - " + c.toString());
             i++;
         }
     }
@@ -107,7 +107,7 @@ public class Player {
         int cardManaCost = 0;
         cardManaCost = card.getMP();
         if (cardManaCost > hero.getMP()) {
-            MyLogger.jeu("Vous n'avez pas assez de Point de Mana pour jouer cette carte");
+            MyLogger.game("Vous n'avez pas assez de Point de Mana pour jouer cette carte");
             return false;
         }
         return true;
@@ -115,7 +115,7 @@ public class Player {
 
     public boolean canCastHeroicPower() {
         if (hero.getMP() < 2) {
-            MyLogger.jeu("Vous n'avez pas assez de Point de Mana pour lancer votre spell");
+            MyLogger.game("Vous n'avez pas assez de Point de Mana pour lancer votre spell");
             return false;
         }
         return true;

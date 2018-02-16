@@ -35,7 +35,7 @@ public class Board {
     public void displayBoard() {
         int i = 1;
         for (Card c : minions) {
-            MyLogger.jeu(i + " - " + c.toString());
+            MyLogger.game(i + " - " + c.toString());
             i++;
         }
     }
@@ -47,16 +47,16 @@ public class Board {
     }
 
     public void enhance() {
-        int encouragementRefresh = 0;
+        int enhanceRefresh = 0;
         for (Minion s : minions) {
             if (s.enhance()) {
-                encouragementRefresh++;
+                enhanceRefresh++;
             }
         }
         for (Minion s : minions) {
-            s.addDP(encouragementRefresh - nbEnhancements);
+            s.addDP(enhanceRefresh - nbEnhancements);
         }
-        nbEnhancements = encouragementRefresh;
+        nbEnhancements = enhanceRefresh;
     }
 
     public ArrayList<Minion> getReadyMinions() {
@@ -71,14 +71,14 @@ public class Board {
     }
 
     public ArrayList<Minion> getAttackableMinions() {
-        ArrayList<Minion> lesServiteursProvocation = new ArrayList<>();
+        ArrayList<Minion> tauntMinions = new ArrayList<>();
         for (Minion s : minions) {
             if (s.taunt()) {
-                lesServiteursProvocation.add(s);
+                tauntMinions.add(s);
             }
         }
-        if (lesServiteursProvocation.size() > 0) {
-            return lesServiteursProvocation;
+        if (tauntMinions.size() > 0) {
+            return tauntMinions;
         }
         return getBoardMinions();
     }
@@ -86,7 +86,7 @@ public class Board {
     public void displayAttackableMinions() {
         int i = 1;
         for (Card c : getAttackableMinions()) {
-            MyLogger.jeu(i + " - " + c.toString());
+            MyLogger.game(i + " - " + c.toString());
             i++;
         }
     }
@@ -94,7 +94,7 @@ public class Board {
     public void displayAwakenMinions() {
         int i = 1;
         for (Card c : getReadyMinions()) {
-            MyLogger.jeu(i + " - " + c.toString());
+            MyLogger.game(i + " - " + c.toString());
             i++;
         }
     }

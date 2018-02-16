@@ -126,7 +126,7 @@ public abstract class Minion implements Card {
         return false;
     }
 
-    public boolean isSort() {
+    public boolean isSpell() {
         return false;
     }
 

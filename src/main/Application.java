@@ -21,188 +21,183 @@ public class Application {
 
     public static void main(String[] args) {
         Application application = new Application();
-
-        MyLogger.jeu("Projet Mini HearthStone");
+        MyLogger.game("Projet Mini HearthStone");
 
         application.instancierJoueurs(application);
-
-        int tour = 1;
+        int turn = 1;
         while (true) {
-            MyLogger.jeu("Tour " + tour);
+            MyLogger.game("Tour " + turn);
             //tant que tour < 10, on incrémente la mana
-            if (tour < 10) {
+            if (turn < 10) {
                 application.player1.getHero().incrementMP();
                 application.player2.getHero().incrementMP();
             }
             //on vérifie que les deux héros on toujours au moins 1 pv
-            application.joueurTour(application, tour);
-            MyLogger.jeu("Tour " + tour + " terminé");
-            tour++;
-            application.player1.getHero().updateTurnMP((tour > 10 ? 10 : tour));
-            application.player2.getHero().updateTurnMP((tour > 10 ? 10 : tour));
+            application.joueurTour(application, turn);
+            MyLogger.game("Tour " + turn + " terminé");
+            turn++;
+            application.player1.getHero().updateTurnMP((turn > 10 ? 10 : turn));
+            application.player2.getHero().updateTurnMP((turn > 10 ? 10 : turn));
         }
     }
 
-    public void joueurTour(Application application, int tour) {
-        int tourJoueur1 = application.player1.getPlayerOrder();
-        int tourJoueur2 = application.player2.getPlayerOrder();
-
-        if (tourJoueur2 > tourJoueur1) {
-            action(application.player1, application.player2, tour);
-            action(application.player2, application.player1, tour);
+    public void joueurTour(Application application, int turn) {
+        int turnPlayer1 = application.player1.getPlayerOrder();
+        int turnPlayer2 = application.player2.getPlayerOrder();
+        if (turnPlayer2 > turnPlayer1) {
+            action(application.player1, application.player2, turn);
+            action(application.player2, application.player1, turn);
         } else {
-            action(application.player2, application.player1, tour);
-            action(application.player1, application.player2, tour);
+            action(application.player2, application.player1, turn);
+            action(application.player1, application.player2, turn);
         }
     }
 
-    public void action(Player j, Player adversaire, int tour) {
-        MyLogger.jeu("C'est à " + j.getPseudo() + " de jouer");
+    public void action(Player p, Player opponent, int turn) {
+        MyLogger.game("C'est à " + p.getPseudo() + " de jouer");
         int idAction = 0;
-        this.piocherCarte(j);
-        MyLogger.jeu("Mana : " + j.getHero().getMP());
+        this.draw(p);
+        MyLogger.game("Mana : " + p.getHero().getMP());
         while (true) {
-            j.getBoard().enhance();
-            adversaire.getBoard().enhance();
+            p.getBoard().enhance();
+            opponent.getBoard().enhance();
 
             MyLogger.line();
-            MyLogger.jeu("Votre terrain    : " + j.getHero().toString());
-            j.getBoard().displayBoard();
+            MyLogger.game("Votre terrain    : " + p.getHero().toString());
+            p.getBoard().displayBoard();
             MyLogger.line();
-            MyLogger.jeu("Votre adversaire : " + adversaire.getHero().toString());
-            adversaire.getBoard().displayBoard();
+            MyLogger.game("Votre adversaire : " + opponent.getHero().toString());
+            opponent.getBoard().displayBoard();
             MyLogger.line();
-            MyLogger.jeu("Quelle action souhaitez-vous effectuer ?");
-            MyLogger.jeu("1 - Jouer une card");
-            MyLogger.jeu("2 - Attaquer");
-            MyLogger.jeu("3 - Utiliser l'effect du héros (" + j.getHero().getEffect().toString() + ")");
-            MyLogger.jeu("4 - Afficher info jeu");
-            MyLogger.jeu("5 - Terminer votre tour");
+            MyLogger.game("Quelle action souhaitez-vous effectuer ?");
+            MyLogger.game("1 - Jouer une card");
+            MyLogger.game("2 - Attaquer");
+            MyLogger.game("3 - Utiliser l'effect du héros (" + p.getHero().getEffect().toString() + ")");
+            MyLogger.game("4 - Afficher info game");
+            MyLogger.game("5 - Terminer votre tour");
             idAction = MyScanner.getInt(sc, 5);
 
             switch (idAction) {
                 case 1:
                     // Jouer une card
-                    poserCarte(j, adversaire, tour);
+                    playCard(p, opponent, turn);
                     break;
                 case 2:
                     // Attaquer
-                    prepaAttaque(j, adversaire);
+                    prepareAttack(p, opponent);
                     break;
                 case 3:
                     // Utiliser l'effect du héros
-                    if (j.canCastHeroicPower()) {
-                        j.getHero().activateEffect(j, adversaire);
+                    if (p.canCastHeroicPower()) {
+                        p.getHero().activateEffect(p, opponent);
                     }
                     break;
                 case 4:
-                    MyLogger.jeu("Mana : " + j.getHero().getMP());
+                    MyLogger.game("Mana : " + p.getHero().getMP());
                     break;
                 case 5:
-                    j.getBoard().wakeBoard();
-                    MyLogger.changementJoueur();
+                    p.getBoard().wakeBoard();
+                    MyLogger.switchPlayer();
                     return;
                 default:
                     MyLogger.error("Le joueur a rentré une action impossible à effectuer");
                     break;
             }
-            j.getBoard().enhance();
-            adversaire.getBoard().enhance();
+            p.getBoard().enhance();
+            opponent.getBoard().enhance();
         }
     }
 
-    public void piocherCarte(Player j) {
+    public void draw(Player p) {
         // On distribue les cartes au debut de chaque tour du joueur
-        Card c = j.getDraw();
-        j.addCardHand(c);
-        MyLogger.jeu("Vous avez pioché la card : " + c.toString());
+        Card c = p.getDraw();
+        p.addCardHand(c);
+        MyLogger.game("Vous avez pioché la carte: " + c.toString());
     }
 
-    public void poserCarte(Player j, Player adversaire, int tour) {
-        MyLogger.jeu("Veuillez jouer une card : ");
+    public void playCard(Player p, Player opponent, int turn) {
+        MyLogger.game("Veuillez jouer une carte : ");
 
         //affichage des cartes pouvant etre jouées
-        j.displayHand();
-        int nbCartes = j.getHand().size();
-        MyLogger.jeu("(tapez " + Integer.toString(nbCartes + 1) + " pour retour)");
+        p.displayHand();
+        int nbCards = p.getHand().size();
+        MyLogger.game("(tapez " + Integer.toString(nbCards + 1) + " pour retour)");
 
         //récupération du choix joueur
-        int intScanne = MyScanner.getInt(sc, nbCartes + 1);
+        int intScanned = MyScanner.getInt(sc, nbCards + 1);
 
         //si retour choisi, retourner a la page "action"
-        if (intScanne == nbCartes + 1) {
+        if (intScanned == nbCards + 1) {
             return;
         } else {
-            int idCarte = intScanne;
-            Card card = j.getHand().get(idCarte - 1);
+            int idCard = intScanned;
+            Card card = p.getHand().get(idCard - 1);
             //Si la card est un minion
             if (card.isMinion()) {
                 Minion minion = (Minion) card;
                 //Si le héro a suffisemment de mana
-                if (j.canPlayCard(minion)) {
+                if (p.canPlayCard(minion)) {
                     //On peut poser la card et l'ajouter au terrain
-                    j.playCardHand(card);
+                    p.playCardHand(card);
                 }
                 //Si la card est un spell
-            } else if (card.isSort()) {
+            } else if (card.isSpell()) {
                 Spell spell = (Spell) card;
                 //Si le héro a suffisemment de mana
-                if (j.canPlayCard(spell)) {
+                if (p.canPlayCard(spell)) {
                     //on peut poser la card et activer l'effect
-                    j.playCardHand(card);
-                    spell.getEffect().activateEffect(j, adversaire);
+                    p.playCardHand(card);
+                    spell.getEffect().activateEffect(p, opponent);
                 }
             }
         }
     }
 
-
-    public void prepaAttaque(Player j, Player adversaire) {
+    public void prepareAttack(Player p, Player opponent) {
         //Si le héro à des minions pouvant attack
-        if (j.getBoard().containsAwakenMinion()) {
+        if (p.getBoard().containsAwakenMinion()) {
             //Si le héro adverse n'a pas de card possedant l'effect provocation
-            if (!adversaire.getBoard().containsTauntMinion()) {
+            if (!opponent.getBoard().containsTauntMinion()) {
                 //affichage des possibilités d'attaque
-                MyLogger.jeu("Qui voulez-vous attack ? 1 - Le héro , 2 - Un minion");
-                int typeAttaque = MyScanner.getInt(sc, 2);
+                MyLogger.game("Qui voulez-vous attack ? 1 - Le héro , 2 - Un serviteur");
+                int attackType = MyScanner.getInt(sc, 2);
                 //redirection vers la bonne méthode
-                switch (typeAttaque) {
+                switch (attackType) {
                     case 1:
-                        attaquerHero(j, adversaire);
+                        attackHero(p, opponent);
                         break;
                     case 2:
-                        attaquer(j, adversaire);
+                        attack(p, opponent);
                         break;
                     default:
                         MyLogger.error("Action joueur impossible à effectuer");
                         break;
                 }
             } else {
-                attaquer(j, adversaire);
+                attack(p, opponent);
             }
         } else {
-            MyLogger.jeu("Attaque impossible pour le moment");
+            MyLogger.game("Attaque impossible pour le moment");
         }
     }
 
-    private void attaquerHero(Player jAttaquant, Player adversaire) {
+    private void attackHero(Player pAttack, Player opponent) {
         //Affichage des choix possibles de minion pour attack le hero averse
-        MyLogger.jeu("Veuillez choisir la card pour attack : ");
-        jAttaquant.getBoard().displayAwakenMinions();
+        MyLogger.game("Veuillez choisir la carte pour attaquer : ");
+        pAttack.getBoard().displayAwakenMinions();
 
         //récupération du servietur sélectionné
-        int idCarteAttaquante = MyScanner.getInt(sc, jAttaquant.getBoard().getReadyMinions().size());
-        Minion attackingMinion = jAttaquant.getBoard().getReadyMinions().get(idCarteAttaquante - 1);
+        int idAttackingCard = MyScanner.getInt(sc, pAttack.getBoard().getReadyMinions().size());
+        Minion attackingMinion = pAttack.getBoard().getReadyMinions().get(idAttackingCard - 1);
 
         //Supression des points de vie du héro attaqué
-        adversaire.getHero().removeHP(attackingMinion.getDP());
-        MyLogger.jeu("Le héro adverse a perdu " + attackingMinion.getDP() + " HP !");
+        opponent.getHero().removeHP(attackingMinion.getDP());
+        MyLogger.game("Le héro adverse a perdu " + attackingMinion.getDP() + " HP !");
         //Si minion attaquant possède effect vol de vie, on lui redonne les HP correspondant à son attaque
         if (attackingMinion.stealLife()) {
             attackingMinion.addHP(attackingMinion.getDP());
-            MyLogger.jeu("Le minion gagne " + attackingMinion.getDP() + " HP en volant la vie !");
+            MyLogger.game("Le minion gagne " + attackingMinion.getDP() + " HP en volant la vie !");
         }
-
         //Changement etat minion
         attackingMinion.toSleepState();
     }
@@ -210,43 +205,43 @@ public class Application {
     /**
      * Méthode pour attack une card adversaire
      *
-     * @param j          Player attaquant
-     * @param adversaire Player attaqué
+     * @param p          Player attaquant
+     * @param opponent Player attaqué
      */
-    public void attaquer(Player j, Player adversaire) {
+    public void attack(Player p, Player opponent) {
 
         // On commence par afficher les cartes pouvant être attaquées
-        MyLogger.jeu("Veuillez attack une carte : ");
-        adversaire.getBoard().displayAttackableMinions();
+        MyLogger.game("Veuillez attack une carte : ");
+        opponent.getBoard().displayAttackableMinions();
         //Et a récupérer la card que le joueur souhaite attack
-        int idCarteAttaquee = MyScanner.getInt(sc, adversaire.getBoard().getAttackableMinions().size());
-        Minion attackedMinion = adversaire.getBoard().getBoardMinions().get(idCarteAttaquee - 1);
+        int idAttackedCard = MyScanner.getInt(sc, opponent.getBoard().getAttackableMinions().size());
+        Minion attackedMinion = opponent.getBoard().getBoardMinions().get(idAttackedCard - 1);
         // On afficher ensuite les minions pouvant être utiliser pour attack
-        MyLogger.jeu("Veuillez choisir la card pour attack : ");
+        MyLogger.game("Veuillez choisir la carte pour attaquer : ");
         int i = 1;
-        for (Minion s : j.getBoard().getReadyMinions()) {
-            MyLogger.jeu(i + " - " + s.toString());
+        for (Minion s : p.getBoard().getReadyMinions()) {
+            MyLogger.game(i + " - " + s.toString());
             i++;
         }
         //Et on récupère le minion choisit par le joueur pour attack
-        int idCarteAttaquante = MyScanner.getInt(sc, j.getBoard().getReadyMinions().size());
-        Minion attackingMinion = j.getBoard().getReadyMinions().get(idCarteAttaquante - 1);
+        int idAttackingCard = MyScanner.getInt(sc, p.getBoard().getReadyMinions().size());
+        Minion attackingMinion = p.getBoard().getReadyMinions().get(idAttackingCard - 1);
         attackingMinion.setHP(attackingMinion.getHP() - attackedMinion.getDP());
         //si minion attaquant n'a plus de pv, il meurt
         if (attackingMinion.getHP() <= 0) {
-            j.getBoard().removeMinion(attackingMinion);
-            MyLogger.jeu("Le minion " + attackingMinion.getName() + " a été tué");
+            p.getBoard().removeMinion(attackingMinion);
+            MyLogger.game("Le serviteur " + attackingMinion.getName() + " a été tué");
         }
         attackedMinion.setHP(attackedMinion.getHP() - attackingMinion.getDP());
         //si minion attaquant n'a plus de pv, il meurt
         if (attackedMinion.getHP() <= 0) {
-            adversaire.getBoard().removeMinion(attackedMinion);
-            MyLogger.jeu("Le minion " + attackedMinion.getName() + " a été tué");
+            opponent.getBoard().removeMinion(attackedMinion);
+            MyLogger.game("Le serviteur " + attackedMinion.getName() + " a été tué");
         }
         //Si le minion attaquant a l'effect vol de vie, il récupère les HP correspondant à son attaque
         if (attackingMinion.stealLife()) {
             attackingMinion.addHP(attackingMinion.getDP());
-            MyLogger.jeu("Le minion gagne " + attackingMinion.getDP() + " HP en volant la vie !");
+            MyLogger.game("Le minion gagne " + attackingMinion.getDP() + " HP en volant la vie !");
         }
         //Le minion attaquant est remis en mode sommeil
         attackingMinion.toSleepState();
@@ -254,9 +249,9 @@ public class Application {
     }
 
     private void instancierJoueurs(Application application) {
-        application.player1 = application.creerJoueur(1);
-        MyLogger.changementJoueur();
-        application.player2 = application.creerJoueur(2);
+        application.player1 = application.createPlayer(1);
+        MyLogger.switchPlayer();
+        application.player2 = application.createPlayer(2);
 
         int ordreJoueur = new Random().nextInt(2);
 
@@ -273,31 +268,30 @@ public class Application {
         }
     }
 
-    private Player creerJoueur(int id) {
-        MyLogger.jeu("Player " + id + ", Veuillez choisir un nom : ");
-        String nomJoueur = MyScanner.getString(sc);
-        Player player = new Player(nomJoueur);
-
-        MyLogger.jeu("Veuillez sélectionner la classe de votre héro : 1-Paladin 2-Guerrier 3-Mage");
+    private Player createPlayer(int id) {
+        MyLogger.game("Player " + id + ", Veuillez choisir un nom : ");
+        String playerName = MyScanner.getString(sc);
+        Player player = new Player(playerName);
+        MyLogger.game("Veuillez sélectionner la classe de votre héro : 1-Paladin 2-Guerrier 3-Mage");
 
         HeroFactory f = null;
         int herosInt = MyScanner.getInt(sc, 3);
         switch (herosInt) {
             case 1:
                 f = new PaladinFactory();
-                MyLogger.jeu("Vous avez sélectionné le paladin");
+                MyLogger.game("Vous avez sélectionné le paladin");
                 break;
             case 2:
                 f = new WarriorFactory();
-                MyLogger.jeu("Vous avez sélectionné le guerrier");
+                MyLogger.game("Vous avez sélectionné le guerrier");
                 break;
             case 3:
                 f = new MageFactory();
-                MyLogger.jeu("Vous avez sélectionné le mage");
+                MyLogger.game("Vous avez sélectionné le mage");
                 break;
             default:
-                MyLogger.jeu("Choix impossible, veuillez recommencer");
-                this.creerJoueur(id);
+                MyLogger.game("Choix impossible, veuillez recommencer");
+                this.createPlayer(id);
         }
         player.setHero(f.createHero());
 

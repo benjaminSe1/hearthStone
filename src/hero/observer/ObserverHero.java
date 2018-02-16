@@ -24,7 +24,7 @@ public class ObserverHero implements IObserverHero{
         this.AP = AP;
         this.MP = MP;
         if (this.HP <= 0) {
-           MyLogger.jeu("Vous avez gagné");
+            MyLogger.game("Vous avez gagné");
            System.exit(0);
        }
     }

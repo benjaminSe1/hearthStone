@@ -20,6 +20,6 @@ public class StateAttack extends State {
     }
 
     public String toString() {
-        return "Peut attaquer";
+        return "Peut attack";
     }
 }
