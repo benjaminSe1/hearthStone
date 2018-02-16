@@ -10,6 +10,11 @@ import java.util.ArrayList;
 
 public class BlessingOfMight implements Effect {
 
+    /**
+     * {@inheritDoc}
+     * @param p Le joueur qui active l'effet
+     * @param pOpponent l'adversaire du jouer p
+     */
     @Override
     public void activateEffect(Player p, Player pOpponent) {
         Board board = p.getBoard();

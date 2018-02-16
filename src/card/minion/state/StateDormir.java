@@ -5,19 +5,12 @@ import util.MyLogger;
 
 public class StateDormir extends State {
 
+    /**
+     * Constructeur De la classe StateDormir
+     * @param minion Le serviteur
+     */
     public StateDormir(Minion minion) {
         super(minion);
-    }
-
-    @Override
-    public void attack() {
-        minion.toStateReady();
-        MyLogger.info("Le serviteur peut attaquer");
-    }
-
-    @Override
-    public boolean canAttack() {
-        return false;
     }
 
     public String toString() {

@@ -10,6 +10,11 @@ import java.util.ArrayList;
 
 public class FireBlast implements EffectHero {
 
+    /**
+     * {@inheritDoc}
+     * @param p le hero qui active son pouvoir
+     * @param pOpponent l'adversaire du héro p
+     */
     @Override
     public void activateHeroEffect(Player p, Player pOpponent) {
         Board opponentBoard = pOpponent.getBoard();

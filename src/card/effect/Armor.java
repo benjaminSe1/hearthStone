@@ -5,6 +5,11 @@ import util.MyLogger;
 
 public class Armor implements EffectHero {
 
+    /**
+     * {@inheritDoc}
+     * @param p le hero qui active son pouvoir
+     * @param pOpponent l'adversaire du héro p
+     */
     @Override
     public void activateHeroEffect(Player p, Player pOpponent) {
         //Ajoute au héros allié 2 AP

@@ -6,6 +6,11 @@ import util.MyLogger;
 
 public class Reinforce implements EffectHero {
 
+    /**
+     * {@inheritDoc}
+     * @param p le hero qui active son pouvoir
+     * @param pOpponent l'adversaire du héro p
+     */
     @Override
     public void activateHeroEffect(Player p, Player pOpponent) {
         //Ajoute sur le board allié la carte renfort
