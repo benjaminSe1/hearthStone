@@ -71,7 +71,7 @@ public abstract class Hero implements Sujet {
 
     /**
      * Méthode permettant de mettre à jour la mana du Hero
-     * @param mp
+     * @param mp - Les points de mana
      */
     public void updateTurnMP(int mp) {
         this.setData(this.HP, this.AP, mp);
