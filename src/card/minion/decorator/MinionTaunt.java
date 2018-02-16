@@ -6,7 +6,7 @@ public class MinionTaunt extends Minion {
 
     Minion minion;
 
-    public MinionTaunt(Minion minion){
+    public MinionTaunt(Minion minion) {
         super(minion);
         this.minion = minion;
     }

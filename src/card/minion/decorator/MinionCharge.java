@@ -6,7 +6,7 @@ public class MinionCharge extends Minion {
 
     Minion minion;
 
-    public MinionCharge(Minion minion){
+    public MinionCharge(Minion minion) {
         super(minion);
         this.minion = minion;
         charge();

@@ -8,6 +8,6 @@ import card.minion.Minion;
 public class PublicDefender extends Minion {
 
     public PublicDefender() {
-        super("Avocat commis d'office", 2, 0 ,7);
+        super("Avocat commis d'office", 2, 0, 7);
     }
 }

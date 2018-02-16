@@ -1,23 +1,10 @@
-package util;
+package card;
 
-import java.util.ArrayList;
-
-import card.Card;
-import card.effect.ArcaneExplosion;
-import card.effect.BlessingOfMight;
-import card.effect.Consecration;
-import card.effect.Polymorph;
-import card.effect.ShieldBlock;
-import card.effect.Whirlwind;
+import card.effect.*;
 import card.minion.Minion;
-import card.minion.common.ChillwindYeti;
-import card.minion.common.GoldshireFootman;
-import card.minion.common.RaidLeader;
-import card.minion.common.StonetuskBoar;
-import card.minion.common.WolfRider;
+import card.minion.common.*;
 import card.minion.decorator.MinionCharge;
 import card.minion.decorator.MinionEnhanced;
-import card.minion.decorator.MinionTaunt;
 import card.minion.decorator.MinionLifeSteal;
 import card.minion.decorator.MinionTaunt;
 import card.minion.paladin.ChillbladeChampion;
@@ -26,6 +13,8 @@ import card.minion.special.MirrorImage;
 import card.minion.special.Sheep;
 import card.minion.warrior.PublicDefender;
 import card.spell.Spell;
+
+import java.util.ArrayList;
 
 public class CardList {
 

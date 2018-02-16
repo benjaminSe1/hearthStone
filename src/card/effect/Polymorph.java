@@ -1,10 +1,10 @@
 package card.effect;
 
-import board.Player;
 import board.Board;
+import board.Player;
+import card.CardList;
 import card.minion.Minion;
 import util.MyLogger;
-import util.CardList;
 import util.MyScanner;
 
 public class Polymorph implements Effect {

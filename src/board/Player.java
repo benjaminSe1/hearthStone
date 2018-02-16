@@ -1,14 +1,14 @@
 package board;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 import card.Card;
 import card.minion.Minion;
 import card.minion.MinionSimple;
 import card.spell.Spell;
 import hero.Hero;
 import util.MyLogger;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 public class Player {
     private String pseudo;

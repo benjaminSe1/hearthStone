@@ -1,7 +1,7 @@
 package card.effect;
 
 import board.Player;
-import util.CardList;
+import card.CardList;
 
 public class MirrorImage implements Effect {
 

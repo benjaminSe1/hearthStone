@@ -1,10 +1,10 @@
 package hero;
 
-import java.util.ArrayList;
-
 import card.Card;
+import card.CardList;
 import card.effect.Reinforce;
-import util.CardList;
+
+import java.util.ArrayList;
 
 public class Paladin extends Hero {
 

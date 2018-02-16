@@ -43,34 +43,34 @@ public abstract class Minion implements Card {
 
     public int getHP() {
         return HP;
-        }
-
-    public int getDP() {
-        return DP;
-        }
-
-    public int getMP() {
-        return MP;
-        }
-
-    public String getName() {
-        return name;
-        }
-
-    public void setMP(int MP) {
-        this.MP = MP;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public void setHP(int HP) {
         this.HP = HP;
     }
 
+    public int getDP() {
+        return DP;
+    }
+
     public void setDP(int DP) {
         this.DP = DP;
+    }
+
+    public int getMP() {
+        return MP;
+    }
+
+    public void setMP(int MP) {
+        this.MP = MP;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public boolean isAwaken() {
@@ -79,23 +79,23 @@ public abstract class Minion implements Card {
 
     public String toString() {
         return "Serviteur [" + name + " - " + MP + "/" + DP + "/" + HP + " - " + stateCurrent + "]";
-        }
+    }
 
     public void removeHP(int HP) {
         setData(this.HP - HP, this.DP);
-        }
+    }
 
     public void addHP(int HP) {
         setData(this.HP + HP, this.DP);
-        }
+    }
 
     public void removeDP(int DP) {
         setData(this.HP, (this.DP - DP >= 0 ? this.DP - DP : 0));
-        }
+    }
 
     public void addDP(int DP) {
         setData(this.HP, this.DP + DP);
-        }
+    }
 
     //méthodes du state
 
@@ -105,7 +105,7 @@ public abstract class Minion implements Card {
 
     public void toStateSleep() {
         stateCurrent = stateSleep;
-        }
+    }
 
     public void setData(int HP, int DP) {
         this.HP = HP;

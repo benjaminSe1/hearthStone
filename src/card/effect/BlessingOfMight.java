@@ -1,7 +1,7 @@
 package card.effect;
 
-import board.Player;
 import board.Board;
+import board.Player;
 import card.minion.Minion;
 import util.MyLogger;
 import util.MyScanner;

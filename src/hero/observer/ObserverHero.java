@@ -3,7 +3,7 @@ package hero.observer;
 
 import util.MyLogger;
 
-public class ObserverHero implements IObserverHero{
+public class ObserverHero implements IObserverHero {
 
     private Sujet heroData;
 
@@ -25,8 +25,8 @@ public class ObserverHero implements IObserverHero{
         this.MP = MP;
         if (this.HP <= 0) {
             MyLogger.game("Vous avez gagné");
-           System.exit(0);
-       }
+            System.exit(0);
+        }
     }
 
 }

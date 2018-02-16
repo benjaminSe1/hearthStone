@@ -1,7 +1,5 @@
 package hero;
 
-import java.util.ArrayList;
-
 import board.Player;
 import card.Card;
 import card.effect.EffectHero;
@@ -9,6 +7,8 @@ import hero.observer.Observer;
 import hero.observer.ObserverHero;
 import hero.observer.Sujet;
 import util.MyLogger;
+
+import java.util.ArrayList;
 
 public abstract class Hero implements Sujet {
 
@@ -67,7 +67,7 @@ public abstract class Hero implements Sujet {
     }
 
     public void attachObs(Observer o) {
-        if(o instanceof ObserverHero){
+        if (o instanceof ObserverHero) {
             observers.add((ObserverHero) o);
         } else {
             MyLogger.error("l'observeur n'a pas pu être ajouté");
@@ -76,7 +76,7 @@ public abstract class Hero implements Sujet {
 
     @Override
     public void detachObs(Observer o) {
-        if(o instanceof ObserverHero){
+        if (o instanceof ObserverHero) {
             observers.remove((ObserverHero) o);
         } else {
             MyLogger.error("l'observeur n'a pas pu être supprimé");
@@ -85,7 +85,7 @@ public abstract class Hero implements Sujet {
 
     @Override
     public void notifyObs() {
-        for(ObserverHero o : this.observers){
+        for (ObserverHero o : this.observers) {
             o.update(HP, AP, MP);
         }
     }

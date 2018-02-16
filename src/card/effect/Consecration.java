@@ -1,11 +1,11 @@
 package card.effect;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
 import board.Player;
 import card.minion.Minion;
 import util.MyLogger;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Consecration implements Effect {
 

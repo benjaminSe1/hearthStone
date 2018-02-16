@@ -1,10 +1,10 @@
 package board;
 
-import java.util.ArrayList;
-
 import card.Card;
 import card.minion.Minion;
 import util.MyLogger;
+
+import java.util.ArrayList;
 
 public class Board {
 

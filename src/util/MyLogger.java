@@ -1,7 +1,6 @@
 package util;
 
 
-
 public class MyLogger {
 
     public static void info(String message) {

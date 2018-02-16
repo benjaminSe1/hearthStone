@@ -1,7 +1,7 @@
 package card.effect;
 
 import board.Player;
-import util.CardList;
+import card.CardList;
 import util.MyLogger;
 
 public class Reinforce implements EffectHero {

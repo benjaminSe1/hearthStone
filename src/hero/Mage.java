@@ -1,10 +1,10 @@
 package hero;
 
-import java.util.ArrayList;
-
 import card.Card;
+import card.CardList;
 import card.effect.FireBlast;
-import util.CardList;
+
+import java.util.ArrayList;
 
 public class Mage extends Hero {
 

@@ -1,8 +1,5 @@
 package application;
 
-import java.util.Random;
-import java.util.Scanner;
-
 import board.Player;
 import card.Card;
 import card.minion.Minion;
@@ -13,6 +10,9 @@ import hero.factory.PaladinFactory;
 import hero.factory.WarriorFactory;
 import util.MyLogger;
 import util.MyScanner;
+
+import java.util.Random;
+import java.util.Scanner;
 
 public class Application {
     private static Scanner sc = new Scanner(System.in);
@@ -206,7 +206,7 @@ public class Application {
     /**
      * Méthode pour attaquer une carte de l'adversaire
      *
-     * @param p          Joueur attaquant
+     * @param p        Joueur attaquant
      * @param opponent Joueur attaqué
      */
     private void attack(Player p, Player opponent) {
@@ -294,9 +294,7 @@ public class Application {
                 MyLogger.game("Choix impossible, veuillez recommencer");
                 this.createPlayer(id);
         }
-        if (f != null) {
-            player.setHero(f.createHero());
-        }
+        player.setHero(f.createHero());
         return player;
     }
 }
