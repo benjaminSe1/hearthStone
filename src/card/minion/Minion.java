@@ -95,39 +95,74 @@ public abstract class Minion implements Card {
 
     //méthodes du state
 
+    /**
+     * Méthode qui permet de changer l'etat d'un serviteur pour le passer en stateReady
+     */
     public void toStateReady() {
         stateCurrent = stateReady;
     }
 
+    /**
+     * Méthode qui permet de changer l'etat d'un serviteur pour le passer en stateSleep
+     */
     public void toStateSleep() {
         stateCurrent = stateSleep;
     }
 
+    /**
+     * Méthode qui permet de mettre à jour les données d'un serviteur
+     * @param HP - Les nouveaux points de vie du serviteur
+     * @param DP - Les nouveaux points de dégats du serviteur
+     */
     public void setData(int HP, int DP) {
         this.HP = HP;
         this.DP = DP;
     }
 
+    /**
+     * Méthode à ré-implémenter par les décorateurs pour activer les effets des serviteurs
+     * @return false de base, le serviteur basique n'a pas d'effet
+     */
     public boolean charge() {
         return false;
     }
 
+    /**
+     * Méthode à ré-implémenter par les décorateurs pour activer les effets des serviteurs
+     * @return false de base, le serviteur basique n'a pas d'effet
+     */
     public boolean stealLife() {
         return false;
     }
 
+    /**
+     * Méthode à ré-implémenter par les décorateurs pour activer les effets des serviteurs
+     * @return false de base, le serviteur basique n'a pas d'effet
+     */
     public boolean enhance() {
         return false;
     }
 
+    /**
+     * Méthode à ré-implémenter par les décorateurs pour activer les effets des serviteurs
+     * @return false de base, le serviteur basique n'a pas d'effet
+     */
     public boolean taunt() {
         return false;
     }
 
+    /**
+     * Méthode à ré-implémenter par les décorateurs pour activer les effets des serviteurs
+     * @return false de base, le serviteur basique n'a pas d'effet
+     */
     public boolean isSpell() {
         return false;
     }
 
+    /**
+     * Méthode à ré-implémenter par les décorateurs pour activer les effets des serviteurs
+     * @return false de base, le serviteur basique n'a pas d'effet
+     */
     public boolean isMinion() {
         return true;
     }

@@ -4,6 +4,12 @@ import java.util.Scanner;
 
 public class MyScanner {
 
+    /**
+     * Méthode du Scanner permettant de récupérer un int entré par l'utilisateur
+     * @param sc - Le scanner
+     * @param limit - La valeur maximale que l'utilisateur peut saisir
+     * @return result - Le resultat
+     */
     public static int getInt(Scanner sc, int limit) {
         MyLogger.game("Entrez un nombre entre 1 et " + limit);
         int result;
@@ -22,6 +28,11 @@ public class MyScanner {
         return result;
     }
 
+    /**
+     * Méthode du Scanner permettant de récupérer une chaine de caracteres entré par l'utilisateur
+     * @param sc - Le scanner
+     * @return result - Le résultat
+     */
     public static String getString(java.util.Scanner sc) {
         String result;
         while (true) {

@@ -1,8 +1,19 @@
 package card;
 
-import card.effect.*;
+import java.util.ArrayList;
+
+import card.effect.ArcaneExplosion;
+import card.effect.BlessingOfMight;
+import card.effect.Consecration;
+import card.effect.Polymorph;
+import card.effect.ShieldBlock;
+import card.effect.Whirlwind;
 import card.minion.Minion;
-import card.minion.common.*;
+import card.minion.common.ChillwindYeti;
+import card.minion.common.GoldshireFootman;
+import card.minion.common.RaidLeader;
+import card.minion.common.StonetuskBoar;
+import card.minion.common.WolfRider;
 import card.minion.decorator.MinionCharge;
 import card.minion.decorator.MinionEnhanced;
 import card.minion.decorator.MinionLifeSteal;
@@ -14,8 +25,9 @@ import card.minion.special.Sheep;
 import card.minion.warrior.PublicDefender;
 import card.spell.Spell;
 
-import java.util.ArrayList;
-
+/**
+ * Classe permettant d'instancier les serviteurs
+ */
 public class CardList {
 
     public static ArrayList<Card> commonCards = new ArrayList<>();
@@ -63,6 +75,5 @@ public class CardList {
         warriorCards.add(publicDefender);
         Spell spell7 = new Spell("Maîtrise du blocage", 3, new ShieldBlock());
         warriorCards.add(spell7);
-
     }
 }
