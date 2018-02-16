@@ -11,7 +11,7 @@ public class StateDormir extends State {
 
     @Override
     public void attack() {
-        minion.toSleepReady();
+        minion.toStateReady();
         MyLogger.info("Le serviteur peut attaquer");
     }
 

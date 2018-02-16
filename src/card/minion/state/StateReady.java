@@ -3,14 +3,15 @@ package card.minion.state;
 import card.minion.Minion;
 import util.MyLogger;
 
-public class StateAttack extends State {
-    public StateAttack(Minion minion) {
+public class StateReady extends State {
+
+    public StateReady(Minion minion) {
         super(minion);
     }
 
     @Override
     public void sleep() {
-        minion.toSleepState();
+        minion.toStateSleep();
         MyLogger.info("Le serviteur dort.");
     }
 

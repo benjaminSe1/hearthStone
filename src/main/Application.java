@@ -199,7 +199,7 @@ public class Application {
             MyLogger.game("Le minion gagne " + attackingMinion.getDP() + " HP en volant la vie !");
         }
         //Changement etat minion
-        attackingMinion.toSleepState();
+        attackingMinion.toStateSleep();
     }
 
     /**
@@ -244,7 +244,7 @@ public class Application {
             MyLogger.game("Le minion gagne " + attackingMinion.getDP() + " HP en volant la vie !");
         }
         //Le minion attaquant est remis en mode sommeil
-        attackingMinion.toSleepState();
+        attackingMinion.toStateSleep();
 
     }
 

@@ -10,7 +10,7 @@ public abstract class MinionDecorator extends Minion {
     Minion minion;
 
     public MinionDecorator(Minion minion){
-        super(minion.getName(), minion.getMP(), minion.getDP(), minion.getHP());
+        super(minion);
         this.minion = minion;
     }
 }

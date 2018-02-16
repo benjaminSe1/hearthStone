@@ -7,7 +7,7 @@ public class MinionTaunt extends Minion {
     Minion minion;
 
     public MinionTaunt(Minion minion){
-        super(minion.getName(), minion.getMP(), minion.getDP(), minion.getHP());
+        super(minion);
         this.minion = minion;
     }
 

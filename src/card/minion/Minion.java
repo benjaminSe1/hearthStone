@@ -2,8 +2,8 @@ package card.minion;
 
 import card.Card;
 import card.minion.state.State;
-import card.minion.state.StateAttack;
 import card.minion.state.StateDormir;
+import card.minion.state.StateReady;
 
 public abstract class Minion implements Card {
 
@@ -16,27 +16,29 @@ public abstract class Minion implements Card {
     private int DP;
 
     private State stateSleep;
-    private State stateAttack;
-    private State stateCurrent;
+
+    private State stateReady;
+
+    private State stateCurrent = stateSleep;
 
     public Minion(String name, int MP, int DP, int HP) {
         this.MP = MP;
         this.name = name;
         //init du state
-        this.stateAttack = new StateAttack(this);
+        this.stateReady = new StateReady(this);
         this.stateSleep = new StateDormir(this);
         this.stateCurrent = this.stateSleep;
         setData(HP, DP);
     }
 
-    public Minion() {
-        this.MP = MP;
-        this.name = name;
+    public Minion(Minion minion) {
+        this.MP = minion.getMP();
+        this.name = minion.getName();
         //init du state
-        this.stateAttack = new StateAttack(this);
+        this.stateReady = new StateReady(this);
         this.stateSleep = new StateDormir(this);
         this.stateCurrent = this.stateSleep;
-        setData(HP, DP);
+        setData(minion.getHP(), minion.getDP());
     }
 
     public int getHP() {
@@ -73,7 +75,7 @@ public abstract class Minion implements Card {
 
     public boolean isAwaken() {
         return stateCurrent.canAttack();
-        }
+    }
 
     public String toString() {
         return "Serviteur [" + name + " - " + MP + "/" + DP + "/" + HP + " - " + stateCurrent + "]";
@@ -97,11 +99,11 @@ public abstract class Minion implements Card {
 
     //méthodes du state
 
-    public void toSleepReady() {
-        stateCurrent = stateAttack;
-        }
+    public void toStateReady() {
+        stateCurrent = stateReady;
+    }
 
-    public void toSleepState() {
+    public void toStateSleep() {
         stateCurrent = stateSleep;
         }
 

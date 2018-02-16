@@ -7,7 +7,7 @@ public class MinionLifeSteal extends Minion {
     Minion minion;
 
     public MinionLifeSteal(Minion minion){
-        super(minion.getName(), minion.getMP(), minion.getDP(), minion.getHP());
+        super(minion);
         this.minion = minion;
     }
 

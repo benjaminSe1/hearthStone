@@ -7,13 +7,14 @@ public class MinionCharge extends Minion {
     Minion minion;
 
     public MinionCharge(Minion minion){
-        super(minion.getName(), minion.getMP(), minion.getDP(), minion.getHP());
+        super(minion);
         this.minion = minion;
+        charge();
     }
 
     @Override
     public boolean charge() {
-        super.charge();
+        this.minion.toStateReady();
         return true;
     }
 
