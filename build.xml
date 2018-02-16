@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="hearthStone" default="main" basedir=".">
+    <property name="src.dir" value="src"/>
+    <property name="build.dir" value="build"/>
+    <property name="classes.dir" value="build/classes"/>
+    <property name="jar.dir" value="build/jar"/>
+    <property name="javadoc.dir" value="${build.dir}/javadoc"/>
+
+    <!-- Nouvelle target clean -->
+    <target name="clean" description="Supprime le répertoire build">
+        <!-- Supprime le répertoire build -->
+        <delete dir="${build.dir}"/>
+    </target>
+
+    <!-- Nouvelle target compile -->
+    <target name="compile" depends="clean" description="Créer le répertoire build/classes, compile les fichiers contenu dans src et mets les classes dans build/classes">
+        <!-- Créer le répertoire build/classes -->
+        <mkdir dir="${build.dir}/classes"/>
+        <!-- Compile les fichiers dans src et place les classes dans build/classes -->
+        <javac srcdir="src" destdir="${build.dir}/classes"/>
+    </target>
+
+    <!-- Nouvelle target jar -->
+    <target name="jar" depends="compile"
+            description="créer le répertoire build/jar, créer un fichier jar hearthStone.jar dans le répertoire build/jar et y ajoute les fichiers contenus dans build/classes. Ensuite, créer un fichier manifest avec un attribut name Main-Class et value com.rpouiller.Operations">
+        <!-- Créer le répertoire build/jar -->
+        <mkdir dir="${jar.dir}"/>
+        <!-- Créer un fichier jar dans build/jar nommé hearthStone.jar, et place les fichiers contenus dans build/classes dedans-->
+        <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${build.dir}/classes">
+            <!-- Créer un fichier manifest -->
+            <manifest>
+                <!-- Ajoute un attribut dans le fichier manifest -->
+                <attribute name="main-class" value="application.Application"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <!-- Nouvelle target javadoc-->
+    <target name="javadoc" depends="jar" description="Génération de la documentation Javadoc">
+        <javadoc sourcepath="${src.dir}"
+                 destdir="${build.dir}/javadoc"
+                 packagenames="*"
+                 author="true"
+                 version="true"
+                 use="true"
+                 access="private"
+                 linksource="true"
+                 windowtitle="${ant.project.name} API">
+            <classpath>
+                <pathelement location="${jar.dir}/${ant.project.name}.jar"/>
+            </classpath>
+            <doctitle><![CDATA[<h1>${ant.project.name}</h1>]]></doctitle>
+            <bottom><![CDATA[<i>Copyright &#169; 2000 Dummy Corp. All Rights Reserved.</i>]]>
+            </bottom>
+            <tag name="todo" scope="all" description="To do:"/>
+            <group title="Group 1 Packages" packages="com.dummy.test.a*"/>
+            <group title="Group 2 Packages" packages="com.dummy.test.b*:com.dummy.test.c*"/>
+            <link offline="true" href="http://java.sun.com/j2se/1.5.0/docs/api/" packagelistLoc="C:\tmp"/>
+            <link href="http://developer.java.sun.com/developer/products/xml/docs/api/"/>
+        </javadoc>
+    </target>
+
+    <!-- Nouvelle target run -->
+    <target name="run" depends="javadoc" description="exécute le programme contenu dans le jar, dans une autre machine virtuelle grâce à l'option fork activée">
+        <!-- Exécute le programme contenu dans hearthStone.jar, dans une autre machine virtuelle -->
+        <!-- <java jar="build/jar/${ant.project.name}.jar" fork="true" -->
+
+        <java classname="application.Application"
+              fork="true">
+            <classpath>
+                <pathelement location="${jar.dir}/${ant.project.name}.jar"/>
+                <pathelement location="${src.dir}"/>
+                <pathelement path="${java.class.path}"/>
+            </classpath>
+        </java>
+    </target>
+</project>
