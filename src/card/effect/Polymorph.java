@@ -1,10 +1,10 @@
 package card.effect;
 
-import board.Board;
 import board.Player;
+import board.Board;
 import card.minion.Minion;
-import util.CardList;
 import util.MyLogger;
+import util.CardList;
 import util.MyScanner;
 
 public class Polymorph implements Effect {
@@ -21,7 +21,7 @@ public class Polymorph implements Effect {
         int idCard = MyScanner.getInt(new java.util.Scanner(System.in), opponentBoard.getBoardMinions().size());
         Minion s = opponentBoard.getBoardMinions().get(idCard);
         opponentBoard.removeMinion(s);
-        opponentBoard.addMinion(CardList.carteMetamorphose);
+        opponentBoard.addMinion(CardList.sheep);
         MyLogger.game("Le serviteur " + s.getName() + " a été transformé en minion 1/1");
 
     }

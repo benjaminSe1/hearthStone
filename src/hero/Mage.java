@@ -14,7 +14,7 @@ public class Mage extends Hero {
 
     @Override
     public ArrayList<Card> getHeroCards() {
-        return CardList.cartesMage;
+        return CardList.mageCards;
     }
 
     @Override

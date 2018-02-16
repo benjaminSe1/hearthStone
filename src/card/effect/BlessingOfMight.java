@@ -1,12 +1,12 @@
 package card.effect;
 
-import java.util.ArrayList;
-
-import board.Board;
 import board.Player;
+import board.Board;
 import card.minion.Minion;
 import util.MyLogger;
 import util.MyScanner;
+
+import java.util.ArrayList;
 
 public class BlessingOfMight implements Effect {
 

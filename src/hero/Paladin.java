@@ -14,7 +14,7 @@ public class Paladin extends Hero {
 
     @Override
     public ArrayList<Card> getHeroCards() {
-        return CardList.cartesPaladin;
+        return CardList.paladinCards;
     }
 
     @Override

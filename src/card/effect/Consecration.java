@@ -18,11 +18,11 @@ public class Consecration implements Effect {
             s.setData(s.getHP() - 2, s.getDP());
             if (s.getHP() <= 0) {
                 it.remove();
-                MyLogger.info("Le serviteur " + s.getName() + " a été tué");
+                MyLogger.game("Le serviteur " + s.getName() + " a été tué");
             }
         }
         pOpponent.getBoard().setMinions(boardMinionsOpponent);
-        MyLogger.info("Les serviteurs adverses ont perdus 2 HP");
+        MyLogger.game("Les serviteurs adverses ont perdus 2 HP");
     }
 
 }

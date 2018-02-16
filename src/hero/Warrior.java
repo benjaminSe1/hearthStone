@@ -12,9 +12,10 @@ public class Warrior extends Hero {
         super(HP, AP, MP, new Armor());
     }
 
+
     @Override
     public ArrayList<Card> getHeroCards() {
-        return CardList.cartesGuerrier;
+        return CardList.warriorCards;
     }
 
     @Override

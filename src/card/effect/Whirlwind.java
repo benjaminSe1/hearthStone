@@ -1,11 +1,11 @@
 package card.effect;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
 import board.Player;
 import card.minion.Minion;
 import util.MyLogger;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Whirlwind implements Effect {
 
@@ -34,7 +34,7 @@ public class Whirlwind implements Effect {
             }
         }
         pOpponent.getBoard().setMinions(boardOpponentMinions);
-        MyLogger.info("Les serviteurs de votre adversaire ont perdu 1 HP");
+        MyLogger.game("Les serviteurs de votre adversaire ont perdu 1 HP");
     }
 
 }

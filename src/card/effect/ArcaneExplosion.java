@@ -15,7 +15,7 @@ public class ArcaneExplosion implements Effect {
                 MyLogger.info("Le serviteur " + s.getName() + " a été tué");
             }
         }
-        MyLogger.info("Les serviteurs adverses ont perdus 1 HP");
+        MyLogger.game("Les minions adverses ont perdus 1 PV");
     }
 
 }
