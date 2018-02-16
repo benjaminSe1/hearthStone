@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import card.Card;
-import card.minion.Serviteur;
-import card.minion.ServiteurSimple;
-import card.spell.Sort;
+import card.minion.Minion;
+import card.minion.MinionSimple;
+import card.spell.Spell;
 import hero.Hero;
 import util.MyLogger;
 
@@ -61,7 +61,7 @@ public class Player {
         this.mainJoueur.remove(card);
         this.getHero().supprimerPM(card.getPM());
         if (card.isServiteur()) {
-            this.getBoard().ajouterCarte((Serviteur) card);
+            this.getBoard().ajouterCarte((Minion) card);
         }
     }
 
@@ -102,11 +102,11 @@ public class Player {
         Card tmp = cards.get((new Random()).nextInt(cards.size()));
 
         if (tmp.isServiteur()) {
-            Serviteur tympServ = (Serviteur) tmp;
-            tmp = new ServiteurSimple(tympServ.getNom(), tympServ.getPM(), tympServ.getPD(), tympServ.getPV());
+            Minion tympServ = (Minion) tmp;
+            tmp = new MinionSimple(tympServ.getNom(), tympServ.getPM(), tympServ.getPD(), tympServ.getPV());
         } else {
-            Sort tmpSort = (Sort) tmp;
-            tmp = new Sort(tmpSort.getNom(), tmpSort.getPM(), tmpSort.getEffet());
+            Spell tmpSpell = (Spell) tmp;
+            tmp = new Spell(tmpSpell.getNom(), tmpSpell.getPM(), tmpSpell.getEffect());
         }
         return tmp;
     }

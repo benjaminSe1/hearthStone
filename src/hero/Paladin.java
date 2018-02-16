@@ -3,18 +3,18 @@ package hero;
 import java.util.ArrayList;
 
 import card.Card;
-import card.effect.Renfort;
-import util.ListCartes;
+import card.effect.Reinforce;
+import util.CardList;
 
 public class Paladin extends Hero {
 
     public Paladin(int PV, int PA, int PM) {
-        super(PV, PA, PM, new Renfort());
+        super(PV, PA, PM, new Reinforce());
     }
 
     @Override
     public ArrayList<Card> getCartesHeros() {
-        return ListCartes.cartesPaladin;
+        return CardList.cartesPaladin;
     }
 
     @Override

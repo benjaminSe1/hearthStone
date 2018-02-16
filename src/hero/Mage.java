@@ -3,18 +3,18 @@ package hero;
 import java.util.ArrayList;
 
 import card.Card;
-import card.effect.BouleFeu;
-import util.ListCartes;
+import card.effect.FireBlast;
+import util.CardList;
 
 public class Mage extends Hero {
 
     public Mage(int PV, int PA, int PM) {
-        super(PV, PA, PM, new BouleFeu());
+        super(PV, PA, PM, new FireBlast());
     }
 
     @Override
     public ArrayList<Card> getCartesHeros() {
-        return ListCartes.cartesMage;
+        return CardList.cartesMage;
     }
 
     @Override

@@ -4,25 +4,25 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import board.Player;
-import card.minion.Serviteur;
+import card.minion.Minion;
 import util.MyLogger;
 
-public class Consecration implements Effet {
+public class Consecration implements Effect {
 
     @Override
     public void activerEffet(Player j, Player jAdversaire) {
-        ArrayList<Serviteur> servTerrain = jAdversaire.getBoard().getServiteursTerrain();
-        Iterator<Serviteur> it = servTerrain.iterator();
+        ArrayList<Minion> servTerrain = jAdversaire.getBoard().getServiteursTerrain();
+        Iterator<Minion> it = servTerrain.iterator();
         while (it.hasNext()) {
-            Serviteur s = it.next();
+            Minion s = it.next();
             s.setDonnees(s.getPV() - 2, s.getPD());
             if (s.getPV() <= 0) {
                 it.remove();
                 MyLogger.info("Le minion " + s.getNom() + " a été tué");
             }
         }
-        jAdversaire.getBoard().setServiteurs(servTerrain);
-        MyLogger.info("Les serviteurs adverses ont perdus 2 PV");
+        jAdversaire.getBoard().setMinions(servTerrain);
+        MyLogger.info("Les minions adverses ont perdus 2 PV");
     }
 
 }

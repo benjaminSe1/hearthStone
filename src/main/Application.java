@@ -5,8 +5,8 @@ import java.util.Scanner;
 
 import board.Player;
 import card.Card;
-import card.minion.Serviteur;
-import card.spell.Sort;
+import card.minion.Minion;
+import card.spell.Spell;
 import hero.factory.GuerrierFactory;
 import hero.factory.HeroFactory;
 import hero.factory.MageFactory;
@@ -140,20 +140,20 @@ public class Application {
             Card card = j.getCartesMain().get(idCarte - 1);
             //Si la card est un minion
             if (card.isServiteur()) {
-                Serviteur serviteur = (Serviteur) card;
+                Minion minion = (Minion) card;
                 //Si le héro a suffisemment de mana
-                if (j.canPlayCard(serviteur)) {
+                if (j.canPlayCard(minion)) {
                     //On peut poser la card et l'ajouter au terrain
                     j.poserCarteMain(card);
                 }
                 //Si la card est un spell
             } else if (card.isSort()) {
-                Sort sort = (Sort) card;
+                Spell spell = (Spell) card;
                 //Si le héro a suffisemment de mana
-                if (j.canPlayCard(sort)) {
+                if (j.canPlayCard(spell)) {
                     //on peut poser la card et activer l'effet
                     j.poserCarteMain(card);
-                    sort.getEffet().activerEffet(j, adversaire);
+                    spell.getEffect().activerEffet(j, adversaire);
                 }
             }
         }
@@ -161,7 +161,7 @@ public class Application {
 
 
     public void prepaAttaque(Player j, Player adversaire) {
-        //Si le héro à des serviteurs pouvant attaquer
+        //Si le héro à des minions pouvant attaquer
         if (j.getBoard().contientCarteReveille()) {
             //Si le héro adverse n'a pas de card possedant l'effet provocation
             if (!adversaire.getBoard().contientCarteProvocation()) {
@@ -195,20 +195,20 @@ public class Application {
 
         //récupération du servietur sélectionné
         int idCarteAttaquante = MyScanner.getInt(sc, jAttaquant.getBoard().getServiteursReveillesTerrain().size());
-        Serviteur serviteurAttaquant = jAttaquant.getBoard().getServiteursReveillesTerrain().get(idCarteAttaquante - 1);
+        Minion attackingMinion = jAttaquant.getBoard().getServiteursReveillesTerrain().get(idCarteAttaquante - 1);
 
         //Supression des points de vie du héro attaqué
-        adversaire.getHero().supprimerPV(serviteurAttaquant.getPD());
-        MyLogger.jeu("Le héro adverse a perdu " + serviteurAttaquant.getPD() + " PV !");
+        adversaire.getHero().supprimerPV(attackingMinion.getPD());
+        MyLogger.jeu("Le héro adverse a perdu " + attackingMinion.getPD() + " PV !");
 
         //Si minion attaquant possède effet vol de vie, on lui redonne les PV correspondant à son attaque
-        if (serviteurAttaquant.volerVie()) {
-            serviteurAttaquant.ajouterPV(serviteurAttaquant.getPD());
-            MyLogger.jeu("Le minion gagne " + serviteurAttaquant.getPD() + " PV en volant la vie !");
+        if (attackingMinion.volerVie()) {
+            attackingMinion.ajouterPV(attackingMinion.getPD());
+            MyLogger.jeu("Le minion gagne " + attackingMinion.getPD() + " PV en volant la vie !");
         }
 
         //Changement etat minion
-        serviteurAttaquant.changerEtatDormir();
+        attackingMinion.changerEtatDormir();
     }
 
     /**
@@ -225,42 +225,42 @@ public class Application {
 
         //Et a récupérer la card que le joueur souhaite attaquer
         int idCarteAttaquee = MyScanner.getInt(sc, adversaire.getBoard().getServiteursAttaquePossible().size());
-        Serviteur serviteurAttaque = adversaire.getBoard().getServiteursTerrain().get(idCarteAttaquee - 1);
+        Minion attackedMinion = adversaire.getBoard().getServiteursTerrain().get(idCarteAttaquee - 1);
 
-        // On afficher ensuite les serviteurs pouvant être utiliser pour attaquer
+        // On afficher ensuite les minions pouvant être utiliser pour attaquer
         MyLogger.jeu("Veuillez choisir la card pour attaquer : ");
         int i = 1;
-        for (Serviteur s : j.getBoard().getServiteursReveillesTerrain()) {
+        for (Minion s : j.getBoard().getServiteursReveillesTerrain()) {
             MyLogger.jeu(i + " - " + s.toString());
             i++;
         }
 
         //Et on récupère le minion choisit par le joueur pour attaquer
         int idCarteAttaquante = MyScanner.getInt(sc, j.getBoard().getServiteursReveillesTerrain().size());
-        Serviteur serviteurAttaquant = j.getBoard().getServiteursReveillesTerrain().get(idCarteAttaquante - 1);
+        Minion attackingMinion = j.getBoard().getServiteursReveillesTerrain().get(idCarteAttaquante - 1);
 
-        serviteurAttaquant.setPV(serviteurAttaquant.getPV() - serviteurAttaque.getPD());
+        attackingMinion.setPV(attackingMinion.getPV() - attackedMinion.getPD());
         //si minion attaquant n'a plus de pv, il meurt
-        if (serviteurAttaquant.getPV() <= 0) {
-            j.getBoard().supprimerCarte(serviteurAttaquant);
-            MyLogger.jeu("Le minion " + serviteurAttaquant.getNom() + " a été tué");
+        if (attackingMinion.getPV() <= 0) {
+            j.getBoard().supprimerCarte(attackingMinion);
+            MyLogger.jeu("Le minion " + attackingMinion.getNom() + " a été tué");
         }
 
-        serviteurAttaque.setPV(serviteurAttaque.getPV() - serviteurAttaquant.getPD());
+        attackedMinion.setPV(attackedMinion.getPV() - attackingMinion.getPD());
         //si minion attaquant n'a plus de pv, il meurt
-        if (serviteurAttaque.getPV() <= 0) {
-            adversaire.getBoard().supprimerCarte(serviteurAttaque);
-            MyLogger.jeu("Le minion " + serviteurAttaque.getNom() + " a été tué");
+        if (attackedMinion.getPV() <= 0) {
+            adversaire.getBoard().supprimerCarte(attackedMinion);
+            MyLogger.jeu("Le minion " + attackedMinion.getNom() + " a été tué");
         }
 
 
         //Si le minion attaquant a l'effet vol de vie, il récupère les PV correspondant à son attaque
-        if (serviteurAttaquant.volerVie()) {
-            serviteurAttaquant.ajouterPV(serviteurAttaquant.getPD());
-            MyLogger.jeu("Le minion gagne " + serviteurAttaquant.getPD() + " PV en volant la vie !");
+        if (attackingMinion.volerVie()) {
+            attackingMinion.ajouterPV(attackingMinion.getPD());
+            MyLogger.jeu("Le minion gagne " + attackingMinion.getPD() + " PV en volant la vie !");
         }
         //Le minion attaquant est remis en mode sommeil
-        serviteurAttaquant.changerEtatDormir();
+        attackingMinion.changerEtatDormir();
 
     }
 

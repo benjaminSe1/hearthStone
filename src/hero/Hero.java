@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import board.Player;
 import card.Card;
-import card.effect.EffetHeros;
+import card.effect.EffectHero;
 import util.MyLogger;
 import hero.observer.ObserverHero;
 import hero.observer.Observer;
@@ -14,10 +14,10 @@ public abstract class Hero implements Sujet {
     protected int PV; //Points de vie
     protected int PA; // Point d'armure
     protected int PM; //Points de mana
-    protected EffetHeros effet;
+    protected EffectHero effet;
     protected ArrayList<ObserverHero> observers;
 
-    public Hero(int PV, int PA, int PM, EffetHeros effet) {
+    public Hero(int PV, int PA, int PM, EffectHero effet) {
         this.effet = effet;
         this.observers = new ArrayList<>();
         ObserverHero o = new ObserverHero(this);
@@ -40,7 +40,7 @@ public abstract class Hero implements Sujet {
         this.PM = pm;
     }
 
-    public EffetHeros getEffet() {
+    public EffectHero getEffet() {
         return effet;
     }
 

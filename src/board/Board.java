@@ -3,76 +3,76 @@ package board;
 import java.util.ArrayList;
 
 import card.Card;
-import card.minion.Serviteur;
+import card.minion.Minion;
 import util.MyLogger;
 
 public class Board {
 
-    public ArrayList<Serviteur> serviteurs;
+    public ArrayList<Minion> minions;
     private int nbEncouragements;
 
     public Board() {
-        this.serviteurs = new ArrayList<>();
+        this.minions = new ArrayList<>();
         this.nbEncouragements = 0;
     }
 
-    public void ajouterCarte(Serviteur serviteur) {
-        if (serviteur.charger()) {
-            serviteur.changerEtatAttaquer();
+    public void ajouterCarte(Minion minion) {
+        if (minion.charger()) {
+            minion.changerEtatAttaquer();
         }
-        this.serviteurs.add(serviteur);
+        this.minions.add(minion);
     }
 
-    public void supprimerCarte(Serviteur serviteur) {
-        this.serviteurs.remove(serviteur);
+    public void supprimerCarte(Minion minion) {
+        this.minions.remove(minion);
     }
 
-    public ArrayList<Serviteur> getServiteursTerrain() {
-        return serviteurs;
+    public ArrayList<Minion> getServiteursTerrain() {
+        return minions;
     }
 
 
     public void afficherTerrain() {
         int i = 1;
-        for (Card c : serviteurs) {
+        for (Card c : minions) {
             MyLogger.jeu(i + " - " + c.toString());
             i++;
         }
     }
 
     public void reveillerTerrain() {
-        for (Serviteur s : serviteurs) {
+        for (Minion s : minions) {
             s.changerEtatAttaquer();
         }
     }
 
     public void activerEncouragement() {
         int encouragementRefresh = 0;
-        for (Serviteur s : serviteurs) {
+        for (Minion s : minions) {
             if (s.encourager()) {
                 encouragementRefresh++;
             }
         }
-        for (Serviteur s : serviteurs) {
+        for (Minion s : minions) {
             s.ajouterPD(encouragementRefresh - nbEncouragements);
         }
         nbEncouragements = encouragementRefresh;
     }
 
-    public ArrayList<Serviteur> getServiteursReveillesTerrain() {
-        ArrayList<Serviteur> lesServiteurs = new ArrayList<>();
-        for (Serviteur s : serviteurs) {
+    public ArrayList<Minion> getServiteursReveillesTerrain() {
+        ArrayList<Minion> minions = new ArrayList<>();
+        for (Minion s : this.minions) {
             if (s.estReveille()) {
-                lesServiteurs.add(s);
+                minions.add(s);
             }
 
         }
-        return lesServiteurs;
+        return minions;
     }
 
-    public ArrayList<Serviteur> getServiteursAttaquePossible() {
-        ArrayList<Serviteur> lesServiteursProvocation = new ArrayList<>();
-        for (Serviteur s : serviteurs) {
+    public ArrayList<Minion> getServiteursAttaquePossible() {
+        ArrayList<Minion> lesServiteursProvocation = new ArrayList<>();
+        for (Minion s : minions) {
             if (s.provoquer()) {
                 lesServiteursProvocation.add(s);
             }
@@ -100,7 +100,7 @@ public class Board {
     }
 
     public boolean contientCarteProvocation() {
-        for (Serviteur s : serviteurs) {
+        for (Minion s : minions) {
             if (s.provoquer()) {
                 return true;
             }
@@ -109,7 +109,7 @@ public class Board {
     }
 
     public boolean contientCarteReveille() {
-        for (Serviteur s : serviteurs) {
+        for (Minion s : minions) {
             if (s.estReveille()) {
                 return true;
             }
@@ -117,7 +117,7 @@ public class Board {
         return false;
     }
 
-    public void setServiteurs(ArrayList<Serviteur> serviteurs) {
-        this.serviteurs = serviteurs;
+    public void setMinions(ArrayList<Minion> minions) {
+        this.minions = minions;
     }
 }
