@@ -19,7 +19,7 @@ public class Board {
 
     public void addMinion(Minion minion) {
         if (minion.charge()) {
-            minion.toSleepReady();
+            minion.toStateReady();
         }
         this.minions.add(minion);
     }
@@ -42,7 +42,7 @@ public class Board {
 
     public void wakeBoard() {
         for (Minion s : minions) {
-            s.toSleepReady();
+            s.toStateReady();
         }
     }
 
