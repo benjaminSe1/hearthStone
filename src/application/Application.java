@@ -16,8 +16,10 @@ import util.MyScanner;
 
 public class Application {
     private static Scanner sc = new Scanner(System.in);
-    Player player1;
-    Player player2;
+
+    private Player player1;
+
+    private Player player2;
 
     public static void main(String[] args) {
         Application application = new Application();
@@ -41,7 +43,7 @@ public class Application {
         }
     }
 
-    public void joueurTour(Application application, int turn) {
+    private void joueurTour(Application application, int turn) {
         int turnPlayer1 = application.player1.getPlayerOrder();
         int turnPlayer2 = application.player2.getPlayerOrder();
         if (turnPlayer2 > turnPlayer1) {
@@ -53,7 +55,7 @@ public class Application {
         }
     }
 
-    public void action(Player p, Player opponent, int turn) {
+    private void action(Player p, Player opponent, int turn) {
         MyLogger.game("C'est à " + p.getPseudo() + " de jouer");
         int idAction = 0;
         this.draw(p);
@@ -79,7 +81,7 @@ public class Application {
 
             switch (idAction) {
                 case 1:
-                    // Jouer une card
+                    // Jouer une carte
                     playCard(p, opponent, turn);
                     break;
                 case 2:
@@ -87,7 +89,7 @@ public class Application {
                     prepareAttack(p, opponent);
                     break;
                 case 3:
-                    // Utiliser l'effect du héros
+                    // Utiliser l'effet du héros
                     if (p.canCastHeroicPower()) {
                         p.getHero().activateEffect(p, opponent);
                     }
@@ -108,14 +110,14 @@ public class Application {
         }
     }
 
-    public void draw(Player p) {
+    private void draw(Player p) {
         // On distribue les cartes au debut de chaque tour du joueur
         Card c = p.getDraw();
         p.addCardHand(c);
         MyLogger.game("Vous avez pioché la carte: " + c.toString());
     }
 
-    public void playCard(Player p, Player opponent, int turn) {
+    private void playCard(Player p, Player opponent, int turn) {
         MyLogger.game("Veuillez jouer une carte : ");
 
         //affichage des cartes pouvant etre jouées
@@ -130,22 +132,21 @@ public class Application {
         if (intScanned == nbCards + 1) {
             return;
         } else {
-            int idCard = intScanned;
-            Card card = p.getHand().get(idCard - 1);
-            //Si la card est un minion
+            Card card = p.getHand().get(intScanned - 1);
+            //Si la carte est un serviteur
             if (card.isMinion()) {
                 Minion minion = (Minion) card;
                 //Si le héro a suffisemment de mana
                 if (p.canPlayCard(minion)) {
-                    //On peut poser la card et l'ajouter au terrain
+                    //On peut poser la carte et l'ajouter au terrain
                     p.playCardHand(card);
                 }
-                //Si la card est un spell
+                //Si la carte est un sort
             } else if (card.isSpell()) {
                 Spell spell = (Spell) card;
                 //Si le héro a suffisemment de mana
                 if (p.canPlayCard(spell)) {
-                    //on peut poser la card et activer l'effect
+                    //on peut poser la carte et activer l'effet
                     p.playCardHand(card);
                     spell.getEffect().activateEffect(p, opponent);
                 }
@@ -153,10 +154,10 @@ public class Application {
         }
     }
 
-    public void prepareAttack(Player p, Player opponent) {
-        //Si le héro à des minions pouvant attack
+    private void prepareAttack(Player p, Player opponent) {
+        //Si le héro à des serviteurs pouvant attaquer
         if (p.getBoard().containsAwakenMinion()) {
-            //Si le héro adverse n'a pas de card possedant l'effect provocation
+            //Si le héro adverse n'a pas de carte possedant l'effet provocation
             if (!opponent.getBoard().containsTauntMinion()) {
                 //affichage des possibilités d'attaque
                 MyLogger.game("Qui voulez-vous attaquer ? 1 - Le héro , 2 - Un serviteur");
@@ -182,7 +183,7 @@ public class Application {
     }
 
     private void attackHero(Player pAttack, Player opponent) {
-        //Affichage des choix possibles de minion pour attack le hero averse
+        //Affichage des choix possibles de serviteur pour attaquer le hero averse
         MyLogger.game("Veuillez choisir la carte pour attaquer : ");
         pAttack.getBoard().displayAwakenMinions();
 
@@ -193,12 +194,12 @@ public class Application {
         //Supression des points de vie du héro attaqué
         opponent.getHero().removeHP(attackingMinion.getDP());
         MyLogger.game("Le héro adverse a perdu " + attackingMinion.getDP() + " HP !");
-        //Si minion attaquant possède effect vol de vie, on lui redonne les HP correspondant à son attaque
+        //Si serviteur attaquant possède l'effet vol de vie, on lui redonne les HP correspondant à son attaque
         if (attackingMinion.stealLife()) {
             attackingMinion.addHP(attackingMinion.getDP());
             MyLogger.game("Le minion gagne " + attackingMinion.getDP() + " HP en volant la vie !");
         }
-        //Changement etat minion
+        //Changement etat serviteur
         attackingMinion.toStateSleep();
     }
 
@@ -208,42 +209,42 @@ public class Application {
      * @param p          Joueur attaquant
      * @param opponent Joueur attaqué
      */
-    public void attack(Player p, Player opponent) {
+    private void attack(Player p, Player opponent) {
 
         // On commence par afficher les cartes pouvant être attaquées
         MyLogger.game("Veuillez attaquer une carte : ");
         opponent.getBoard().displayAttackableMinions();
-        //Et a récupérer la card que le joueur souhaite attack
+        //Et a récupérer la carte que le joueur souhaite attaquer
         int idAttackedCard = MyScanner.getInt(sc, opponent.getBoard().getAttackableMinions().size());
         Minion attackedMinion = opponent.getBoard().getBoardMinions().get(idAttackedCard - 1);
-        // On afficher ensuite les minions pouvant être utiliser pour attack
+        // On afficher ensuite les serviteurs pouvant être utilisés pour attaquer
         MyLogger.game("Veuillez choisir la carte pour attaquer : ");
         int i = 1;
         for (Minion s : p.getBoard().getReadyMinions()) {
             MyLogger.game(i + " - " + s.toString());
             i++;
         }
-        //Et on récupère le minion choisit par le joueur pour attack
+        //Et on récupère le serviteur choisit par le joueur pour attaquer
         int idAttackingCard = MyScanner.getInt(sc, p.getBoard().getReadyMinions().size());
         Minion attackingMinion = p.getBoard().getReadyMinions().get(idAttackingCard - 1);
         attackingMinion.setHP(attackingMinion.getHP() - attackedMinion.getDP());
-        //si minion attaquant n'a plus de pv, il meurt
+        //si serviteur attaquant n'a plus de pv, il meurt
         if (attackingMinion.getHP() <= 0) {
             p.getBoard().removeMinion(attackingMinion);
             MyLogger.game("Le serviteur " + attackingMinion.getName() + " a été tué");
         }
         attackedMinion.setHP(attackedMinion.getHP() - attackingMinion.getDP());
-        //si minion attaquant n'a plus de pv, il meurt
+        //si serviteur attaquant n'a plus de pv, il meurt
         if (attackedMinion.getHP() <= 0) {
             opponent.getBoard().removeMinion(attackedMinion);
             MyLogger.game("Le serviteur " + attackedMinion.getName() + " a été tué");
         }
-        //Si le minion attaquant a l'effect vol de vie, il récupère les HP correspondant à son attaque
+        //Si le serviteur attaquant a l'effet vol de vie, il récupère les HP correspondant à son attaque
         if (attackingMinion.stealLife()) {
             attackingMinion.addHP(attackingMinion.getDP());
             MyLogger.game("Le minion gagne " + attackingMinion.getDP() + " HP en volant la vie !");
         }
-        //Le minion attaquant est remis en mode sommeil
+        //Le serviteur attaquant est remis en mode sommeil
         attackingMinion.toStateSleep();
 
     }
@@ -293,8 +294,9 @@ public class Application {
                 MyLogger.game("Choix impossible, veuillez recommencer");
                 this.createPlayer(id);
         }
-        player.setHero(f.createHero());
-
+        if (f != null) {
+            player.setHero(f.createHero());
+        }
         return player;
     }
 }
