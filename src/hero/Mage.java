@@ -13,7 +13,7 @@ public class Mage extends Hero {
     }
 
     @Override
-    public ArrayList<Card> getCartesHeros() {
+    public ArrayList<Card> getHeroCards() {
         return CardList.mageCards;
     }
 

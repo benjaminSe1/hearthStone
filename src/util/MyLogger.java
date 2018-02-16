@@ -3,10 +3,9 @@ package util;
 
 
 public class MyLogger {
-    static SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 
     public static void info(String message) {
-        System.out.println(sdf.format(Calendar.getInstance().getTime()) + " INFO : " + message);
+        System.out.println(" INFO : " + message);
     }
 
     public static void error(String message) {
