@@ -2,9 +2,9 @@ package hero;
 
 import java.util.ArrayList;
 
-import carte.Carte;
-import carte.effect.BouleFeu;
-import service.ListCartes;
+import card.Card;
+import card.effect.BouleFeu;
+import util.ListCartes;
 
 public class Mage extends Hero {
 
@@ -13,7 +13,7 @@ public class Mage extends Hero {
     }
 
     @Override
-    public ArrayList<Carte> getCartesHeros() {
+    public ArrayList<Card> getCartesHeros() {
         return ListCartes.cartesMage;
     }
 

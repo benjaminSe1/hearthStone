@@ -2,13 +2,13 @@ package hero;
 
 import java.util.ArrayList;
 
-import board.Joueur;
-import carte.Carte;
-import carte.effect.EffetHeros;
-import main.Log;
-import observer.ObserverHero;
-import observer.Observer;
-import observer.Sujet;
+import board.Player;
+import card.Card;
+import card.effect.EffetHeros;
+import util.MyLogger;
+import hero.observer.ObserverHero;
+import hero.observer.Observer;
+import hero.observer.Sujet;
 
 public abstract class Hero implements Sujet {
     protected int PV; //Points de vie
@@ -44,7 +44,7 @@ public abstract class Hero implements Sujet {
         return effet;
     }
 
-    public void activerEffet(Joueur j, Joueur jAdverse) {
+    public void activerEffet(Player j, Player jAdverse) {
         this.effet.activerEffetHeros(j, jAdverse);
         supprimerPM(2);
     }
@@ -66,7 +66,7 @@ public abstract class Hero implements Sujet {
         if(o instanceof ObserverHero){
             observers.add((ObserverHero) o);
         } else {
-            Log.error("l'observeur n'a pas pu être ajouté");
+            MyLogger.error("l'observeur n'a pas pu être ajouté");
         }
     }
 
@@ -75,7 +75,7 @@ public abstract class Hero implements Sujet {
         if(o instanceof ObserverHero){
             observers.remove((ObserverHero) o);
         } else {
-            Log.error("l'observeur n'a pas pu être supprimé");
+            MyLogger.error("l'observeur n'a pas pu être supprimé");
         }
     }
 
@@ -124,7 +124,7 @@ public abstract class Hero implements Sujet {
         }
     }
 
-    public ArrayList<Carte> getCartesHeros() {
+    public ArrayList<Card> getCartesHeros() {
         return null;
     }
 

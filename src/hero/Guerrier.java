@@ -2,13 +2,13 @@ package hero;
 
 import java.util.ArrayList;
 
-import carte.Carte;
-import carte.effect.Armure;
-import service.ListCartes;
+import card.Card;
+import card.effect.Armure;
+import util.ListCartes;
 
 
 public class Guerrier extends Hero {
-    private ArrayList<Carte> cartesGuerrier;
+    private ArrayList<Card> cartesGuerrier;
 
     public Guerrier(int PV, int PA, int PM) {
         super(PV, PA, PM, new Armure());
@@ -17,7 +17,7 @@ public class Guerrier extends Hero {
 
 
     @Override
-    public ArrayList<Carte> getCartesHeros() {
+    public ArrayList<Card> getCartesHeros() {
         return ListCartes.cartesGuerrier;
     }
 
