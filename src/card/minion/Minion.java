@@ -76,7 +76,7 @@ public abstract class Minion implements Card {
         }
 
     public String toString() {
-        return "Minion [" + name + " - " + MP + "/" + DP + "/" + HP + " - " + stateCurrent + "]";
+        return "Serviteur [" + name + " - " + MP + "/" + DP + "/" + HP + " - " + stateCurrent + "]";
         }
 
     public void removeHP(int HP) {

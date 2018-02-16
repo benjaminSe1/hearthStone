@@ -30,7 +30,7 @@ public class Spell implements Card {
 
     @Override
     public String toString() {
-        return "Spell [" + name + " - " + MP + "]";
+        return "Sort [" + name + " - " + MP + "]";
     }
 
     @Override

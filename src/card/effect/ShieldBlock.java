@@ -13,7 +13,7 @@ public class ShieldBlock implements Effect {
         heroJ.setData(heroJ.getHP(), heroJ.getAP() + 5, heroJ.getMP());
         Card c = p.getDraw();
         p.addCardHand(c);
-        MyLogger.info("Le guerrier a gagné 5 points d'armure. Vous avez pioché une card");
+        MyLogger.info("Le guerrier a gagné 5 points d'armure. Vous avez pioché une carte");
     }
 
 

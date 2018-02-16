@@ -26,7 +26,7 @@ public class BlessingOfMight implements Effect {
             s.setData(s.getHP(), s.getDP() + 3);
             MyLogger.game("Le serviteur " + s.getName() + " a gagné 3 points d'attaque");
         } else {
-            MyLogger.game("Ce spell nécessite au moins un serviteur sur le board");
+            MyLogger.game("Ce sort nécessite au moins un serviteur sur le board");
         }
     }
 

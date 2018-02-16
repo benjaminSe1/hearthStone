@@ -115,7 +115,7 @@ public class Player {
 
     public boolean canCastHeroicPower() {
         if (hero.getMP() < 2) {
-            MyLogger.game("Vous n'avez pas assez de Point de Mana pour lancer votre spell");
+            MyLogger.game("Vous n'avez pas assez de Point de Mana pour lancer votre sort");
             return false;
         }
         return true;

@@ -15,7 +15,7 @@ public class Reinforce implements EffectHero {
 
     @Override
     public String toString() {
-        return "Reinforce";
+        return "Renforcer";
     }
 
 }

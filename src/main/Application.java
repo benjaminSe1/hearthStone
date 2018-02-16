@@ -70,10 +70,10 @@ public class Application {
             opponent.getBoard().displayBoard();
             MyLogger.line();
             MyLogger.game("Quelle action souhaitez-vous effectuer ?");
-            MyLogger.game("1 - Jouer une card");
+            MyLogger.game("1 - Jouer une carte");
             MyLogger.game("2 - Attaquer");
             MyLogger.game("3 - Utiliser l'effect du héros (" + p.getHero().getEffect().toString() + ")");
-            MyLogger.game("4 - Afficher info game");
+            MyLogger.game("4 - Afficher info jeu");
             MyLogger.game("5 - Terminer votre tour");
             idAction = MyScanner.getInt(sc, 5);
 
@@ -159,7 +159,7 @@ public class Application {
             //Si le héro adverse n'a pas de card possedant l'effect provocation
             if (!opponent.getBoard().containsTauntMinion()) {
                 //affichage des possibilités d'attaque
-                MyLogger.game("Qui voulez-vous attack ? 1 - Le héro , 2 - Un serviteur");
+                MyLogger.game("Qui voulez-vous attaquer ? 1 - Le héro , 2 - Un serviteur");
                 int attackType = MyScanner.getInt(sc, 2);
                 //redirection vers la bonne méthode
                 switch (attackType) {
@@ -203,15 +203,15 @@ public class Application {
     }
 
     /**
-     * Méthode pour attack une card adversaire
+     * Méthode pour attaquer une carte de l'adversaire
      *
-     * @param p          Player attaquant
-     * @param opponent Player attaqué
+     * @param p          Joueur attaquant
+     * @param opponent Joueur attaqué
      */
     public void attack(Player p, Player opponent) {
 
         // On commence par afficher les cartes pouvant être attaquées
-        MyLogger.game("Veuillez attack une carte : ");
+        MyLogger.game("Veuillez attaquer une carte : ");
         opponent.getBoard().displayAttackableMinions();
         //Et a récupérer la card que le joueur souhaite attack
         int idAttackedCard = MyScanner.getInt(sc, opponent.getBoard().getAttackableMinions().size());
@@ -269,7 +269,7 @@ public class Application {
     }
 
     private Player createPlayer(int id) {
-        MyLogger.game("Player " + id + ", Veuillez choisir un nom : ");
+        MyLogger.game("Joueur " + id + ", Veuillez choisir un nom : ");
         String playerName = MyScanner.getString(sc);
         Player player = new Player(playerName);
         MyLogger.game("Veuillez sélectionner la classe de votre héro : 1-Paladin 2-Guerrier 3-Mage");
