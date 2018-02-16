@@ -1,5 +1,8 @@
 package application;
 
+import java.util.Random;
+import java.util.Scanner;
+
 import board.Player;
 import card.Card;
 import card.minion.Minion;
@@ -10,9 +13,6 @@ import hero.factory.PaladinFactory;
 import hero.factory.WarriorFactory;
 import util.MyLogger;
 import util.MyScanner;
-
-import java.util.Random;
-import java.util.Scanner;
 
 public class Application {
     private static Scanner sc = new Scanner(System.in);
@@ -116,7 +116,7 @@ public class Application {
 
     /**
      * Méthode qui permet au joueur passé en parametre de piocher une carte (de son deck à sa main)
-     * @param p
+     * @param p - Le Joueur
      */
     private void draw(Player p) {
         // On distribue les cartes au debut de chaque tour du joueur
@@ -271,7 +271,7 @@ public class Application {
     /**
      * Méthode qui verifie qu'un serviteur est plus de 0 hp
      * @param m Le serviteur sur lequel on effectue la vérification
-     * @return
+     * @return Boolean - true si le serviteur est mort, false sinon
      */
     private boolean checkMinionDead(Minion m){
         if (m.getHP() <= 0) {

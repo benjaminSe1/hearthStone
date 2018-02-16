@@ -1,10 +1,10 @@
 package board;
 
+import java.util.ArrayList;
+
 import card.Card;
 import card.minion.Minion;
 import util.MyLogger;
-
-import java.util.ArrayList;
 
 public class Board {
 
@@ -21,7 +21,7 @@ public class Board {
 
     /**
      *  Méthode qui permet d'ajouter un serviteur au board
-     * @param minion
+     * @param minion - Le serviteur
      */
     public void addMinion(Minion minion) {
         if (minion.charge()) {
